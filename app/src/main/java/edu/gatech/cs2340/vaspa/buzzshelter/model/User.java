@@ -10,6 +10,6 @@ public class User extends AccountHolder {
     // TODO: Not sure how to implement MedicalInfo
     private boolean isVeteran;
     // TODO: Not sure how to implement ShelterHistory
-    // Shelter currShelter; <-- uncomment when shelter class is made
+    Shelter currShelter;
     // TODO: Location
 }
