@@ -1,4 +1,4 @@
-package edu.gatech.cs2340.vaspa.buzzshelter.edu.gatech.cs2340.vaspa.buzzshelter.controller;
+package edu.gatech.cs2340.vaspa.buzzshelter.controller;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
