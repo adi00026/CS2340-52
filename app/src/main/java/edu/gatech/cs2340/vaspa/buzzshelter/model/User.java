@@ -5,5 +5,11 @@ package edu.gatech.cs2340.vaspa.buzzshelter.model;
  */
 
 public class User extends AccountHolder {
-
+    private String gender;
+    private int[] dateOfBirth;
+    // TODO: Not sure how to implement MedicalInfo
+    private boolean isVeteran;
+    // TODO: Not sure how to implement ShelterHistory
+    // Shelter currShelter; <-- uncomment when shelter class is made
+    // TODO: Location
 }
