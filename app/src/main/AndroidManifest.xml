@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".edu.gatech.cs2340.vaspa.buzzshelter.controller.WelcomePageActivity">
+        <activity android:name=".controller.WelcomePageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

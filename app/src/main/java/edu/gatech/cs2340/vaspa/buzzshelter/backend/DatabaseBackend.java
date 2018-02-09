@@ -22,7 +22,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.util.WrongPasswordException;
  * @author Sanath Nagaraj
  * @version 1.0
  */
-public class DatabaseBackend extends SQLiteOpenHelper {
+class DatabaseBackend extends SQLiteOpenHelper {
     private Context mcontext;
 
     // All Static variables for the SQLite Database
@@ -47,7 +47,7 @@ public class DatabaseBackend extends SQLiteOpenHelper {
      *
      * @param context context of current execution
      */
-    public DatabaseBackend(Context context) {
+    DatabaseBackend(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mcontext = context;
         createDB();
@@ -100,7 +100,7 @@ public class DatabaseBackend extends SQLiteOpenHelper {
     /**
      * Private method to clear the created table and remake it.
      */
-    public void clearTables() {
+    void clearTables() {
         SQLiteDatabase db = this.getReadableDatabase();
         //db.execSQL("DROP TABLE IF EXISTS " + "superheroes");
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
@@ -115,7 +115,7 @@ public class DatabaseBackend extends SQLiteOpenHelper {
      * @return whether the add was successful.
      * @throws NullPointerException if superhero is null
      */
-    public boolean addUser(User user) {
+    boolean addUser(User user) {
         if (user == null) {
             throw new NullPointerException("Inputted user cannot be null");
         }
@@ -149,7 +149,7 @@ public class DatabaseBackend extends SQLiteOpenHelper {
      * @param tableName the table to check in for this name
      * @return whether name is a key in tableName
      */
-    private boolean checkExists(String name, String tableName) {
+    boolean checkExists(String name, String tableName) {
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + tableName;
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -184,7 +184,7 @@ public class DatabaseBackend extends SQLiteOpenHelper {
      *      is correct.
      * @throws WrongPasswordException if the username is found, but the password is wrong.
      */
-    public AccountHolder attemptLogin(String username, String password) {
+    AccountHolder attemptLogin(String username, String password) {
         if (username == null || password == null) {
             throw new NullPointerException("You have entered a null username or password!");
         }
@@ -233,7 +233,7 @@ public class DatabaseBackend extends SQLiteOpenHelper {
      *
      * @return a String representation of the database
      */
-    public String viewDatabase() {
+    String viewDatabase() {
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TABLE_USER;
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -257,7 +257,7 @@ public class DatabaseBackend extends SQLiteOpenHelper {
      * method to reset the lockedOut status of logins for all users.
      * NOTE: For debugging purposes only.
      */
-    public void resetLogins() {
+    void resetLogins() {
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TABLE_USER;
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -279,7 +279,7 @@ public class DatabaseBackend extends SQLiteOpenHelper {
      *
      * @return a hashmap representation of database
      */
-    public HashMap<String, AccountHolder> getHashDatabase() {
+    HashMap<String, AccountHolder> getHashDatabase() {
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT * FROM " + TABLE_USER;
         Cursor cursor = db.rawQuery(selectQuery, null);
