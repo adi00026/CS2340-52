@@ -52,7 +52,7 @@ public class DatabaseHandler {
      *
      * @param accountHolder the Superhero to be added
      */
-    boolean putUser(AccountHolder accountHolder) {
+    public boolean putUser(AccountHolder accountHolder) {
         boolean success = db.addUser((User) accountHolder);
         if (success) {
             holderElems.put(accountHolder.getUserId(), accountHolder);
@@ -82,7 +82,8 @@ public class DatabaseHandler {
         if (holderElems.containsKey(userID)) {
             AccountHolder ret = holderElems.get(userID);
             if (ret.getPassword().equals(password) && !ret.isLockedOut()) {
-                return ret;
+                return db.attemptLogin(userID, password);
+                //return ret;
             } else if (ret.isLockedOut()) {
                 throw new TooManyAttemptsException();
             }
