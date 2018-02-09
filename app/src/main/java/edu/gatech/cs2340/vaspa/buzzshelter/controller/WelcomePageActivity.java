@@ -1,5 +1,6 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.controller;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -82,6 +83,9 @@ public class WelcomePageActivity extends AppCompatActivity {
             dh.attemptLogin(usernameEditText.getText().toString().trim(),
                     passwordEditText.getText().toString().trim());
             text = "Login successful!";
+            Intent intent = new Intent(WelcomePageActivity.this, MainPageActivity.class);
+            intent.putExtra("USERNAME", usernameEditText.getText().toString().trim());
+            startActivity(intent);
         } catch (TooManyAttemptsException e) {
             text = "Too many log-in attempts!";
         } catch (PersonNotInDatabaseException e) {
