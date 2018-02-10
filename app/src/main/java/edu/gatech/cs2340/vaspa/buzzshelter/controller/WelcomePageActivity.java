@@ -10,20 +10,19 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
-import edu.gatech.cs2340.vaspa.buzzshelter.backend.DatabaseHandler;
-import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
+import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.util.PersonNotInDatabaseException;
 import edu.gatech.cs2340.vaspa.buzzshelter.util.TooManyAttemptsException;
 import edu.gatech.cs2340.vaspa.buzzshelter.util.WrongPasswordException;
 
 public class WelcomePageActivity extends AppCompatActivity {
+    Model model;
     Button loginButton;
     Button cancelButton;
     Button resetButton;
     Button viewDBButton;
     EditText usernameEditText;
     EditText passwordEditText;
-    DatabaseHandler dh;
 
     /**
      * method called when welcome page is loaded.
@@ -35,18 +34,16 @@ public class WelcomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_page);
 
+        model = Model.getInstance();
+
         loginButton = (Button) findViewById(R.id.button_login);
         cancelButton = (Button) findViewById(R.id.button_cancel);
         resetButton = (Button) findViewById(R.id.button_reset);
         viewDBButton = (Button) findViewById(R.id.button_viewDB);
         usernameEditText = (EditText) findViewById(R.id.editText_username);
         passwordEditText = (EditText) findViewById(R.id.editText_password);
-        dh = new DatabaseHandler(this);
 
-        // TODO: Remove this after M4
-        User tempUser = new User("user", "9082376913", "pass");
-        dh.putUser(tempUser);
-        dh.resetLogins();
+        model.createDummyLogin(this);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,13 +60,14 @@ public class WelcomePageActivity extends AppCompatActivity {
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dh.resetLogins();
+                model.resetLogins(WelcomePageActivity.this);
             }
         });
         viewDBButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("WelcomePageActivity", dh.viewDatabase());
+                Log.i("WelcomePageActivity",
+                        model.viewDatabase(WelcomePageActivity.this));
             }
         });
     }
@@ -80,7 +78,8 @@ public class WelcomePageActivity extends AppCompatActivity {
     private void loginPressed() {
         String text;
         try {
-            dh.attemptLogin(usernameEditText.getText().toString().trim(),
+            model.attemptLogin(this,
+                    usernameEditText.getText().toString().trim(),
                     passwordEditText.getText().toString().trim());
             text = "Login successful!";
             Intent intent = new Intent(WelcomePageActivity.this, MainPageActivity.class);
