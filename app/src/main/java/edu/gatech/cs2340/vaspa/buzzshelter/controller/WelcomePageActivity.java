@@ -20,6 +20,7 @@ public class WelcomePageActivity extends AppCompatActivity {
     Button loginButton;
     Button cancelButton;
     Button resetButton;
+    Button registrationButton;
     Button viewDBButton;
     EditText usernameEditText;
     EditText passwordEditText;
@@ -40,6 +41,7 @@ public class WelcomePageActivity extends AppCompatActivity {
         cancelButton = (Button) findViewById(R.id.button_cancel);
         resetButton = (Button) findViewById(R.id.button_reset);
         viewDBButton = (Button) findViewById(R.id.button_viewDB);
+        registrationButton = (Button) findViewById(R.id.button_registration);
         usernameEditText = (EditText) findViewById(R.id.editText_username);
         passwordEditText = (EditText) findViewById(R.id.editText_password);
 
@@ -68,6 +70,14 @@ public class WelcomePageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.i("WelcomePageActivity",
                         model.viewDatabase(WelcomePageActivity.this));
+            }
+        });
+        registrationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(WelcomePageActivity.this,
+                        RegistrationActivity.class);
+                startActivity(intent);
             }
         });
     }
