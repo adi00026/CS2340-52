@@ -92,7 +92,8 @@ public class WelcomePageActivity extends AppCompatActivity {
                     usernameEditText.getText().toString().trim(),
                     passwordEditText.getText().toString().trim());
             text = "Login successful!";
-            Intent intent = new Intent(WelcomePageActivity.this, MainPageActivity.class);
+            Intent intent = new Intent(WelcomePageActivity.this,
+                    MainPageActivity.class);
             intent.putExtra("USERNAME", usernameEditText.getText().toString().trim());
             startActivity(intent);
         } catch (TooManyAttemptsException e) {
