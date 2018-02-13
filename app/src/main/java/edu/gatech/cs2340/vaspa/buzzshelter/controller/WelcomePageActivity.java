@@ -52,8 +52,6 @@ public class WelcomePageActivity extends AppCompatActivity {
         usernameEditText = (EditText) findViewById(R.id.editText_username);
         passwordEditText = (EditText) findViewById(R.id.editText_password);
 
-        model.createDummyLogin(this);
-
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
