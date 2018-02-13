@@ -12,12 +12,12 @@ public class ShelterEmployee extends AccountHolder {
         super();
     }
 
-    ShelterEmployee(String userId, String password, String contactInfo) {
-        this(userId, password, contactInfo, null);
+    ShelterEmployee(String name, String userId, String password, String contactInfo) {
+        this(name, userId, password, contactInfo, null);
     }
 
-    ShelterEmployee(String userId, String password, String contactInfo, String shelterID) {
-        super(userId, password, false, contactInfo);
+    ShelterEmployee(String name, String userId, String password, String contactInfo, String shelterID) {
+        super(name, userId, password, false, contactInfo);
         this.shelterID = shelterID;
     }
 
