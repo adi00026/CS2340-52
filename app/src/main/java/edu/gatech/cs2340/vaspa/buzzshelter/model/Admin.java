@@ -5,10 +5,17 @@ package edu.gatech.cs2340.vaspa.buzzshelter.model;
  */
 
 public class Admin extends AccountHolder {
-    Admin(String name, String userId, String password, String contactInfo) {
+    public Admin(String name, String userId, String password, String contactInfo) {
         super(name, userId, password, false, contactInfo);
     }
     public Admin() {
         // no args constructor
+    }
+    @Override
+    public String toString() {
+        return "Name: " + getName() + "\n" +
+                "Username: " + getUserId() + "\n" +
+                "Password: " + getPassword() + "\n" +
+                "Contact Info: " + getContactInfo();
     }
 }

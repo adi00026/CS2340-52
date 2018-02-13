@@ -12,11 +12,11 @@ public class ShelterEmployee extends AccountHolder {
         super();
     }
 
-    ShelterEmployee(String name, String userId, String password, String contactInfo) {
+    public ShelterEmployee(String name, String userId, String password, String contactInfo) {
         this(name, userId, password, contactInfo, null);
     }
 
-    ShelterEmployee(String name, String userId, String password, String contactInfo, String shelterID) {
+    public ShelterEmployee(String name, String userId, String password, String contactInfo, String shelterID) {
         super(name, userId, password, false, contactInfo);
         this.shelterID = shelterID;
     }
@@ -27,5 +27,14 @@ public class ShelterEmployee extends AccountHolder {
 
     public void setShelterID(String shelterID) {
         this.shelterID = shelterID;
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + getName() + "\n" +
+                "Username: " + getUserId() + "\n" +
+                "Password: " + getPassword() + "\n" +
+                "Contact Info: " + getContactInfo() + "\n" +
+                "Shelter: " + getShelterID();
     }
 }

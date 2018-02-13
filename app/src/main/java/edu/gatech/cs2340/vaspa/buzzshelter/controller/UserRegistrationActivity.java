@@ -122,6 +122,10 @@ public class UserRegistrationActivity extends AppCompatActivity {
                     FirebaseUser firebaseUser = mAuth.getCurrentUser();
                     String UID = firebaseUser.getUid();
                     myRef.child("account_holders").child("users").child(UID).setValue(user);
+                    Intent intent = new Intent(UserRegistrationActivity.this,
+                            WelcomePageActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                 } else {
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                         Toast.makeText(UserRegistrationActivity.this,

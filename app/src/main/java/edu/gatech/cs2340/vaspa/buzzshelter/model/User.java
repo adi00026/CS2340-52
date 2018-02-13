@@ -45,4 +45,16 @@ public class User extends AccountHolder {
     public void setVeteran(boolean veteran) {
         isVeteran = veteran;
     }
+
+    @Override
+    public String toString() {
+        return "Name: " + getName() + "\n" +
+                "Username: " + getUserId() + "\n" +
+                "Password: " + getPassword() + "\n" +
+                "Contact Info: " + getContactInfo() + "\n" +
+                "Gender: " + getGender() + "\n" +
+                "DOB: " + getDateOfBirth().get(0) + "/" + getDateOfBirth().get(1) + "/"
+                + getDateOfBirth().get(2) + "\n" +
+                "Veteran: " + isVeteran();
+    }
 }
