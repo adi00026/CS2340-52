@@ -7,21 +7,28 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import java.time.Year;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 
 public class UserRegistrationActivity extends AppCompatActivity {
     Spinner genderSpinner;
-    EditText DOBText;
-    Spinner vetSpinner;
+    CheckBox vetCheckbox;
     Button backButton;
     Button registerButton;
+    EditText dayText;
+    EditText monthText;
+    EditText yearText;
 
     private final String TAG = "UserRegistrationAct";
 
@@ -31,10 +38,12 @@ public class UserRegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_registration);
 
         genderSpinner = (Spinner) findViewById(R.id.spinner_gender);
-        vetSpinner = (Spinner) findViewById(R.id.spinner_vetStatus);
-        DOBText = (EditText) findViewById(R.id.editText_dob);
+        vetCheckbox = (CheckBox) findViewById(R.id.checkBox_vets);
         backButton = (Button) findViewById(R.id.button_back);
         registerButton = (Button) findViewById(R.id.button_register);
+        dayText = (EditText) findViewById(R.id.editText_day);
+        monthText = (EditText) findViewById(R.id.editText_month);
+        yearText = (EditText) findViewById(R.id.editText_year);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,17 +67,46 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 Arrays.asList(genderArray));
         adapterGender.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         genderSpinner.setAdapter(adapterGender);
-
-        String[] vetArray = {"US Veteran", "Not US Veteran"};
-        ArrayAdapter<String> adapterVet = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item,
-                Arrays.asList(vetArray));
-        adapterVet.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        vetSpinner.setAdapter(adapterVet);
-
-
     }
     private void register() {
-        Log.d(TAG, DOBText.getText().toString());
+        int month = Integer.parseInt(monthText.getText().toString());
+        int day = Integer.parseInt(dayText.getText().toString());
+        int year = Integer.parseInt(yearText.getText().toString());
+        if (!isValidDate(month, day, year)) {
+            Toast.makeText(this, "Invalid date", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        List<Integer> dob = new LinkedList<>();
+        dob.add(month);
+        dob.add(day);
+        dob.add(year);
+        String gender = genderSpinner.getSelectedItem().toString();
+        boolean isVeteran = vetCheckbox.isChecked();
+        String username = getIntent().getExtras().getString("username");
+        String password = getIntent().getExtras().getString("password");
+        String contactInfo = getIntent().getExtras().getString("contactInfo");
+        String name = getIntent().getExtras().getString("name");
+        User user = new User(name, username, password, false, contactInfo, gender, dob,
+                isVeteran);
+        // Auth Create this guy
+        // DB Add this guy
+    }
+    private boolean isValidDate(int month, int day, int year) {
+        int[] dateArr = {-1, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        if (year % 4 == 0) {
+            dateArr[2] = 29;
+        }
+        if (month < 1 || month > 12) {
+            return false;
+        }
+        if (day < 1 || day > dateArr[month]) {
+            return false;
+        }
+        /*if (android.os.Build.VERSION.SDK_INT >= 26) {
+            if ((Year.now().getValue() - year) < 13) {
+                return false;
+            }
+        }*/
+        return true;
     }
 }
