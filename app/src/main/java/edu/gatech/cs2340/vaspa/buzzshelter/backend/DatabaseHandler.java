@@ -93,7 +93,7 @@ public class DatabaseHandler {
         try {
             return db.attemptLogin(userID, password);
         } catch (TooManyAttemptsException e) {
-            holderElems.get(userID).setLocketOut(true);
+            holderElems.get(userID).setLockedOut(true);
             throw e;
         }
     }

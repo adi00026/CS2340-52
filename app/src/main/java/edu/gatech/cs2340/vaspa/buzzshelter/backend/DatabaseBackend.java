@@ -201,7 +201,7 @@ class DatabaseBackend extends SQLiteOpenHelper {
                         throw new TooManyAttemptsException();
                     }
                     if (password.equals(cursor.getString(1))) {
-                        holder = new User(cursor.getString(0),
+                        holder = new User("", cursor.getString(0),
                                 Encryption.decode(cursor.getString(1)),
                                 Integer.parseInt(cursor.getString(2)) > 3,
                                 cursor.getString(3),
@@ -287,7 +287,7 @@ class DatabaseBackend extends SQLiteOpenHelper {
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                User user = new User(cursor.getString(0),
+                User user = new User("", cursor.getString(0),
                         Encryption.decode(cursor.getString(1)),
                         Integer.parseInt(cursor.getString(2)) > 3,
                         cursor.getString(3),

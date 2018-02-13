@@ -59,7 +59,7 @@ public class Model {
      */
     public void createDummyLogin(Context context) {
         DatabaseHandler dh = new DatabaseHandler(context);
-        User tempUser = new User("user", "9082376913", "pass");
+        User tempUser = new User("", "user", "9082376913", "pass");
         dh.putUser(tempUser);
     }
 
