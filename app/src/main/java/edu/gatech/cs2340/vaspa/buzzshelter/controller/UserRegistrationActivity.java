@@ -1,9 +1,11 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.controller;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -12,6 +14,15 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.time.Year;
 import java.util.Arrays;
@@ -30,6 +41,10 @@ public class UserRegistrationActivity extends AppCompatActivity {
     EditText monthText;
     EditText yearText;
 
+    FirebaseAuth mAuth;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+
     private final String TAG = "UserRegistrationAct";
 
     @Override
@@ -44,6 +59,10 @@ public class UserRegistrationActivity extends AppCompatActivity {
         dayText = (EditText) findViewById(R.id.editText_day);
         monthText = (EditText) findViewById(R.id.editText_month);
         yearText = (EditText) findViewById(R.id.editText_year);
+
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference();
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,11 +105,38 @@ public class UserRegistrationActivity extends AppCompatActivity {
         String password = getIntent().getExtras().getString("password");
         String contactInfo = getIntent().getExtras().getString("contactInfo");
         String name = getIntent().getExtras().getString("name");
-        User user = new User(name, username, password, false, contactInfo, gender, dob,
+        final User user = new User(name, username, password, false, contactInfo, gender, dob,
                 isVeteran);
         // Auth Create this guy
-        // DB Add this guy
+        String email = username;
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            email += "@temp.com";
+        }
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(UserRegistrationActivity.this,
+                            user.getUserId() + " added!", Toast.LENGTH_SHORT).show();
+                    FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                    String UID = firebaseUser.getUid();
+                    myRef.child("account_holders").child("users").child(UID).setValue(user);
+                } else {
+                    if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                        Toast.makeText(UserRegistrationActivity.this,
+                                user.getUserId() + " already exists",
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(UserRegistrationActivity.this,
+                                task.getException().getMessage(),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
     }
+
     private boolean isValidDate(int month, int day, int year) {
         int[] dateArr = {-1, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
         if (year % 4 == 0) {
@@ -102,11 +148,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
         if (day < 1 || day > dateArr[month]) {
             return false;
         }
-        /*if (android.os.Build.VERSION.SDK_INT >= 26) {
-            if ((Year.now().getValue() - year) < 13) {
-                return false;
-            }
-        }*/
         return true;
     }
 }

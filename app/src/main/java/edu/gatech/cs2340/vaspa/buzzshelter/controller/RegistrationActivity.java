@@ -76,9 +76,9 @@ public class RegistrationActivity extends AppCompatActivity {
         }
 
 
-        if (password.length() < 6) {
+        if (password.length() < 8) {
             Toast.makeText(RegistrationActivity.this, "Password too short. " +
-                 "Must be atleast 6 characters long", Toast.LENGTH_SHORT).show();
+                 "Must be atleast 8 characters long", Toast.LENGTH_SHORT).show();
             return;
         }
 
