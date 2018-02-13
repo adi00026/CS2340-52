@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -84,8 +86,20 @@ public class UserRegistrationActivity extends AppCompatActivity {
         ArrayAdapter<String> adapterGender = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 Arrays.asList(genderArray));
-        adapterGender.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterGender.setDropDownViewResource(R.layout.spinner_layout_1);
         genderSpinner.setAdapter(adapterGender);
+
+        genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View arg1,
+                                       int arg2, long arg3) {
+                ((TextView) parent.getChildAt(0)).setTextSize(23);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
     private void register() {
         int month = Integer.parseInt(monthText.getText().toString());
