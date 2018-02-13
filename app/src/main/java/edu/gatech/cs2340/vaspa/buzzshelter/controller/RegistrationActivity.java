@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Arrays;
@@ -41,7 +43,7 @@ public class RegistrationActivity extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,
           android.R.layout.simple_spinner_item, Arrays.asList(userType));
 
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapter.setDropDownViewResource(R.layout.spinner_layout_1);
         typeReg.setAdapter(arrayAdapter);
 
         nextButton.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +59,18 @@ public class RegistrationActivity extends AppCompatActivity {
                 Intent intent = new Intent(RegistrationActivity.this,
                   WelcomePageActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        typeReg.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View arg1,
+                                       int arg2, long arg3) {
+                ((TextView) parent.getChildAt(0)).setTextSize(23);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
     }
