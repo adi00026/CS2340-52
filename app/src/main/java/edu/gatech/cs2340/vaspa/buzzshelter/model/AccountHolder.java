@@ -5,11 +5,13 @@ package edu.gatech.cs2340.vaspa.buzzshelter.model;
  */
 
 public abstract class AccountHolder {
+    private String name;
     private String userId;
     private String password;
     private boolean lockedOut;
     private String contactInfo;
-    public AccountHolder(String userId, String password, boolean lockedOut, String contactInfo) {
+    public AccountHolder(String name, String userId, String password, boolean lockedOut, String contactInfo) {
+        this.name = name;
         this.userId = userId;
         this.password = password;
         this.lockedOut = lockedOut;
@@ -49,5 +51,13 @@ public abstract class AccountHolder {
 
     public void setContactInfo(String contactInfo) {
         this.contactInfo = contactInfo;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

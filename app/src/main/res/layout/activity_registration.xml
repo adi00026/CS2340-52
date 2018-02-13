@@ -6,4 +6,41 @@
     android:layout_height="match_parent"
     tools:context="edu.gatech.cs2340.vaspa.buzzshelter.controller.RegistrationActivity">
 
+    <EditText
+        android:id="@+id/registration_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        tools:layout_editor_absoluteX="71dp"
+        tools:layout_editor_absoluteY="67dp"/>
+
+    <EditText
+        android:id="@+id/registration_contacit_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        tools:layout_editor_absoluteX="71dp"
+        tools:layout_editor_absoluteY="137dp"/>
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        tools:layout_editor_absoluteX="71dp"
+        tools:layout_editor_absoluteY="213dp"/>
+
+    <EditText
+        android:id="@+id/editText4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        tools:layout_editor_absoluteX="71dp"
+        tools:layout_editor_absoluteY="285dp"/>
 </android.support.constraint.ConstraintLayout>
