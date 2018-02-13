@@ -13,7 +13,8 @@ public class Admin extends AccountHolder {
     }
     @Override
     public String toString() {
-        return "Name: " + getName() + "\n" +
+        return "------ADMIN------\n" +
+                "Name: " + getName() + "\n" +
                 "Username: " + getUserId() + "\n" +
                 "Password: " + getPassword() + "\n" +
                 "Contact Info: " + getContactInfo();

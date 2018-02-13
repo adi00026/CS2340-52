@@ -9,7 +9,7 @@ public class ShelterEmployee extends AccountHolder {
     private String shelterID;
 
     public ShelterEmployee() {
-        super();
+
     }
 
     public ShelterEmployee(String name, String userId, String password, String contactInfo) {
@@ -31,7 +31,8 @@ public class ShelterEmployee extends AccountHolder {
 
     @Override
     public String toString() {
-        return "Name: " + getName() + "\n" +
+        return "---SHELTER EMPLOYEE---\n" +
+                "Name: " + getName() + "\n" +
                 "Username: " + getUserId() + "\n" +
                 "Password: " + getPassword() + "\n" +
                 "Contact Info: " + getContactInfo() + "\n" +

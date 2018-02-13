@@ -22,6 +22,10 @@ public class User extends AccountHolder {
         this(name, userID, password, false, contactInfo, "Male", null, false);
     }
 
+    public User() {
+
+    }
+
     public String getGender() {
         return gender;
     }
@@ -48,7 +52,8 @@ public class User extends AccountHolder {
 
     @Override
     public String toString() {
-        return "Name: " + getName() + "\n" +
+        return "------USER------\n" +
+                "Name: " + getName() + "\n" +
                 "Username: " + getUserId() + "\n" +
                 "Password: " + getPassword() + "\n" +
                 "Contact Info: " + getContactInfo() + "\n" +
