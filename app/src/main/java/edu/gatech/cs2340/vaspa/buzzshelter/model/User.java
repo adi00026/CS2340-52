@@ -11,8 +11,8 @@ public class User extends AccountHolder {
     private List<Integer> dateOfBirth;
     private boolean isVeteran;
 
-    public User(String name, String userID, String password, boolean lockedOut, String contactInfo, String gender,
-         List<Integer> dateOfBirth, boolean isVeteran) {
+    public User(String name, String userID, String password, boolean lockedOut, String contactInfo,
+                String gender, List<Integer> dateOfBirth, boolean isVeteran) {
         super(name, userID, password, lockedOut, contactInfo);
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
