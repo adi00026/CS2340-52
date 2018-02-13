@@ -11,6 +11,8 @@ public class Model {
     /** Singleton instance */
     private static final Model instance = new Model();
 
+    AccountHolder current;
+
     /**
      * returns the static instance of the model to use in the controller
      *
