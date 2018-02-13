@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1080298692553-el6jbq5agtm8mrpq0v2305f97ssb5oak.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.gatech.cs2340.vaspa.buzzshelter",
+            "certificate_hash": "c83e161c75dc1f9c585fa07f252dde43b1aaa865"
+          }
+        },
+        {
           "client_id": "1080298692553-i5fab1fifri7qb14kign7hshvquq70uk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
