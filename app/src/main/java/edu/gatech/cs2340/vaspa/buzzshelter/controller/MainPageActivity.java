@@ -7,14 +7,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 
 public class MainPageActivity extends AppCompatActivity {
     TextView welcomeTextview;
     Button logoutButton;
+
+    private static final String TAG = "MAIN PAGE ACTIVITY";
+
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mAuth = FirebaseAuth.getInstance();
+
         setContentView(R.layout.activity_main_page);
 
         welcomeTextview = (TextView) findViewById(R.id.textview_welcome);
@@ -29,6 +39,7 @@ public class MainPageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainPageActivity.this,
                         WelcomePageActivity.class);
+                mAuth.signOut();
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
