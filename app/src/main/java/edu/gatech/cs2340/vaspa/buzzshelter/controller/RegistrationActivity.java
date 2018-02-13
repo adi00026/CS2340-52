@@ -50,6 +50,15 @@ public class RegistrationActivity extends AppCompatActivity {
                  nextClicked();
             }
         });
+
+        findViewById(R.id.button_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RegistrationActivity.this,
+                  WelcomePageActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     void nextClicked() {
         String name = nameBox.getText().toString().trim();
