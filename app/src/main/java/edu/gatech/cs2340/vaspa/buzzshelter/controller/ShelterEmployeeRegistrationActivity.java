@@ -50,7 +50,7 @@ public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
         String key = keyText.getText().toString().trim();
         String shelterID = shelterId.getText().toString().trim();
         if (shelterKey.equals(key)) {
-            if (true) { // will be replaced by .contains() of structure containing Shelter objects
+            if (shelterID.length() != 0) { // TODO will be replaced by .contains() of structure containing Shelter objects
                 Toast.makeText(this, "Welcome new shelter employee " + getIntent()
                   .getStringExtra("name"), Toast.LENGTH_SHORT).show();
                 // CODE TO ADD NEW SHELTER EMPLOYEE
