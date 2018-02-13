@@ -83,6 +83,9 @@ public class WelcomePageActivity extends AppCompatActivity {
         String email = usernameEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
 
+        if (email.isEmpty() || password.isEmpty()) {
+            return;
+        }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             email += "@temp.com";
         }

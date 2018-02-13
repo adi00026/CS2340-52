@@ -8,8 +8,18 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
+import edu.gatech.cs2340.vaspa.buzzshelter.model.AccountHolder;
+import edu.gatech.cs2340.vaspa.buzzshelter.model.Admin;
+import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
+import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
+import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 
 public class MainPageActivity extends AppCompatActivity {
     TextView welcomeTextview;
@@ -17,22 +27,56 @@ public class MainPageActivity extends AppCompatActivity {
 
     private static final String TAG = "MAIN PAGE ACTIVITY";
 
-    private FirebaseAuth mAuth;
+    FirebaseAuth mAuth;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference();
 
         setContentView(R.layout.activity_main_page);
 
         welcomeTextview = (TextView) findViewById(R.id.textview_welcome);
         logoutButton = (Button) findViewById(R.id.button_logout);
 
-        String username = getIntent().getStringExtra("USERNAME");
-        String display = "Welcome, " + username + "!";
-        welcomeTextview.setText(display);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (mAuth.getCurrentUser() != null) {
+                    String UID = mAuth.getCurrentUser().getUid();
+                    AccountHolder currentlyLoggedIn = null;
+                    if (dataSnapshot.child("account_holders").child("admins").child(UID)
+                            .exists()) {
+                        currentlyLoggedIn = dataSnapshot.child("account_holders")
+                                .child("admins").child(UID).getValue(Admin.class);
+                    }
+                    if (dataSnapshot.child("account_holders").child("shelter_employees")
+                            .child(UID).exists()) {
+                        currentlyLoggedIn = dataSnapshot.child("account_holders")
+                                .child("shelter_employees").child(UID)
+                                .getValue(ShelterEmployee.class);
+                    }
+                    if (dataSnapshot.child("account_holders").child("users").child(UID).exists()) {
+                        currentlyLoggedIn = dataSnapshot.child("account_holders").child("users")
+                                .child(UID).getValue(User.class);
+                    }
+                    welcomeTextview.setText(currentlyLoggedIn == null ? "NULL" : currentlyLoggedIn
+                            .toString());
+                } else {
+                    welcomeTextview.setText("No current user!");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
