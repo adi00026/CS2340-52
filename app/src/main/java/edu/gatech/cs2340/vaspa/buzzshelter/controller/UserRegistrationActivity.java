@@ -34,7 +34,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         vetSpinner = (Spinner) findViewById(R.id.spinner_vetStatus);
         DOBText = (EditText) findViewById(R.id.editText_dob);
         backButton = (Button) findViewById(R.id.button_back);
-        registerButton = (Button) findViewById(R.id.button_registration);
+        registerButton = (Button) findViewById(R.id.button_register);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +64,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item,
                 Arrays.asList(vetArray));
         adapterVet.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        genderSpinner.setAdapter(adapterVet);
+        vetSpinner.setAdapter(adapterVet);
 
 
     }
