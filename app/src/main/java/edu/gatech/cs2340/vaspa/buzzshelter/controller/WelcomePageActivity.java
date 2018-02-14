@@ -87,7 +87,6 @@ public class WelcomePageActivity extends AppCompatActivity {
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             email += "@temp.com";
         }
-
         mAuth.signInWithEmailAndPassword(email, password)
           .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
               @Override
@@ -104,6 +103,8 @@ public class WelcomePageActivity extends AppCompatActivity {
                       // If sign in fails, display a message to the user.
                       Toast.makeText(WelcomePageActivity.this, "Incorrect username" +
                           " or password.", Toast.LENGTH_SHORT).show();
+                      //Toast.makeText(WelcomePageActivity.this,
+                      //        task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                   }
               }
           });
