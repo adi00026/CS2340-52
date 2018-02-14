@@ -56,9 +56,7 @@ public class RegistrationActivity extends AppCompatActivity {
         findViewById(R.id.button_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RegistrationActivity.this,
-                  WelcomePageActivity.class);
-                startActivity(intent);
+                onBackPressed();
             }
         });
 

@@ -53,9 +53,7 @@ public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ShelterEmployeeRegistrationActivity.this,
-                  RegistrationActivity.class);
-                startActivity(intent);
+                onBackPressed();
             }
         });
 

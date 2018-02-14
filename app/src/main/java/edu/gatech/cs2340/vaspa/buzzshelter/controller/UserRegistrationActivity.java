@@ -69,9 +69,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(UserRegistrationActivity.this,
-                        RegistrationActivity.class);
-                startActivity(intent);
+                onBackPressed();
             }
         });
 
