@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "1080298692553",
+    "firebase_url": "https://cs2340-52.firebaseio.com",
+    "project_id": "cs2340-52",
+    "storage_bucket": "cs2340-52.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1080298692553:android:21535460fcb47e5f",
+        "android_client_info": {
+          "package_name": "edu.gatech.cs2340.vaspa.buzzshelter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1080298692553-el6jbq5agtm8mrpq0v2305f97ssb5oak.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.gatech.cs2340.vaspa.buzzshelter",
+            "certificate_hash": "c83e161c75dc1f9c585fa07f252dde43b1aaa865"
+          }
+        },
+        {
+          "client_id": "1080298692553-i5fab1fifri7qb14kign7hshvquq70uk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.gatech.cs2340.vaspa.buzzshelter",
+            "certificate_hash": "681cf4d3bba211a57c01148f4eb44a47b09f4d7e"
+          }
+        },
+        {
+          "client_id": "1080298692553-omn2qs9un6kpib3sm3gha49uqktgesma.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5_PMU1290UgqW0se382K8SP6OEmSHaXM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1080298692553-omn2qs9un6kpib3sm3gha49uqktgesma.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
