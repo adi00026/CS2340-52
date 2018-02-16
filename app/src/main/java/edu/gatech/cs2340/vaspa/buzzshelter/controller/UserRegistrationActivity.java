@@ -133,7 +133,13 @@ public class UserRegistrationActivity extends AppCompatActivity {
                             user.getUserId() + " added!", Toast.LENGTH_SHORT).show();
                     FirebaseUser firebaseUser = mAuth.getCurrentUser();
                     String UID = firebaseUser.getUid();
+                    /**
+                     * CODE TO ADD STUDD TO DB
+                     */
                     myRef.child("account_holders").child("users").child(UID).setValue(user);
+                    /**
+                     *
+                     */
                     Intent intent = new Intent(UserRegistrationActivity.this,
                             WelcomePageActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
