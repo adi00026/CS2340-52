@@ -1,5 +1,7 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.model;
 
+import android.accounts.Account;
+
 import java.util.HashSet;
 
 /**
@@ -21,6 +23,24 @@ public class Model {
      */
     public static Model getInstance() {
         return instance;
+    }
+
+    /**
+     * method to set the current app user to the one defined by currentUser.
+     *
+     * @param currentUser is the user to be set as the current user.
+     */
+    public void setCurrentUser(AccountHolder currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    /**
+     * method to get the current app user.
+     *
+     * @return an AccountHolder to represent the current user of the app
+     */
+    public AccountHolder getCurrentUser() {
+        return this.currentUser;
     }
 
     /**

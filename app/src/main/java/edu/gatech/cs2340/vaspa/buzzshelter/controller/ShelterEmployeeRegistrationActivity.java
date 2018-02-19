@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Admin;
+import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
 
 public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
