@@ -107,6 +107,8 @@ public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
                                     ShelterEmployeeRegistrationActivity.this,
                                     WelcomePageActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.putExtra("username", shemp.getUserId());
+                            intent.putExtra("password", shemp.getPassword());
                             startActivity(intent);
                         } else {
                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {

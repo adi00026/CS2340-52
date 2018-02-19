@@ -143,6 +143,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
                     Intent intent = new Intent(UserRegistrationActivity.this,
                             WelcomePageActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.putExtra("username", user.getUserId());
+                    intent.putExtra("password", user.getPassword());
                     startActivity(intent);
                 } else {
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {

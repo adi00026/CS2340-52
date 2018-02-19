@@ -72,6 +72,17 @@ public class WelcomePageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        try {
+            if (getIntent().getExtras().containsKey("username")) {
+                usernameEditText.setText(getIntent().getExtras().getString("username"));
+            }
+            if (getIntent().getExtras().containsKey("password")) {
+                passwordEditText.setText(getIntent().getExtras().getString("password"));
+            }
+        } catch (NullPointerException e) {
+            // Intent does not exist
+        }
+
     }
 
     /**
