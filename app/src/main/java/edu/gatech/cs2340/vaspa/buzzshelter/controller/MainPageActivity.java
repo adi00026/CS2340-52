@@ -17,6 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.AccountHolder;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Admin;
+import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
@@ -65,6 +66,7 @@ public class MainPageActivity extends AppCompatActivity {
                         currentlyLoggedIn = dataSnapshot.child("account_holders").child("users")
                                 .child(UID).getValue(User.class);
                     }
+                    Model.getInstance().setCurrentUser(currentlyLoggedIn);
                     welcomeTextview.setText(currentlyLoggedIn == null ? "NULL" : currentlyLoggedIn
                             .toString());
                 } else {
@@ -84,6 +86,7 @@ public class MainPageActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainPageActivity.this,
                         WelcomePageActivity.class);
                 mAuth.signOut();
+                Model.getInstance().setCurrentUser(null);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }

@@ -24,6 +24,7 @@ import java.util.List;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Admin;
+import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 
 public class AdminRegistrationActivity extends AppCompatActivity {
