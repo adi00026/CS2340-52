@@ -97,6 +97,8 @@ public class AdminRegistrationActivity extends AppCompatActivity {
                             Intent intent = new Intent(AdminRegistrationActivity.this,
                                     WelcomePageActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.putExtra("username", admin.getUserId());
+                            intent.putExtra("password", admin.getPassword());
                             startActivity(intent);
                         } else {
                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {
