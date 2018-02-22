@@ -1,5 +1,6 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.controller;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -30,6 +31,7 @@ public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
     private EditText shelterId;
     private Button backButton;
     private Button finish;
+    private ProgressDialog progressDialog;
 
     private String shelterKey = "temp_shelter_key";
 
@@ -46,6 +48,7 @@ public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
         shelterId = (EditText) findViewById(R.id.shelter_ID);
         finish = (Button) findViewById(R.id.Finish_Button_Shelter);
         backButton = (Button) findViewById(R.id.shelter_registration_back);
+        progressDialog = new ProgressDialog(this);
 
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
@@ -67,12 +70,15 @@ public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
     }
 
     private void register() {
+        progressDialog.setMessage("Registering User...");
+        progressDialog.show();
         String key = keyText.getText().toString().trim();
         String shelterID = shelterId.getText().toString().trim();
         if (shelterKey.equals(key)) {
             if (shelterID.length() != 0) { // TODO will be replaced by .contains() of structure containing Shelter objects
 
             } else {
+                progressDialog.hide();
                 Toast.makeText(this, "The inputted shelter ID does not exist",
                         Toast.LENGTH_SHORT).show();
                 return;
@@ -80,6 +86,7 @@ public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "The inputted key is incorrect",
                     Toast.LENGTH_SHORT).show();
+            progressDialog.hide();
             return;
         }
         String username = getIntent().getExtras().getString("username");
@@ -122,6 +129,7 @@ public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
                             }
                         }
+                        progressDialog.hide();
                     }
                 });
     }

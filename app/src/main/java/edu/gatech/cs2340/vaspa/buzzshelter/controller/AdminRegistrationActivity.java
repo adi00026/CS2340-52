@@ -1,5 +1,6 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.controller;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +33,7 @@ public class AdminRegistrationActivity extends AppCompatActivity {
     private EditText keyText;
     private Button backButton;
     private Button finish;
+    private ProgressDialog progressDialog;
 
     private String adminKey = "temp_admin_key";
 
@@ -47,6 +49,7 @@ public class AdminRegistrationActivity extends AppCompatActivity {
         keyText = (EditText) findViewById(R.id.admin_Key);
         backButton = (Button) findViewById(R.id.admin_back);
         finish = (Button) findViewById(R.id.Finish_Button);
+        progressDialog = new ProgressDialog(this);
 
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
@@ -68,8 +71,11 @@ public class AdminRegistrationActivity extends AppCompatActivity {
     }
 
     private void register() {
+        progressDialog.setMessage("Registering Admin...");
+        progressDialog.show();
         String key = keyText.getText().toString().trim();
         if (!adminKey.equals(key)) {
+            progressDialog.hide();
             Toast.makeText(this, "The inputted key is incorrect",
                     Toast.LENGTH_SHORT).show();
             return;
@@ -112,6 +118,7 @@ public class AdminRegistrationActivity extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
                             }
                         }
+                        progressDialog.hide();
                     }
                 });
     }
