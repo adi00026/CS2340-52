@@ -1,5 +1,6 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.controller;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,6 +9,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,12 +22,13 @@ import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 
 public class WelcomePageActivity extends AppCompatActivity {
-    Model model;
-    Button loginButton;
-    Button cancelButton;
-    Button registrationButton;
-    EditText usernameEditText;
-    EditText passwordEditText;
+    private Model model;
+    private Button loginButton;
+    private Button cancelButton;
+    private Button registrationButton;
+    private EditText usernameEditText;
+    private EditText passwordEditText;
+    private ProgressDialog progressDialog;
 
     private FirebaseAuth mAuth;
 
@@ -51,6 +54,7 @@ public class WelcomePageActivity extends AppCompatActivity {
         registrationButton = (Button) findViewById(R.id.button_registration);
         usernameEditText = (EditText) findViewById(R.id.editText_username);
         passwordEditText = (EditText) findViewById(R.id.editText_password);
+        progressDialog = new ProgressDialog(this);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,13 +86,15 @@ public class WelcomePageActivity extends AppCompatActivity {
         } catch (NullPointerException e) {
             // Intent does not exist
         }
-
     }
 
     /**
      * Method to handle what happens when the "login" button is pressed
      */
     private void loginPressed() {
+        loginButton.setEnabled(false);
+        progressDialog.setMessage("Logging in...");
+        progressDialog.show();
         String email = usernameEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
 
@@ -117,6 +123,8 @@ public class WelcomePageActivity extends AppCompatActivity {
                       //Toast.makeText(WelcomePageActivity.this,
                       //        task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                   }
+                  loginButton.setEnabled(true);
+                  progressDialog.hide();
               }
           });
     }

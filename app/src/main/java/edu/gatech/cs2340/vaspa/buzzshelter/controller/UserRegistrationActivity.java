@@ -1,5 +1,6 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.controller;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -43,6 +44,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
     EditText dayText;
     EditText monthText;
     EditText yearText;
+    ProgressDialog progressDialog;
+
 
     FirebaseAuth mAuth;
     FirebaseDatabase database;
@@ -62,6 +65,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         dayText = (EditText) findViewById(R.id.editText_day);
         monthText = (EditText) findViewById(R.id.editText_month);
         yearText = (EditText) findViewById(R.id.editText_year);
+        progressDialog = new ProgressDialog(this);
 
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
@@ -101,10 +105,13 @@ public class UserRegistrationActivity extends AppCompatActivity {
         });
     }
     private void register() {
+        progressDialog.setMessage("Registering User...");
+        progressDialog.show();
         int month = Integer.parseInt(monthText.getText().toString());
         int day = Integer.parseInt(dayText.getText().toString());
         int year = Integer.parseInt(yearText.getText().toString());
         if (!isValidDate(month, day, year)) {
+            progressDialog.hide();
             Toast.makeText(this, "Invalid date", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -158,6 +165,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                                 Toast.LENGTH_SHORT).show();
                     }
                 }
+                progressDialog.hide();
             }
         });
     }
