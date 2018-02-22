@@ -51,24 +51,30 @@ public class MainPageActivity extends AppCompatActivity {
                 if (mAuth.getCurrentUser() != null) {
                     String UID = mAuth.getCurrentUser().getUid();
                     AccountHolder currentlyLoggedIn = null;
+                    String desig = "";
                     if (dataSnapshot.child("account_holders").child("admins").child(UID)
                             .exists()) {
                         currentlyLoggedIn = dataSnapshot.child("account_holders")
                                 .child("admins").child(UID).getValue(Admin.class);
+                        desig = "Admin ";
                     }
                     if (dataSnapshot.child("account_holders").child("shelter_employees")
                             .child(UID).exists()) {
                         currentlyLoggedIn = dataSnapshot.child("account_holders")
                                 .child("shelter_employees").child(UID)
                                 .getValue(ShelterEmployee.class);
+                        desig = "Account Holder ";
                     }
                     if (dataSnapshot.child("account_holders").child("users").child(UID).exists()) {
                         currentlyLoggedIn = dataSnapshot.child("account_holders").child("users")
                                 .child(UID).getValue(User.class);
                     }
                     Model.getInstance().setCurrentUser(currentlyLoggedIn);
-                    welcomeTextview.setText(currentlyLoggedIn == null ? "NULL" : currentlyLoggedIn
-                            .toString());
+                    /*welcomeTextview.setText(currentlyLoggedIn == null ? "NULL" : currentlyLoggedIn
+                            .toString());*/
+                    welcomeTextview.setText(currentlyLoggedIn == null ?
+                            "No user currently logged in" : "Welcome, " + desig
+                            + currentlyLoggedIn.getName() + "!");
                 } else {
                     welcomeTextview.setText("No current user!");
                 }
