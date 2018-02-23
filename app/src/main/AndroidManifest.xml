@@ -20,7 +20,13 @@
         <activity android:name=".controller.MainPageActivity" />
         <activity android:name=".controller.UserRegistrationActivity" />
         <activity android:name=".controller.AdminRegistrationActivity" />
-        <activity android:name=".controller.ShelterEmployeeRegistrationActivity"></activity>
+        <activity android:name=".controller.ShelterEmployeeRegistrationActivity" />
+        <activity android:name=".controller.SearchShelterActivity" />
+        <activity android:name=".controller.AdminSettingsActivity" />
+        <activity android:name=".controller.UserSettingsActivity" />
+        <activity android:name=".controller.ShelterEmployeeSettingsActivity" />
+        <activity android:name=".controller.UpdateVacanciesActivity" />
+        <activity android:name=".controller.ManageUsersActivity"></activity>
     </application>
 
 </manifest>
