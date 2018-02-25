@@ -37,6 +37,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 
 public class UserRegistrationActivity extends AppCompatActivity {
+
     Spinner genderSpinner;
     CheckBox vetCheckbox;
     Button backButton;
@@ -67,31 +68,32 @@ public class UserRegistrationActivity extends AppCompatActivity {
         yearText = (EditText) findViewById(R.id.editText_year);
         progressDialog = new ProgressDialog(this);
 
+
+        // Firebase stuff initializers
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
+
+        // Set listeners and adapters:
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
-
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 register();
             }
         });
-
         String[] genderArray = {"Male", "Female", "Other"};
         ArrayAdapter<String> adapterGender = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 Arrays.asList(genderArray));
         adapterGender.setDropDownViewResource(R.layout.spinner_layout_1);
         genderSpinner.setAdapter(adapterGender);
-
         genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View arg1,
@@ -104,17 +106,23 @@ public class UserRegistrationActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
     private void register() {
         progressDialog.setMessage("Registering User...");
         progressDialog.show();
+
         int month = Integer.parseInt(monthText.getText().toString());
         int day = Integer.parseInt(dayText.getText().toString());
         int year = Integer.parseInt(yearText.getText().toString());
+
         if (!isValidDate(month, day, year)) {
             progressDialog.hide();
             Toast.makeText(this, "Invalid date", Toast.LENGTH_SHORT).show();
             return;
         }
+
         List<Integer> dob = new LinkedList<>();
         dob.add(month);
         dob.add(day);
@@ -125,13 +133,18 @@ public class UserRegistrationActivity extends AppCompatActivity {
         String password = getIntent().getExtras().getString("password");
         String contactInfo = getIntent().getExtras().getString("contactInfo");
         String name = getIntent().getExtras().getString("name");
+        String email = username;
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            progressDialog.hide();
+            Toast.makeText(this, "Invalid email address, must be like" +
+                            ": username@example.com", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+
         final User user = new User(name, username, password, false, contactInfo, gender, dob,
                 isVeteran);
-        // Auth Create this guy
-        String email = username;
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            email += "@temp.com";
-        }
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -141,13 +154,10 @@ public class UserRegistrationActivity extends AppCompatActivity {
                             user.getUserId() + " added!", Toast.LENGTH_SHORT).show();
                     FirebaseUser firebaseUser = mAuth.getCurrentUser();
                     String UID = firebaseUser.getUid();
-                    /**
-                     * CODE TO ADD STUFF TO DB
-                     */
+
+                    // Add to DB
                     myRef.child("account_holders").child("users").child(UID).setValue(user);
-                    /**
-                     *
-                     */
+
                     Intent intent = new Intent(UserRegistrationActivity.this,
                             WelcomePageActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
