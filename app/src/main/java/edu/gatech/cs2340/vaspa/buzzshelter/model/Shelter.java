@@ -1,5 +1,8 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -7,18 +10,35 @@ import java.util.Set;
  * Created by aniruddhadas on 08/02/18.
  */
 
-public class Shelter {
-    // TODO: No args constructor that does nothing
-    // TODO: getters and setters for everthing
-    // TODO: make sure all shits are JSON objects
+public class Shelter implements Parcelable {
     private String uniqueKey;
     private String name;
-    private int capacity;
+    private String capacity;
     private int vacancies;
     private double latitude;
     private double longitude;
+
+    public String getSpecialNotes() {
+        return specialNotes;
+    }
+
+    public void setSpecialNotes(String specialNotes) {
+        this.specialNotes = specialNotes;
+    }
+
+    private String specialNotes;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    private String address;
     // private float rating;
-    private Set<String> restrictions;
+    private String restrictions;
     // private float cost;
     private String contactInfo;
     // private User[] blacklist;
@@ -26,11 +46,11 @@ public class Shelter {
 
 
     public Shelter() {
-        this(null, null, 0, 0, 0, 0, null, null);
+        this(null, null, null, null, 0, 0, null, null, null, 0);
     }
 
-    public Shelter(String key, String name, int cap, int vac, double lat, double lon,
-                   Set<String> restrics, String contact) {
+    public Shelter(String key, String name, String cap, String restrics, double lon, double lat,
+                   String addr, String specNotes, String contact, int vac) {
         uniqueKey = key;
         this.name = name;
         capacity = cap;
@@ -39,8 +59,10 @@ public class Shelter {
         longitude = lon;
         restrictions = restrics;
         contactInfo = contact;
-    }
+        address = addr;
+        specialNotes = specNotes;
 
+    }
 
     public String getUniqueKey() {
         return uniqueKey;
@@ -50,7 +72,7 @@ public class Shelter {
         return name;
     }
 
-    public int getCapacity() {
+    public String getCapacity() {
         return capacity;
     }
 
@@ -58,7 +80,7 @@ public class Shelter {
         return vacancies;
     }
 
-    public Set<String> getRestrictions() {
+    public String getRestrictions() {
         return restrictions;
     }
 
@@ -82,7 +104,7 @@ public class Shelter {
         name = n;
     }
 
-    public void setCapacity(int n) {
+    public void setCapacity(String n) {
         capacity = n;
     }
 
@@ -98,7 +120,7 @@ public class Shelter {
         longitude = d;
     }
 
-    public void setRestrictions(Set<String> restr) {
+    public void setRestrictions(String restr) {
         restrictions = restr;
     }
 
@@ -106,5 +128,45 @@ public class Shelter {
         contactInfo = contact;
     }
 
+
+    /**
+     * Used internally
+     * @param p
+     */
+    private Shelter(Parcel p) {
+        this(p.readString(), p.readString(), p.readString(), null, 0,
+                0, p.readString(), null, null, 0);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(uniqueKey);
+        parcel.writeString(name);
+        parcel.writeString(capacity);
+        parcel.writeString(address);
+    }
+
+    /**
+     * Should not have to edit this method if the constructor and write method are
+     * working correctly.
+     */
+    public static final Parcelable.Creator<Shelter> CREATOR
+            = new Parcelable.Creator<Shelter>() {
+        public Shelter createFromParcel(Parcel in) {
+            return new Shelter(in);
+        }
+
+        public Shelter[] newArray(int size) {
+            return new Shelter[size];
+        }
+    };
+
     // The other getters / setters will be done at a suitable time.
 }
+
+

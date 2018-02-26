@@ -60,7 +60,7 @@ public class MainPageActivity extends AppCompatActivity {
         manageUsersButton = (Button) findViewById(R.id.button_manage_users);
         updateVacanciesButton = (Button) findViewById(R.id.button_update_vacancies);
 
-        setUpButtons(null);
+        setUpButtons(Model.getInstance().getCurrentUser());
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
