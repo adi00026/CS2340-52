@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1080298692553-p523oc1ffaj97r34mc21b3prorem8hdv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.gatech.cs2340.vaspa.buzzshelter",
+            "certificate_hash": "7c09f6727c4c08a7ec5df308a62b58f2fc4196dc"
+          }
+        },
+        {
           "client_id": "1080298692553-el6jbq5agtm8mrpq0v2305f97ssb5oak.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -28,6 +36,50 @@
           "android_info": {
             "package_name": "edu.gatech.cs2340.vaspa.buzzshelter",
             "certificate_hash": "681cf4d3bba211a57c01148f4eb44a47b09f4d7e"
+          }
+        },
+        {
+          "client_id": "1080298692553-omn2qs9un6kpib3sm3gha49uqktgesma.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5_PMU1290UgqW0se382K8SP6OEmSHaXM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1080298692553-omn2qs9un6kpib3sm3gha49uqktgesma.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1080298692553:android:7e71d512b3e036ba",
+        "android_client_info": {
+          "package_name": "edu.gatech.cs2340.vaspa.csvtofirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1080298692553-qi0pmd3qmlh5bmendvkrmhru5g4r1qut.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.gatech.cs2340.vaspa.csvtofirebase",
+            "certificate_hash": "7c09f6727c4c08a7ec5df308a62b58f2fc4196dc"
           }
         },
         {

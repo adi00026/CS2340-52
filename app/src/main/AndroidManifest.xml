@@ -26,7 +26,11 @@
         <activity android:name=".controller.UserSettingsActivity" />
         <activity android:name=".controller.ShelterEmployeeSettingsActivity" />
         <activity android:name=".controller.UpdateVacanciesActivity" />
-        <activity android:name=".controller.ManageUsersActivity"></activity>
+        <activity android:name=".controller.ManageUsersActivity" />
+        <activity
+            android:name=".controller.ViewAvailableSheltersActivity"
+            android:label="@string/title_activity_view_available_shelters"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
