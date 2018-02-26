@@ -75,8 +75,8 @@ public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
         String key = keyText.getText().toString().trim();
         String shelterID = shelterId.getText().toString().trim();
         if (shelterKey.equals(key)) {
-            if (shelterID.length() != 0) { // TODO will be replaced by .contains() of structure containing Shelter objects
-
+            if (shelterID.length() != 0) {
+                // TODO will be replaced by .contains() of structure containing Shelter objects
             } else {
                 progressDialog.hide();
                 Toast.makeText(this, "The inputted shelter ID does not exist",

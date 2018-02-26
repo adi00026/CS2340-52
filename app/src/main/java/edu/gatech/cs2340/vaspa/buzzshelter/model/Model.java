@@ -2,6 +2,7 @@ package edu.gatech.cs2340.vaspa.buzzshelter.model;
 
 import android.accounts.Account;
 
+import java.util.HashMap;
 import java.util.HashSet;
 
 /**
@@ -13,7 +14,7 @@ public class Model {
      */
     private static final Model instance = new Model();
 
-    private HashSet<Shelter> shelters;
+    private HashMap<String, Shelter> shelters;
     private AccountHolder currentUser;
 
     /**
@@ -44,10 +45,27 @@ public class Model {
     }
 
     /**
+     * Getter for shelters.
+     *
+     * @return the shelters.
+     */
+    public HashMap<String, Shelter> getShelters() {
+        return shelters;
+    }
+
+    /**
+     * Setter for shelters
+     *
+     * @param shelters shelter to set shelters to.
+     */
+    public void setShelters(HashMap<String, Shelter> shelters) {
+        this.shelters = shelters;
+    }
+
+    /**
      * make a new model
      */
     private Model() {
         // empty for now
     }
-
 }
