@@ -1,9 +1,14 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.model;
 
 import android.accounts.Account;
+import android.util.Log;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+
+import edu.gatech.cs2340.vaspa.buzzshelter.util.StringSearch;
 
 /**
  * "Model Facade" class
@@ -60,6 +65,48 @@ public class Model {
      */
     public void setShelters(HashMap<String, Shelter> shelters) {
         this.shelters = shelters;
+    }
+
+    /**
+     * Function to search shelter that have str in their name.
+     *
+     * @param str string to search for.
+     * @return a list of shelters containing str in their names
+     */
+    public List<Shelter> searchShelterByName(String str) {
+        LinkedList<Shelter> output = new LinkedList<>();
+
+        // Go through the shelters, and searching by name. Unfortunately, because
+        // the shelters are stored in the HashMap by their unique key, we can't
+        // make use of quick indexing by name.
+        // This may have to be rewritten at some point to take that into account
+        // if this app is to scale.
+        for (Shelter sh : shelters.values()) {
+            if (StringSearch.contains(sh.getName().trim(), str)) {
+                output.addLast(sh);
+            }
+        }
+        return output;
+    }
+
+    /**
+     * Function to search shelter that have str in their name.
+     *
+     * @param ageRange string to search for.
+     * @return a list of shelters containing str in their names
+     */
+    public List<Shelter> searchShelterByAge(String ageRange) {
+        return null;
+    }
+
+    /**
+     * Function to search shelter that have str in their name.
+     *
+     * @param gender string to search for.
+     * @return a list of shelters containing str in their names
+     */
+    public List<Shelter> searchShelterByGender(String gender) {
+        return null;
     }
 
     /**

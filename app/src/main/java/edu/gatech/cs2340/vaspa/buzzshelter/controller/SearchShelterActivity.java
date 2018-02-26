@@ -30,7 +30,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 
 import java.util.HashMap;
-
+import java.util.List;
 
 
 public class SearchShelterActivity extends AppCompatActivity {
@@ -121,19 +121,13 @@ public class SearchShelterActivity extends AppCompatActivity {
         Intent intent = new Intent(SearchShelterActivity.this,
                 ViewAvailableSheltersActivity.class);
         model.setShelters(sheltersMap);
-        // Go through the shelters, and searching by name. Unfortunately, because
-        // the shelters are stored in the HashMap by their unique key, we can't
-        // make use of quick indexing by name.
-        // This may have to be rewritten at some point to take that into account
-        // if this app is to scale.
-        for (Shelter sh: sheltersMap.values()) {
-            String name = unfilter(shelterSpinner.getSelectedItem().toString());
-            Log.d("jizz daddy", "\"" + name + "\"");
-            if (name.equals(sh.getName().trim())) {
-                intent.putExtra("shelter", sh);
-                startActivity(intent);
-                return;
-            }
+
+        String name = unfilter(shelterSpinner.getSelectedItem().toString());
+        List<Shelter> matches = Model.getInstance().searchShelterByName(name);
+        if (!matches.isEmpty()) {
+            intent.putExtra("shelter", matches.get(0));
+            startActivity(intent);
+            return;
         }
         // This shouldn't EVER happen:
         Toast.makeText(SearchShelterActivity.this ,"An error occurred: " +
@@ -162,6 +156,7 @@ public class SearchShelterActivity extends AppCompatActivity {
     }
 
     private String unfilter(String inStr) {
-        return inStr.replace("\n", " ").trim();
+        return inStr.replace("\n", " ")
+                .trim();
     }
 }
