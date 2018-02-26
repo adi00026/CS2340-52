@@ -3,38 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="edu.gatech.cs2340.vaspa.buzzshelter.controller.SearchShelterActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView3"
+    <Spinner
+        android:id="@+id/shelter_spinner"
+        android:layout_width="252dp"
+        android:layout_height="61dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="325dp" />
+
+    <Button
+        android:id="@+id/view_shelter_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Search Shelters"
+        android:text="View Details"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.579"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shelter_spinner" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Search shelter:"
+        app:layout_constraintBottom_toTopOf="@+id/shelter_spinner"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.432" />
-
-    <Spinner
-        android:id="@+id/shelterSpinner"
-        android:layout_width="361dp"
-        android:layout_height="52dp"
-        tools:layout_editor_absoluteX="12dp"
-        tools:layout_editor_absoluteY="269dp" />
-
-    <Button
-        android:id="@+id/viewShelter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="View Details"
-        tools:layout_editor_absoluteX="146dp"
-        tools:layout_editor_absoluteY="354dp" />
-
+        app:layout_constraintVertical_bias="0.88" />
 </android.support.constraint.ConstraintLayout>
