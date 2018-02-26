@@ -17,7 +17,24 @@
         android:text="Search Shelters"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.579"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.432" />
+
+    <Spinner
+        android:id="@+id/shelterSpinner"
+        android:layout_width="361dp"
+        android:layout_height="52dp"
+        tools:layout_editor_absoluteX="12dp"
+        tools:layout_editor_absoluteY="269dp" />
+
+    <Button
+        android:id="@+id/viewShelter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Details"
+        tools:layout_editor_absoluteX="146dp"
+        tools:layout_editor_absoluteY="354dp" />
 
 </android.support.constraint.ConstraintLayout>

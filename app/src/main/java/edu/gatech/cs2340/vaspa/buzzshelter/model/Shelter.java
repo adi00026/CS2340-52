@@ -1,5 +1,8 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -7,7 +10,7 @@ import java.util.Set;
  * Created by aniruddhadas on 08/02/18.
  */
 
-public class Shelter {
+public class Shelter implements Parcelable {
     private String uniqueKey;
     private String name;
     private String capacity;
@@ -124,6 +127,44 @@ public class Shelter {
     public void setContactInfo(String contact) {
         contactInfo = contact;
     }
+
+
+    /**
+     * Used internally
+     * @param p
+     */
+    private Shelter(Parcel p) {
+        this(p.readString(), p.readString(), p.readString(), null, 0,
+                0, p.readString(), null, null, 0);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(uniqueKey);
+        parcel.writeString(name);
+        parcel.writeString(capacity);
+        parcel.writeString(address);
+    }
+
+    /**
+     * Should not have to edit this method if the constructor and write method are
+     * working correctly.
+     */
+    public static final Parcelable.Creator<Shelter> CREATOR
+            = new Parcelable.Creator<Shelter>() {
+        public Shelter createFromParcel(Parcel in) {
+            return new Shelter(in);
+        }
+
+        public Shelter[] newArray(int size) {
+            return new Shelter[size];
+        }
+    };
 
     // The other getters / setters will be done at a suitable time.
 }
