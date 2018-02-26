@@ -43,13 +43,17 @@ public class SearchShelterActivity extends AppCompatActivity {
 
     HashMap<String, Shelter> sheltersMap;
 
+    private Model model;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_shelter);
 
-        viewShelterButton = (Button) findViewById(R.id.viewShelter);
-        shelterSpinner = (Spinner) findViewById(R.id.shelterSpinner);
+        model = Model.getInstance();
+
+        viewShelterButton = (Button) findViewById(R.id.view_shelter_button);
+        shelterSpinner = (Spinner) findViewById(R.id.shelter_spinner);
 
         sheltersMap = new HashMap<String, Shelter>();
 
@@ -66,15 +70,10 @@ public class SearchShelterActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 Shelter shelter = dataSnapshot.getValue(Shelter.class);
                 sheltersMap.put(shelter.getUniqueKey(), shelter);
-
                 shelterAdapter.add(shelter.getName());
 
                 // Maybe move the line below outside the listener?
                 shelterSpinner.setAdapter(shelterAdapter);
-
-                Log.d("FUCK ME", "onChildAdded: " + shelter.getName());
-                Log.d(" oknotok", "onChildAdded: " + sheltersMap.get(shelter.getUniqueKey()).getName());
-                Log.d(" FILL ", "onChildAdded: SIZE " + sheltersMap.size());
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {}
@@ -96,34 +95,33 @@ public class SearchShelterActivity extends AppCompatActivity {
             }
         });
 
-        Log.d(" high pri", "onCreate: " + "got here");
-        // loadSpinnerContentsFromFirebase();
-
     }
 
     private void viewShelterPressed() {
         Intent intent = new Intent(SearchShelterActivity.this,
                 ViewAvailableSheltersActivity.class);
-        startActivity(intent);
+
+        // Go through the shelters, and searching by name. Unfortunately, because
+        // the shelters are stored in the HashMap by their unique key, we can't
+        // make use of quick indexing by name.
+        // This may have to be rewritten at some point to take that into account
+        // if this app is to scale.
+        for (Shelter sh: sheltersMap.values()) {
+            if (shelterSpinner.getSelectedItem().equals(sh.getName())) {
+                intent.putExtra("shelter", sh);
+                startActivity(intent);
+                return;
+            }
+        }
+        // This shouldn't EVER happen:
+        Toast.makeText(SearchShelterActivity.this ,"An error occurred: " +
+                "the shelter you requested was not found in our database.",
+                Toast.LENGTH_LONG).show();
     }
 
     private void initFirebaseComponents() {
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("shelters");
-    }
-
-    private void loadSpinnerContentsFromFirebase() {
-        ArrayAdapter<String> shelterAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item);
-        shelterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        Log.d(" FUCK SLDKF", "loadSpinnerContentsFromFirebase: " + "doing shit!" + "  " + sheltersMap.size());
-
-        for (Shelter sh: sheltersMap.values()) {
-            shelterAdapter.add(sh.getName());
-            Log.d("FUCK THIS ", "loadSpinnerContentsFromFirebase: " + sh);
-        }
-        shelterSpinner.setAdapter(shelterAdapter);
-
     }
 }

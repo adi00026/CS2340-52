@@ -134,8 +134,16 @@ public class Shelter implements Parcelable {
      * @param p
      */
     private Shelter(Parcel p) {
-        this(p.readString(), p.readString(), p.readString(), null, 0,
-                0, p.readString(), null, null, 0);
+        uniqueKey = p.readString();
+        name = p.readString();
+        capacity = p.readString();
+        vacancies = p.readInt();
+        longitude = p.readDouble();
+        latitude = p.readDouble();
+        restrictions = p.readString();
+        contactInfo = p.readString();
+        address = p.readString();
+        specialNotes = p.readString();
     }
 
     @Override
@@ -148,7 +156,15 @@ public class Shelter implements Parcelable {
         parcel.writeString(uniqueKey);
         parcel.writeString(name);
         parcel.writeString(capacity);
+        parcel.writeInt(vacancies);
+        parcel.writeDouble(longitude);
+        parcel.writeDouble(latitude);
+        parcel.writeString(restrictions);
+        parcel.writeString(contactInfo);
         parcel.writeString(address);
+        parcel.writeString(specialNotes);
+
+
     }
 
     /**
@@ -165,6 +181,11 @@ public class Shelter implements Parcelable {
             return new Shelter[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 
     // The other getters / setters will be done at a suitable time.
 }
