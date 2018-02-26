@@ -26,7 +26,8 @@
         <activity android:name=".controller.UserSettingsActivity" />
         <activity android:name=".controller.ShelterEmployeeSettingsActivity" />
         <activity android:name=".controller.UpdateVacanciesActivity" />
-        <activity android:name=".controller.ManageUsersActivity"></activity>
+        <activity android:name=".controller.ManageUsersActivity" />
+        <activity android:name=".controller.ChangePasswordActivity"></activity>
     </application>
 
 </manifest>
