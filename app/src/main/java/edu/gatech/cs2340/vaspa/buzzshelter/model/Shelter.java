@@ -8,17 +8,34 @@ import java.util.Set;
  */
 
 public class Shelter {
-    // TODO: No args constructor that does nothing
-    // TODO: getters and setters for everthing
-    // TODO: make sure all shits are JSON objects
     private String uniqueKey;
     private String name;
-    private int capacity;
+    private String capacity;
     private int vacancies;
     private double latitude;
     private double longitude;
+
+    public String getSpecialNotes() {
+        return specialNotes;
+    }
+
+    public void setSpecialNotes(String specialNotes) {
+        this.specialNotes = specialNotes;
+    }
+
+    private String specialNotes;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    private String address;
     // private float rating;
-    private Set<String> restrictions;
+    private String restrictions;
     // private float cost;
     private String contactInfo;
     // private User[] blacklist;
@@ -26,11 +43,11 @@ public class Shelter {
 
 
     public Shelter() {
-        this(null, null, 0, 0, 0, 0, null, null);
+        this(null, null, null, null, 0, 0, null, null, null, 0);
     }
 
-    public Shelter(String key, String name, int cap, int vac, double lat, double lon,
-                   Set<String> restrics, String contact) {
+    public Shelter(String key, String name, String cap, String restrics, double lon, double lat,
+                   String addr, String specNotes, String contact, int vac) {
         uniqueKey = key;
         this.name = name;
         capacity = cap;
@@ -39,8 +56,10 @@ public class Shelter {
         longitude = lon;
         restrictions = restrics;
         contactInfo = contact;
-    }
+        address = addr;
+        specialNotes = specNotes;
 
+    }
 
     public String getUniqueKey() {
         return uniqueKey;
@@ -50,7 +69,7 @@ public class Shelter {
         return name;
     }
 
-    public int getCapacity() {
+    public String getCapacity() {
         return capacity;
     }
 
@@ -58,7 +77,7 @@ public class Shelter {
         return vacancies;
     }
 
-    public Set<String> getRestrictions() {
+    public String getRestrictions() {
         return restrictions;
     }
 
@@ -82,7 +101,7 @@ public class Shelter {
         name = n;
     }
 
-    public void setCapacity(int n) {
+    public void setCapacity(String n) {
         capacity = n;
     }
 
@@ -98,7 +117,7 @@ public class Shelter {
         longitude = d;
     }
 
-    public void setRestrictions(Set<String> restr) {
+    public void setRestrictions(String restr) {
         restrictions = restr;
     }
 
@@ -108,3 +127,5 @@ public class Shelter {
 
     // The other getters / setters will be done at a suitable time.
 }
+
+
