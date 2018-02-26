@@ -73,14 +73,12 @@ public class MainPageActivity extends AppCompatActivity {
                             .exists()) {
                         currentlyLoggedIn = dataSnapshot.child("account_holders")
                                 .child("admins").child(UID).getValue(Admin.class);
-                        desig = "Admin ";
                     }
                     if (dataSnapshot.child("account_holders").child("shelter_employees")
                             .child(UID).exists()) {
                         currentlyLoggedIn = dataSnapshot.child("account_holders")
                                 .child("shelter_employees").child(UID)
                                 .getValue(ShelterEmployee.class);
-                        desig = "Account Holder ";
                     }
                     if (dataSnapshot.child("account_holders").child("users").child(UID).exists()) {
                         currentlyLoggedIn = dataSnapshot.child("account_holders").child("users")
@@ -88,7 +86,7 @@ public class MainPageActivity extends AppCompatActivity {
                     }
                     Model.getInstance().setCurrentUser(currentlyLoggedIn);
                     welcomeTextview.setText(currentlyLoggedIn == null ?
-                            "No user currently logged in" : "Welcome, " + desig
+                            "No user currently logged in" : "Welcome, "
                             + currentlyLoggedIn.getName() + "!");
                     setUpButtons(currentlyLoggedIn);
                 } else {
