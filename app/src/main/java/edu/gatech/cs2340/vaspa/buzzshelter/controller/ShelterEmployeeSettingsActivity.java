@@ -34,7 +34,7 @@ public class ShelterEmployeeSettingsActivity extends AppCompatActivity {
         contactEditText = (EditText) findViewById(R.id.editText_contact);
         shelterIDEditText = (EditText) findViewById(R.id.editText_shelterID);
 
-        userIDText.setText(Model.getInstance().getCurrentUser().getUserId());
+        userIDText.setText("User ID: " + Model.getInstance().getCurrentUser().getUserId());
         nameEditText.setText(Model.getInstance().getCurrentUser().getName());
         contactEditText.setText(Model.getInstance().getCurrentUser().getContactInfo());
         shelterIDEditText.setText(((ShelterEmployee) Model.getInstance().getCurrentUser())
@@ -43,8 +43,7 @@ public class ShelterEmployeeSettingsActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ShelterEmployeeSettingsActivity.this,
-                        MainPageActivity.class));
+                onBackPressed();
             }
         });
 

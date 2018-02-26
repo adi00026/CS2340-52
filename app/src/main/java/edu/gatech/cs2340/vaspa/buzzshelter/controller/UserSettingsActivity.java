@@ -43,7 +43,7 @@ public class UserSettingsActivity extends AppCompatActivity {
         genderSpinner = (Spinner) findViewById(R.id.spinner_gender);
         vetStatusCheckbox = (CheckBox) findViewById(R.id.checkBox_vets);
 
-        userIDText.setText(Model.getInstance().getCurrentUser().getUserId());
+        userIDText.setText("User ID: " + Model.getInstance().getCurrentUser().getUserId());
         nameEditText.setText(Model.getInstance().getCurrentUser().getName());
         contactEditText.setText(Model.getInstance().getCurrentUser().getContactInfo());
         vetStatusCheckbox.setChecked(((User) Model.getInstance().getCurrentUser()).isVeteran());
@@ -73,8 +73,7 @@ public class UserSettingsActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(UserSettingsActivity.this,
-                        MainPageActivity.class));
+                onBackPressed();
             }
         });
 

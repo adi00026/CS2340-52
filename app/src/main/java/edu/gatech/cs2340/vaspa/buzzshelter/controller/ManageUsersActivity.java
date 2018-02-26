@@ -29,8 +29,7 @@ public class ManageUsersActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ManageUsersActivity.this,
-                        MainPageActivity.class));
+                onBackPressed();
             }
         });
         removeButton.setOnClickListener(new View.OnClickListener() {

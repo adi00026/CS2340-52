@@ -32,15 +32,14 @@ public class AdminSettingsActivity extends AppCompatActivity {
         nameEditText = (EditText) findViewById(R.id.editText_name);
         contactEditText = (EditText) findViewById(R.id.editText_contact);
 
-        userIDText.setText(Model.getInstance().getCurrentUser().getUserId());
+        userIDText.setText("User ID: " + Model.getInstance().getCurrentUser().getUserId());
         nameEditText.setText(Model.getInstance().getCurrentUser().getName());
         contactEditText.setText(Model.getInstance().getCurrentUser().getContactInfo());
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AdminSettingsActivity.this,
-                        MainPageActivity.class));
+                onBackPressed();
             }
         });
 

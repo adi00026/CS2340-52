@@ -29,8 +29,7 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(UpdateVacanciesActivity.this,
-                        MainPageActivity.class));
+                onBackPressed();
             }
         });
 
