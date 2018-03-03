@@ -9,14 +9,18 @@ public abstract class AccountHolder {
     private String userId;
     private String password;
     private boolean lockedOut;
+    private boolean deleted;
     private String contactInfo;
+
     public AccountHolder(String name, String userId, String password, boolean lockedOut, String contactInfo) {
         this.name = name;
         this.userId = userId;
         this.password = password;
         this.lockedOut = lockedOut;
         this.contactInfo = contactInfo;
+        this.deleted = false;
     }
+
     public AccountHolder() {
         // no args constructor
     }
@@ -59,5 +63,13 @@ public abstract class AccountHolder {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 }
