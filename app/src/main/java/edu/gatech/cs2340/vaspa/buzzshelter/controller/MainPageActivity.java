@@ -2,8 +2,8 @@ package edu.gatech.cs2340.vaspa.buzzshelter.controller;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,7 +20,6 @@ import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.AccountHolder;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Admin;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
-import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 
@@ -149,7 +148,7 @@ public class MainPageActivity extends AppCompatActivity {
         } else if (Model.getInstance().getCurrentUser() instanceof ShelterEmployee) {
             intent = new Intent(MainPageActivity.this,
                     ShelterEmployeeSettingsActivity.class);
-        } else if (Model.getInstance().getCurrentUser() instanceof ShelterEmployee) {
+        } else if (Model.getInstance().getCurrentUser() instanceof Admin) {
             intent = new Intent(MainPageActivity.this, AdminSettingsActivity.class);
         } else {
             Toast.makeText(MainPageActivity.this, "No user currently logged in!",
