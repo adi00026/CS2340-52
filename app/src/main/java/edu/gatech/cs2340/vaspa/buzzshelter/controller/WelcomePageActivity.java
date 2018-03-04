@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
+import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 
 public class WelcomePageActivity extends AppCompatActivity {
@@ -113,29 +113,39 @@ public class WelcomePageActivity extends AppCompatActivity {
         final String uid = email;  // Done because inner classes need final variables
 
         final int loginAttempts = model.incrementLoginAttempts(uid);
-        Log.d(TAG, uid + ": " + loginAttempts);
         if (loginAttempts == 4) {
             // implies this uids login attempts have exceeded 3 for the first time
-            // TODO update on firebase
-            // - PROBLEM NEED UID TO UPDATE INFO / LOCKED OUT SETTINGS
-            Log.d(TAG, "About to wreck: " + uid);
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    Log.d(TAG, "About to wreck in dataChange: " + uid);
+                    boolean done = false;
                     for (DataSnapshot ds : dataSnapshot.child("account_holders").child("users")
                       .getChildren()) {
                         String key = ds.getKey();
-                        Log.d(TAG, "ID: " + key);
                         User user = ds.getValue(User.class);
-                        Log.d(TAG, "User: " + user.toString());
                         if (user.getUserId().equals(uid)) {
+                            done = true;
                             user.setLockedOut(true);
                             // sets locked out to true
                             // adds user to database with locked out value to true
                             myRef.child("account_holders").child("users").child(key).setValue(user);
                             Toast.makeText(WelcomePageActivity.this, "Locked out. Too many attempts",
                               Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    if (!done) {
+                        for (DataSnapshot ds : dataSnapshot.child("account_holders").child("shelter_employees")
+                          .getChildren()) {
+                            String key = ds.getKey();
+                            ShelterEmployee user = ds.getValue(ShelterEmployee.class);
+                            if (user.getUserId().equals(uid)) {
+                                user.setLockedOut(true);
+                                // sets locked out to true
+                                // adds user to database with locked out value to true
+                                myRef.child("account_holders").child("shelter_employees").child(key).setValue(user);
+                                Toast.makeText(WelcomePageActivity.this, "Locked out. Too many attempts",
+                                  Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                     myRef.removeEventListener(this);
@@ -146,10 +156,13 @@ public class WelcomePageActivity extends AppCompatActivity {
 
                 }
             });
+            progressDialog.dismiss();
+            loginButton.setEnabled(true);
+            return;
         } else if (loginAttempts > 4) {
             Toast.makeText(WelcomePageActivity.this, "Locked out. Too many attempts",
               Toast.LENGTH_SHORT).show();
-            progressDialog.hide();
+            progressDialog.dismiss();
             loginButton.setEnabled(true);
             return;
         }
@@ -171,11 +184,9 @@ public class WelcomePageActivity extends AppCompatActivity {
                       // If sign in fails, display a message to the user.
                       Toast.makeText(WelcomePageActivity.this, "Incorrect username" +
                           " or password.", Toast.LENGTH_SHORT).show();
-                      //Toast.makeText(WelcomePageActivity.this,
-                      //        task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                   }
                   loginButton.setEnabled(true);
-                  progressDialog.hide();
+                  progressDialog.dismiss();
               }
           });
     }
