@@ -4,8 +4,11 @@ import android.accounts.Account;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -27,12 +30,15 @@ public class ManageUsersActivity extends AppCompatActivity {
     private Button addButton;
     private Button disableButton;
     private Button enableButton;
+    private EditText userIDText;
 
     FirebaseAuth mAuth;
     FirebaseDatabase database;
     DatabaseReference myRef;
 
     private AccountHolder toManage;
+
+    private boolean completed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,7 @@ public class ManageUsersActivity extends AppCompatActivity {
         addButton = (Button) findViewById(R.id.button_add);
         disableButton = (Button) findViewById(R.id.button_disable);
         enableButton = (Button) findViewById(R.id.button_enable);
+        userIDText = (EditText) findViewById(R.id.editText);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,19 +103,40 @@ public class ManageUsersActivity extends AppCompatActivity {
      * @param status what you want the User's enabled status to be.
      */
     private void setUserEnabled(final boolean status) {
+        completed = false;
         /**
-         * Search database. If not found, Toast it. If found, set enabled to false.
+         * Search database. If not found, Toast it. If found, set locked out to status.
          */
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.child("account_holders").child("users")
-                        .getChildren()) {
-                    toManage = dataSnapshot.getValue(User.class);
-                    if (toManage != null && toManage.getUserId().equals("Temp")) {
-                        // Disable guy
+                if (true || !completed) {
+                    for (DataSnapshot ds : dataSnapshot.child("account_holders").child("users")
+                            .getChildren()) {
+                        String key = ds.getKey();
+                        Log.d("Booty", "key: " + key);
+                        //toManage = dataSnapshot.getValue(User.class);
+                        toManage = dataSnapshot.child("account_holders").child("users").child(key)
+                                .getValue(User.class);
+                        Log.d("Booty", "Is toManage null: " + (toManage == null));
+                        //Log.d("Booty", toManage.toString());
+                        if (toManage != null && toManage.getUserId().equals(userIDText
+                                .getText().toString())) {
+                            toManage.setLockedOut(!status);
+                            myRef.child("account_holders").child("users").child(key)
+                                    .setValue(toManage);
+                            Toast.makeText(ManageUsersActivity.this, "User "
+                                    + (status ? "Enabled" : "Disabled"), Toast.LENGTH_SHORT)
+                                    .show();
+                            //completed = true;
+                            myRef.removeEventListener(this);
+                            return;
+                        }
                     }
-                    toManage.setLockedOut(status);
+                    Toast.makeText(ManageUsersActivity.this, "User does not exist",
+                            Toast.LENGTH_SHORT).show();
+                    myRef.removeEventListener(this);
+                    //completed = true;
                 }
             }
             @Override
