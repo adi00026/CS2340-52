@@ -7,6 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Admin;
@@ -20,6 +25,10 @@ public class AdminSettingsActivity extends AppCompatActivity {
     EditText nameEditText;
     EditText contactEditText;
 
+    FirebaseAuth mAuth;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +40,10 @@ public class AdminSettingsActivity extends AppCompatActivity {
         userIDText = (TextView) findViewById(R.id.textView_userid);
         nameEditText = (EditText) findViewById(R.id.editText_name);
         contactEditText = (EditText) findViewById(R.id.editText_contact);
+
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference();
 
         userIDText.setText("User ID: " + Model.getInstance().getCurrentUser().getUserId());
         nameEditText.setText(Model.getInstance().getCurrentUser().getName());
@@ -60,6 +73,16 @@ public class AdminSettingsActivity extends AppCompatActivity {
     }
 
     private void updatePressed() {
-
+        Admin admin = (Admin) Model.getInstance().getCurrentUser();
+        if (!(nameEditText.getText().toString().trim().equals(admin.getName())
+                && contactEditText.getText().toString().trim().equals(admin.getContactInfo()))) {
+            admin.setName(nameEditText.getText().toString().trim());
+            admin.setContactInfo(contactEditText.getText().toString().trim());
+            Model.getInstance().setCurrentUser(admin);
+            String UID = mAuth.getCurrentUser().getUid();
+            myRef.child("account_holders").child("admins").child(UID).setValue(admin);
+        }
+        Toast.makeText(AdminSettingsActivity.this, "Information updated!",
+                Toast.LENGTH_SHORT).show();
     }
 }

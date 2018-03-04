@@ -58,21 +58,14 @@ public class ManageUsersActivity extends AppCompatActivity {
         removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /**
-                 * Method 1: Search database. If not there, Toast it. If there, record UID. Then,
-                 * get username and password of User. Log in and delete account.
-                 * Then, remove node UID and all its children from database.
-                 *
-                 * Method 2: Search database. If not there, Toast it. If there, remove node UID
-                 * and all its children from database. Upon next login, alert user their account
-                 * has been deleted and delete it then.
-                 */
+                setUserDeleted(true);
             }
         });
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: Do we really need this?
+                Toast.makeText(ManageUsersActivity.this, "Is this needed?",
+                        Toast.LENGTH_SHORT).show();
             }
         });
         disableButton.setOnClickListener(new View.OnClickListener() {
@@ -130,6 +123,64 @@ public class ManageUsersActivity extends AppCompatActivity {
                                 .setValue(toManage);
                         Toast.makeText(ManageUsersActivity.this, "User "
                                 + (status ? "Enabled" : "Disabled"), Toast.LENGTH_SHORT)
+                                .show();
+                        myRef.removeEventListener(this);
+                        return;
+                    }
+                }
+                Toast.makeText(ManageUsersActivity.this, "\"" + userIDText.getText()
+                                .toString() + "\" does not exist",
+                        Toast.LENGTH_SHORT).show();
+                myRef.removeEventListener(this);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    /**
+     * Method to set a certain homeless user's account to either deleted or
+     * add.
+     *
+     * @param status what you want the User's enabled status to be.
+     */
+    private void setUserDeleted(final boolean status) {
+        /**
+         * Search database. If not found, Toast it. If found, set locked out to status.
+         */
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.child("account_holders").child("users")
+                        .getChildren()) {
+                    String key = ds.getKey();
+                    toManage = ds.getValue(User.class);
+                    if (toManage != null && toManage.getUserId().equals(userIDText
+                            .getText().toString())) {
+                        toManage.setDeleted(status);
+                        myRef.child("account_holders").child("users").child(key)
+                                .setValue(toManage);
+                        Toast.makeText(ManageUsersActivity.this, "User "
+                                + (status ? "Deleted" : "Added"), Toast.LENGTH_SHORT)
+                                .show();
+                        myRef.removeEventListener(this);
+                        return;
+                    }
+                }
+                for (DataSnapshot ds : dataSnapshot.child("account_holders")
+                        .child("shelter_employees").getChildren()) {
+                    String key = ds.getKey();
+                    toManage = ds.getValue(ShelterEmployee.class);
+                    if (toManage != null && toManage.getUserId().equals(userIDText
+                            .getText().toString())) {
+                        toManage.setDeleted(status);
+                        myRef.child("account_holders").child("shelter_employees").child(key)
+                                .setValue(toManage);
+                        Toast.makeText(ManageUsersActivity.this, "User "
+                                + (status ? "Deleted" : "Added"), Toast.LENGTH_SHORT)
                                 .show();
                         myRef.removeEventListener(this);
                         return;
