@@ -67,7 +67,6 @@ public class MainPageActivity extends AppCompatActivity {
                 if (mAuth.getCurrentUser() != null) {
                     String UID = mAuth.getCurrentUser().getUid();
                     AccountHolder currentlyLoggedIn = null;
-                    String desig = "";
                     if (dataSnapshot.child("account_holders").child("admins").child(UID)
                             .exists()) {
                         currentlyLoggedIn = dataSnapshot.child("account_holders")
@@ -83,11 +82,21 @@ public class MainPageActivity extends AppCompatActivity {
                         currentlyLoggedIn = dataSnapshot.child("account_holders").child("users")
                                 .child(UID).getValue(User.class);
                     }
-                    Model.getInstance().setCurrentUser(currentlyLoggedIn);
-                    welcomeTextview.setText(currentlyLoggedIn == null ?
-                            "No user currently logged in" : "Welcome, "
-                            + currentlyLoggedIn.getName() + "!");
-                    setUpButtons(currentlyLoggedIn);
+                    if (currentlyLoggedIn.isLockedOut()) {
+                        welcomeTextview.setText("ACCOUNT IS LOCKED");
+                        settingsButton.setEnabled(false);
+                        searchSheltersButton.setEnabled(false);
+                        manageUsersButton.setEnabled(false);
+                        updateVacanciesButton.setEnabled(false);
+                        logoutButton.setVisibility(View.VISIBLE);
+                        logoutButton.setEnabled(true);
+                    } else {
+                        Model.getInstance().setCurrentUser(currentlyLoggedIn);
+                        welcomeTextview.setText(currentlyLoggedIn == null ?
+                          "No user currently logged in" : "Welcome, "
+                          + currentlyLoggedIn.getName() + "!");
+                        setUpButtons(currentlyLoggedIn);
+                    }
                 } else {
                     welcomeTextview.setText("No current user!");
                 }
