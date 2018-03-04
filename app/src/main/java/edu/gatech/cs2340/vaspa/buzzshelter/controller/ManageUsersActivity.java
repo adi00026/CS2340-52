@@ -1,5 +1,6 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -64,8 +65,7 @@ public class ManageUsersActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ManageUsersActivity.this, "Is this needed?",
-                        Toast.LENGTH_SHORT).show();
+                addButtonClicked();
             }
         });
         disableButton.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +80,16 @@ public class ManageUsersActivity extends AppCompatActivity {
                 setUserEnabled(true);
             }
         });
+    }
+
+
+    /**
+     * Method to redirect to the add shelter page
+     */
+    private void addButtonClicked() {
+        Intent intent = new Intent(ManageUsersActivity.this,
+          AdminAddShelterActivity.class);
+        startActivity(intent);
     }
 
     /**

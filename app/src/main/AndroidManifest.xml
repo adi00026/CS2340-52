@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.gatech.cs2340.vaspa.buzzshelter">
+          package="edu.gatech.cs2340.vaspa.buzzshelter">
 
     <application
         android:allowBackup="true"
@@ -11,27 +11,31 @@
         android:theme="@style/AppTheme">
         <activity android:name=".controller.WelcomePageActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".controller.RegistrationActivity" />
-        <activity android:name=".controller.MainPageActivity" />
-        <activity android:name=".controller.UserRegistrationActivity" />
-        <activity android:name=".controller.AdminRegistrationActivity" />
-        <activity android:name=".controller.ShelterEmployeeRegistrationActivity" />
-        <activity android:name=".controller.SearchShelterActivity" />
-        <activity android:name=".controller.AdminSettingsActivity" />
-        <activity android:name=".controller.UserSettingsActivity" />
-        <activity android:name=".controller.ShelterEmployeeSettingsActivity" />
-        <activity android:name=".controller.UpdateVacanciesActivity" />
-        <activity android:name=".controller.ManageUsersActivity" />
+        <activity android:name=".controller.RegistrationActivity"/>
+        <activity android:name=".controller.MainPageActivity"/>
+        <activity android:name=".controller.UserRegistrationActivity"/>
+        <activity android:name=".controller.AdminRegistrationActivity"/>
+        <activity android:name=".controller.ShelterEmployeeRegistrationActivity"/>
+        <activity android:name=".controller.SearchShelterActivity"/>
+        <activity android:name=".controller.AdminSettingsActivity"/>
+        <activity android:name=".controller.UserSettingsActivity"/>
+        <activity android:name=".controller.ShelterEmployeeSettingsActivity"/>
+        <activity android:name=".controller.UpdateVacanciesActivity"/>
+        <activity android:name=".controller.ManageUsersActivity"/>
         <activity
             android:name=".controller.ViewAvailableSheltersActivity"
             android:label="@string/title_activity_view_available_shelters"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".controller.ChangePasswordActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".controller.ChangePasswordActivity"/>
+        <activity android:name=".controller.AdminAddShelterActivity">
+        </activity>
+        <activity android:name=".controller.AdditionalShelterInfoActivity">
+        </activity>
     </application>
 
 </manifest>
