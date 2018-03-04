@@ -11,10 +11,16 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Arrays;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
+import edu.gatech.cs2340.vaspa.buzzshelter.model.Admin;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
@@ -29,6 +35,10 @@ public class UserSettingsActivity extends AppCompatActivity {
     Spinner genderSpinner;
     CheckBox vetStatusCheckbox;
 
+    FirebaseAuth mAuth;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +52,10 @@ public class UserSettingsActivity extends AppCompatActivity {
         contactEditText = (EditText) findViewById(R.id.editText_contact);
         genderSpinner = (Spinner) findViewById(R.id.spinner_gender);
         vetStatusCheckbox = (CheckBox) findViewById(R.id.checkBox_vets);
+
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference();
 
         userIDText.setText("User ID: " + Model.getInstance().getCurrentUser().getUserId());
         nameEditText.setText(Model.getInstance().getCurrentUser().getName());
@@ -94,6 +108,22 @@ public class UserSettingsActivity extends AppCompatActivity {
     }
 
     private void updatePressed() {
-
+        User user = (User) Model.getInstance().getCurrentUser();
+        String name = nameEditText.getText().toString().trim();
+        String contactInfo = contactEditText.getText().toString().trim();
+        String gender = genderSpinner.getSelectedItem().toString().trim();
+        boolean isVeteran = vetStatusCheckbox.isChecked();
+        if (!(user.getName().equals(name) && user.getContactInfo().equals(contactInfo)
+                && user.getGender().equals(gender) && user.isVeteran() == isVeteran)) {
+            user.setName(name);
+            user.setContactInfo(contactInfo);
+            user.setGender(gender);
+            user.setVeteran(isVeteran);
+            Model.getInstance().setCurrentUser(user);
+            String UID = mAuth.getCurrentUser().getUid();
+            myRef.child("account_holders").child("users").child(UID).setValue(user);
+        }
+        Toast.makeText(UserSettingsActivity.this, "Information updated!",
+                Toast.LENGTH_SHORT).show();
     }
 }
