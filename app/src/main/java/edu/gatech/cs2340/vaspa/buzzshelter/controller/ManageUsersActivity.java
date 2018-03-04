@@ -21,6 +21,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.AccountHolder;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Admin;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
+import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 
@@ -37,8 +38,6 @@ public class ManageUsersActivity extends AppCompatActivity {
     DatabaseReference myRef;
 
     private AccountHolder toManage;
-
-    private boolean completed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,41 +102,48 @@ public class ManageUsersActivity extends AppCompatActivity {
      * @param status what you want the User's enabled status to be.
      */
     private void setUserEnabled(final boolean status) {
-        completed = false;
         /**
          * Search database. If not found, Toast it. If found, set locked out to status.
          */
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (true || !completed) {
-                    for (DataSnapshot ds : dataSnapshot.child("account_holders").child("users")
-                            .getChildren()) {
-                        String key = ds.getKey();
-                        Log.d("Booty", "key: " + key);
-                        //toManage = dataSnapshot.getValue(User.class);
-                        toManage = dataSnapshot.child("account_holders").child("users").child(key)
-                                .getValue(User.class);
-                        Log.d("Booty", "Is toManage null: " + (toManage == null));
-                        //Log.d("Booty", toManage.toString());
-                        if (toManage != null && toManage.getUserId().equals(userIDText
-                                .getText().toString())) {
-                            toManage.setLockedOut(!status);
-                            myRef.child("account_holders").child("users").child(key)
-                                    .setValue(toManage);
-                            Toast.makeText(ManageUsersActivity.this, "User "
-                                    + (status ? "Enabled" : "Disabled"), Toast.LENGTH_SHORT)
-                                    .show();
-                            //completed = true;
-                            myRef.removeEventListener(this);
-                            return;
-                        }
+                for (DataSnapshot ds : dataSnapshot.child("account_holders").child("users")
+                        .getChildren()) {
+                    String key = ds.getKey();
+                    toManage = ds.getValue(User.class);
+                    if (toManage != null && toManage.getUserId().equals(userIDText
+                            .getText().toString())) {
+                        toManage.setLockedOut(!status);
+                        myRef.child("account_holders").child("users").child(key)
+                                .setValue(toManage);
+                        Toast.makeText(ManageUsersActivity.this, "User "
+                                + (status ? "Enabled" : "Disabled"), Toast.LENGTH_SHORT)
+                                .show();
+                        myRef.removeEventListener(this);
+                        return;
                     }
-                    Toast.makeText(ManageUsersActivity.this, "User does not exist",
-                            Toast.LENGTH_SHORT).show();
-                    myRef.removeEventListener(this);
-                    //completed = true;
                 }
+                for (DataSnapshot ds : dataSnapshot.child("account_holders")
+                        .child("shelter_employees").getChildren()) {
+                    String key = ds.getKey();
+                    toManage = ds.getValue(ShelterEmployee.class);
+                    if (toManage != null && toManage.getUserId().equals(userIDText
+                            .getText().toString())) {
+                        toManage.setLockedOut(!status);
+                        myRef.child("account_holders").child("shelter_employees").child(key)
+                                .setValue(toManage);
+                        Toast.makeText(ManageUsersActivity.this, "User "
+                                + (status ? "Enabled" : "Disabled"), Toast.LENGTH_SHORT)
+                                .show();
+                        myRef.removeEventListener(this);
+                        return;
+                    }
+                }
+                Toast.makeText(ManageUsersActivity.this, "\"" + userIDText.getText()
+                                .toString() + "\" does not exist",
+                        Toast.LENGTH_SHORT).show();
+                myRef.removeEventListener(this);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
