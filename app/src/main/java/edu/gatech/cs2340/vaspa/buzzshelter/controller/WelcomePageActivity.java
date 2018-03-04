@@ -5,11 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Patterns;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,9 +16,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
+import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 
 public class WelcomePageActivity extends AppCompatActivity {
     private Model model;
@@ -31,6 +36,8 @@ public class WelcomePageActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
 
     private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
 
     private static final String TAG = "WELCOME PAGE ACTIVITY";
 
@@ -44,6 +51,8 @@ public class WelcomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         mAuth = FirebaseAuth.getInstance();
+        database  = FirebaseDatabase.getInstance();
+        myRef = database.getReference();
 
         setContentView(R.layout.activity_welcome_page);
 
@@ -97,14 +106,55 @@ public class WelcomePageActivity extends AppCompatActivity {
         progressDialog.show();
         String email = usernameEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
-
         if (email.isEmpty() || password.isEmpty()) {
             return;
         }
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            email += "@temp.com";
+
+        final String uid = email;  // Done because inner classes need final variables
+
+        final int loginAttempts = model.incrementLoginAttempts(uid);
+        Log.d(TAG, uid + ": " + loginAttempts);
+        if (loginAttempts == 4) {
+            // implies this uids login attempts have exceeded 3 for the first time
+            // TODO update on firebase
+            // - PROBLEM NEED UID TO UPDATE INFO / LOCKED OUT SETTINGS
+            Log.d(TAG, "About to wreck: " + uid);
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Log.d(TAG, "About to wreck in dataChange: " + uid);
+                    for (DataSnapshot ds : dataSnapshot.child("account_holders").child("users")
+                      .getChildren()) {
+                        String key = ds.getKey();
+                        Log.d(TAG, "ID: " + key);
+                        User user = ds.getValue(User.class);
+                        Log.d(TAG, "User: " + user.toString());
+                        if (user.getUserId().equals(uid)) {
+                            user.setLockedOut(true);
+                            // sets locked out to true
+                            // adds user to database with locked out value to true
+                            myRef.child("account_holders").child("users").child(key).setValue(user);
+                            Toast.makeText(WelcomePageActivity.this, "Locked out. Too many attempts",
+                              Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    myRef.removeEventListener(this);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        } else if (loginAttempts > 4) {
+            Toast.makeText(WelcomePageActivity.this, "Locked out. Too many attempts",
+              Toast.LENGTH_SHORT).show();
+            progressDialog.hide();
+            loginButton.setEnabled(true);
+            return;
         }
-        mAuth.signInWithEmailAndPassword(email, password)
+
+        mAuth.signInWithEmailAndPassword(uid, password)
           .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
               @Override
               public void onComplete(@NonNull Task<AuthResult> task) {
@@ -115,6 +165,7 @@ public class WelcomePageActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
                       Intent intent = new Intent(WelcomePageActivity.this,
                         MainPageActivity.class);
+                      model.clearLoginAttempts(uid);
                       startActivity(intent);
                   } else {
                       // If sign in fails, display a message to the user.

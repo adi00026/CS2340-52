@@ -1,10 +1,6 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.model;
 
-import android.accounts.Account;
-import android.util.Log;
-
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,6 +17,7 @@ public class Model {
 
     private HashMap<String, Shelter> shelters;
     private AccountHolder currentUser;
+    private HashMap<String, Integer> loginAttempts;
 
     /**
      * returns the static instance of the model to use in the controller
@@ -110,9 +107,34 @@ public class Model {
     }
 
     /**
+     * Function that clears the number of login attempts the user has made
+     *
+     * @param uid The UID of the user that has successfully logged in
+     */
+    public void clearLoginAttempts(String uid) {
+        loginAttempts.remove(uid);
+    }
+
+    /**
+     * Function that updates number of login attempts associated with uid
+     *
+     * @param uid The UID of the user that has attempted to login
+     * @return the number of login attempts associated with the uid
+     */
+    public int incrementLoginAttempts(String uid) {
+        if (loginAttempts.containsKey(uid)) {
+            loginAttempts.put(uid, loginAttempts.get(uid) + 1);
+        } else {
+            loginAttempts.put(uid, 1);
+        }
+        return loginAttempts.get(uid);
+    }
+
+    /**
      * make a new model
      */
     private Model() {
         // empty for now
+        loginAttempts = new HashMap<>();
     }
 }
