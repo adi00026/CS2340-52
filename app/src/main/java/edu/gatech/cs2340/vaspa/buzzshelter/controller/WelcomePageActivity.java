@@ -190,7 +190,7 @@ public class WelcomePageActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
                       Intent intent = new Intent(WelcomePageActivity.this,
                         MainPageActivity.class);
-
+                      intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                       // Clears login attempts on successful login
                       model.clearLoginAttempts(uid);
                       // Updates logs
