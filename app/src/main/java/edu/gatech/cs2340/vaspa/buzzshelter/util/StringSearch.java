@@ -127,4 +127,27 @@ public class StringSearch {
         }
         return failureTable;
     }
+
+    /**
+     * Method to parse the capacity string from the csv. If the entry is empty,
+     * -1 is returned. Else the sum of all numbers in the string are returned.
+     *
+     * @param bullshitCapacity is the BS string from CSV
+     * @returns an int that is (hopefully) the capacity
+     */
+    public int parseCapacity(String bullshitCapacity) {
+        // If bullshitCapacity is empty...
+        if (bullshitCapacity.trim().equals("")) {
+            return 1000;
+        }
+        // If bullshitCapacity is not empty...
+        String[] split = bullshitCapacity.split(" ");
+        int capacity = 0;
+        for (String s : split) {
+            try {
+                capacity += Integer.parseInt(s.trim());
+            } catch (NumberFormatException e) {}
+        }
+        return capacity;
+    }
 }

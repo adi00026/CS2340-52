@@ -107,7 +107,13 @@ public class SearchShelterActivity extends AppCompatActivity {
                 shelterSpinner.setAdapter(shelterAdapter);
             }
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {}
+            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+                Shelter shelter = dataSnapshot.getValue(Shelter.class);
+                sheltersMap.put(shelter.getUniqueKey(), shelter);
+                shelterAdapter.add(filter(shelter.getName()));
+                // Maybe move the line below outside the listener?
+                shelterSpinner.setAdapter(shelterAdapter);
+            }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {}
