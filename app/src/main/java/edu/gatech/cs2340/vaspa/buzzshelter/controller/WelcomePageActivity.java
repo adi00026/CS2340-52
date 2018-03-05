@@ -130,6 +130,7 @@ public class WelcomePageActivity extends AppCompatActivity {
                       .getChildren()) {
                         String key = ds.getKey();
                         // TODO update that user was locked out
+//                        myRef.child("logging").child(uid).
                         User user = ds.getValue(User.class);
                         if (user.getUserId().equals(uid)) {
                             done = true;
@@ -137,6 +138,14 @@ public class WelcomePageActivity extends AppCompatActivity {
                             // sets locked out to true
                             // adds user to database with locked out value to true
                             myRef.child("account_holders").child("users").child(key).setValue(user);
+
+                            // updates logs saying user was locked out
+                            final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+                              format(Calendar.getInstance().getTime()); // Current date and time
+                            String log = date + ", " + uid + ", locked out";
+                            myRef.child("logging").child(uid.replace('.', ','))
+                              .setValue(log);
+
                             Toast.makeText(WelcomePageActivity.this, "Locked out. Too many attempts",
                               Toast.LENGTH_SHORT).show();
                         }
@@ -152,6 +161,14 @@ public class WelcomePageActivity extends AppCompatActivity {
                                 // sets locked out to true
                                 // adds user to database with locked out value to true
                                 myRef.child("account_holders").child("shelter_employees").child(key).setValue(user);
+
+                                // updates logs saying user was locked out
+                                final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+                                  format(Calendar.getInstance().getTime()); // Current date and time
+                                String log = date + ", " + uid + ", locked out";
+                                myRef.child("logging").child(uid.replace('.', ','))
+                                  .setValue(log);
+
                                 Toast.makeText(WelcomePageActivity.this, "Locked out. Too many attempts",
                                   Toast.LENGTH_SHORT).show();
                             }
