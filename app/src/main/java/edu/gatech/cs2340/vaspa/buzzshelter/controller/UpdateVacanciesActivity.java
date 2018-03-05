@@ -8,13 +8,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
-import edu.gatech.cs2340.vaspa.buzzshelter.R;
-import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
-import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,11 +15,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
-import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 
 public class UpdateVacanciesActivity extends AppCompatActivity {
     Button backButton;
@@ -108,7 +103,7 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
               Toast.LENGTH_SHORT).show();
         }
 
-        // TODO setup actual updating of logs
+        // TODO setup actual updating of vacancies
 
         // TODO remove once updating of vacancies is implemented
         if (false) {

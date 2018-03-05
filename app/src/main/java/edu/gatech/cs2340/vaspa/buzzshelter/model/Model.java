@@ -158,4 +158,11 @@ public class Model {
     public String getLogs() {
         return logs;
     }
+
+    /**
+     * Clears logs
+     */
+    public void clearLog() {
+        logs = "";
+    }
 }
