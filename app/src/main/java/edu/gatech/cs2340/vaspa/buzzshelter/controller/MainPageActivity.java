@@ -64,6 +64,9 @@ public class MainPageActivity extends AppCompatActivity {
 
         setUpButtons(Model.getInstance().getCurrentUser());
 
+        final String password = getIntent().getStringExtra("password");
+        // gets it in case password changed as a result of recovery
+
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -72,16 +75,22 @@ public class MainPageActivity extends AppCompatActivity {
                     AccountHolder currentlyLoggedIn = null;
                     if (dataSnapshot.child("account_holders").child("admins").child(UID)
                             .exists()) {
+                        myRef.child("account_holders").child("admins").child(UID)
+                          .child("password").setValue(password);
                         currentlyLoggedIn = dataSnapshot.child("account_holders")
                                 .child("admins").child(UID).getValue(Admin.class);
                     }
                     if (dataSnapshot.child("account_holders").child("shelter_employees")
                             .child(UID).exists()) {
+                        myRef.child("account_holders").child("shelter_employees").child(UID)
+                          .child("password").setValue(password);
                         currentlyLoggedIn = dataSnapshot.child("account_holders")
                                 .child("shelter_employees").child(UID)
                                 .getValue(ShelterEmployee.class);
                     }
                     if (dataSnapshot.child("account_holders").child("users").child(UID).exists()) {
+                        myRef.child("account_holders").child("users").child(UID)
+                          .child("password").setValue(password);
                         currentlyLoggedIn = dataSnapshot.child("account_holders").child("users")
                                 .child(UID).getValue(User.class);
                     }

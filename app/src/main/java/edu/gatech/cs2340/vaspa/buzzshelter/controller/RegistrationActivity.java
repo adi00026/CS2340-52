@@ -3,6 +3,7 @@ package edu.gatech.cs2340.vaspa.buzzshelter.controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -77,6 +78,12 @@ public class RegistrationActivity extends AppCompatActivity {
         String username = usernameBox.getText().toString().trim();
         String password = passwordBox.getText().toString().trim();
         String contactInfo = contactInfoBox.getText().toString().trim();
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(username).matches()) {
+            Toast.makeText(RegistrationActivity.this, "Please enter a valid email",
+              Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         // checks for password text equality
 
