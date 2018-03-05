@@ -146,7 +146,7 @@ public class Model {
      *
      * @param update is the update to be made to the log
      */
-    private void updateLogs(String update) {
+    public void updateLogs(String update) {
         logs += update + "\n";
     }
 
@@ -155,7 +155,7 @@ public class Model {
      *
      * @return the logs
      */
-    private String getLogs() {
+    public String getLogs() {
         return logs;
     }
 }

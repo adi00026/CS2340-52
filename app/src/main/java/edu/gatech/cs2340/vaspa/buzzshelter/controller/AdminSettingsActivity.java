@@ -13,6 +13,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Admin;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
@@ -81,6 +84,10 @@ public class AdminSettingsActivity extends AppCompatActivity {
             Model.getInstance().setCurrentUser(admin);
             String UID = mAuth.getCurrentUser().getUid();
             myRef.child("account_holders").child("admins").child(UID).setValue(admin);
+            final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+              format(Calendar.getInstance().getTime()); // Current date and time
+            String log = date + ", " + "ADMIN: " + admin.getUserId() + ", updated settings";
+            Model.getInstance().updateLogs(log);
         }
         Toast.makeText(AdminSettingsActivity.this, "Information updated!",
                 Toast.LENGTH_SHORT).show();
