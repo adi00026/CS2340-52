@@ -1,8 +1,7 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.controller;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,11 +15,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
-import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 
 public class UpdateVacanciesActivity extends AppCompatActivity {
     Button backButton;
@@ -80,6 +81,38 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
     }
 
     private void updatePressed() {
+        ShelterEmployee currentUser = (ShelterEmployee) Model.getInstance().getCurrentUser();
+        String uKey = shelterText.getText().toString().trim();
+        int vacancies;
+        try {
+            String vacancyText = vacanciesEditText.getText().toString().trim();
+            vacancies = Integer.parseInt(vacancyText);
+        } catch (NumberFormatException e) {
+            Toast.makeText(UpdateVacanciesActivity.this, "Vacancies must be a number",
+              Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (vacancies < 0) {
+            Toast.makeText(UpdateVacanciesActivity.this, "Vacancies must be non-negative",
+              Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (uKey.length() == 0) {
+            Toast.makeText(UpdateVacanciesActivity.this, "Enter a unique key",
+              Toast.LENGTH_SHORT).show();
+        }
+
+        // TODO setup actual updating of vacancies
+
+        // TODO remove once updating of vacancies is implemented
+        if (false) {
+            final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+              format(Calendar.getInstance().getTime()); // Current date and time
+            String log = date + ", " + "SHELTER EMPLOYEE: " + currentUser.getUserId() + ", " +
+              "updated vacancies for: " + uKey;
+            Model.getInstance().updateLogs(log);
+        }
         final int newVacancies;
         try {
             newVacancies = Integer.parseInt(vacanciesEditText.getText().toString());

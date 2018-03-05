@@ -13,6 +13,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
@@ -82,6 +85,11 @@ public class ShelterEmployeeSettingsActivity extends AppCompatActivity {
             final DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
             myRef.child("account_holders").child("shelter_employees").child(uid).setValue(newEmployee);
             Model.getInstance().setCurrentUser(newEmployee);
+            final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+              format(Calendar.getInstance().getTime()); // Current date and time
+            String log = date + ", " + "SHELTER EMPLOYEE: " + shelterEmployee.getUserId() + ", "
+              + "updated settings";
+            Model.getInstance().updateLogs(log);
         } else {
             Toast.makeText(ShelterEmployeeSettingsActivity.this,
               "No attributes are different", Toast.LENGTH_SHORT).show();
