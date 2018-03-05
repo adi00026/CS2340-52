@@ -111,12 +111,12 @@ public class MainPageActivity extends AppCompatActivity {
                         logoutButton.setVisibility(View.VISIBLE);
                         logoutButton.setEnabled(true);
                     } else {
-                        Model.getInstance().setCurrentUser(currentlyLoggedIn);
                         welcomeTextview.setText(currentlyLoggedIn == null ?
                           "No user currently logged in" : "Welcome, "
                           + currentlyLoggedIn.getName() + "!");
                         setUpButtons(currentlyLoggedIn);
                     }
+                    Model.getInstance().setCurrentUser(currentlyLoggedIn);
                 } else {
                     welcomeTextview.setText("No current user!");
                 }
