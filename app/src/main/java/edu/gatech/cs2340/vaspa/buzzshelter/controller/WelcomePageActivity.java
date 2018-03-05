@@ -34,6 +34,7 @@ public class WelcomePageActivity extends AppCompatActivity {
     private Button loginButton;
     private Button cancelButton;
     private Button registrationButton;
+    private Button forgotPass;
     private EditText usernameEditText;
     private EditText passwordEditText;
     private ProgressDialog progressDialog;
@@ -64,6 +65,7 @@ public class WelcomePageActivity extends AppCompatActivity {
         loginButton = (Button) findViewById(R.id.button_login);
         cancelButton = (Button) findViewById(R.id.button_cancel);
         registrationButton = (Button) findViewById(R.id.button_registration);
+        forgotPass = (Button) findViewById(R.id.button_password_forgot);
         usernameEditText = (EditText) findViewById(R.id.editText_username);
         passwordEditText = (EditText) findViewById(R.id.editText_password);
         progressDialog = new ProgressDialog(this);
@@ -86,6 +88,12 @@ public class WelcomePageActivity extends AppCompatActivity {
                 Intent intent = new Intent(WelcomePageActivity.this,
                         RegistrationActivity.class);
                 startActivity(intent);
+            }
+        });
+        forgotPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                forgotPassClicked();
             }
         });
         try {
@@ -129,8 +137,6 @@ public class WelcomePageActivity extends AppCompatActivity {
                     for (DataSnapshot ds : dataSnapshot.child("account_holders").child("users")
                       .getChildren()) {
                         String key = ds.getKey();
-                        // TODO update that user was locked out
-//                        myRef.child("logging").child(uid).
                         User user = ds.getValue(User.class);
                         if (user.getUserId().equals(uid)) {
                             done = true;
@@ -156,7 +162,6 @@ public class WelcomePageActivity extends AppCompatActivity {
                     if (!done) {
                         for (DataSnapshot ds : dataSnapshot.child("account_holders").child("shelter_employees")
                           .getChildren()) {
-                            // TODO update that user was locked out
                             String key = ds.getKey();
                             ShelterEmployee user = ds.getValue(ShelterEmployee.class);
                             if (user.getUserId().equals(uid)) {
@@ -238,5 +243,16 @@ public class WelcomePageActivity extends AppCompatActivity {
         passwordEditText.setText("");
         Toast.makeText(getApplicationContext(), "Login Canceled!",
                 Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Method called when forgotPass button is clicked.
+     * Will redirect to a new page.
+     */
+    private void forgotPassClicked() {
+        Intent nextIntent = new Intent(WelcomePageActivity.this,
+          ForgotPasswordActivity.class);
+        nextIntent.putExtra("username", usernameEditText.getText().toString().trim());
+        startActivity(nextIntent);
     }
 }

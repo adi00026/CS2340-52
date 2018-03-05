@@ -36,6 +36,8 @@
         </activity>
         <activity android:name=".controller.AdditionalShelterInfoActivity">
         </activity>
+        <activity android:name=".controller.ForgotPasswordActivity">
+        </activity>
     </application>
 
 </manifest>
