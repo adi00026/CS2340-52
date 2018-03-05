@@ -36,6 +36,8 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
 
     Shelter selectedShelter;
 
+    String infoString;
+
     private Model model;
 
     @Override
@@ -67,6 +69,9 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
         try {
             if (getIntent().getExtras().containsKey("shelter")) {
                 Shelter sh = (Shelter) getIntent().getExtras().getParcelable("shelter");
+                infoString = sh.getName() + "\n" + sh.getAddress() + "\n" +
+                        "Capacity: " + sh.getCapacity() + "\n"
+                        + "Vacancies: ";
                 shelterInfoTextView.setText(sh.getName() + "\n" + sh.getAddress() + "\n" +
                         "Capacity: " + sh.getCapacity() + "\n"
                         + "Vacancies: " + sh.getVacancies());
@@ -116,6 +121,9 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
                 Model.getInstance().setCurrentUser(user);
                 checkOutButton.setEnabled(false);
                 checkInButton.setEnabled(true);
+                shelterInfoTextView.setText(infoString + (size + 1));
+                Toast.makeText(ViewAvailableSheltersActivity.this,
+                        "Check-out successful!", Toast.LENGTH_SHORT).show();
                 myRef.removeEventListener(this);
             }
             @Override
@@ -130,16 +138,25 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
                 User user = dataSnapshot.child("account_holders").child("users")
                         .child(mAuth.getCurrentUser().getUid()).getValue(User.class);
                 String currentID = user.getShelterID();
-                user.setShelterID(selectedShelter.getUniqueKey());
-                myRef.child("account_holders").child("users")
-                        .child(mAuth.getCurrentUser().getUid()).setValue(user);
                 int size = dataSnapshot.child("shelters").child(selectedShelter.getUniqueKey())
                         .child("vacancies").getValue(Integer.class);
-                myRef.child("shelters").child(selectedShelter.getUniqueKey()).child("vacancies")
-                        .setValue(size - 1);
-                Model.getInstance().setCurrentUser(user);
-                checkOutButton.setEnabled(true);
-                checkInButton.setEnabled(false);
+                if (size > 0) {
+                    myRef.child("shelters").child(selectedShelter.getUniqueKey()).child("vacancies")
+                            .setValue(size - 1);
+                    user.setShelterID(selectedShelter.getUniqueKey());
+                    myRef.child("account_holders").child("users")
+                            .child(mAuth.getCurrentUser().getUid()).setValue(user);
+                    Model.getInstance().setCurrentUser(user);
+                    checkOutButton.setEnabled(true);
+                    checkInButton.setEnabled(false);
+                    shelterInfoTextView.setText(infoString + (size - 1));
+                    Toast.makeText(ViewAvailableSheltersActivity.this,
+                            "Check-in successful!", Toast.LENGTH_SHORT).show();
+                } else {
+                    shelterInfoTextView.setText(infoString + (size));
+                    Toast.makeText(ViewAvailableSheltersActivity.this,
+                            "Sorry, this shelter is full!", Toast.LENGTH_SHORT).show();
+                }
                 myRef.removeEventListener(this);
             }
             @Override
