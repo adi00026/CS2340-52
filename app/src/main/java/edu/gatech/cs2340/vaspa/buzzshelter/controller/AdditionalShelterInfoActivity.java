@@ -13,7 +13,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
+import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
 
 public class AdditionalShelterInfoActivity extends AppCompatActivity {
@@ -92,6 +96,12 @@ public class AdditionalShelterInfoActivity extends AppCompatActivity {
                     myRef.child("shelters").child(id).setValue(newShelter);
                     Toast.makeText(AdditionalShelterInfoActivity.this,
                       "Shelter added", Toast.LENGTH_SHORT).show();
+                    final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+                      format(Calendar.getInstance().getTime()); // Current date and time
+                    String log = date + ", " + "ADMIN: " + Model.getInstance().getCurrentUser()
+                      .getUserId() + ", " + "added new shelter: " + newShelter.getUniqueKey();
+                    Model.getInstance().updateLogs(log);
+                    myRef.removeEventListener(this);
                 }
             }
 

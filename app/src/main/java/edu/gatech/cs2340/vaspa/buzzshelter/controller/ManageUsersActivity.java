@@ -15,8 +15,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.AccountHolder;
+import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 
@@ -118,6 +122,11 @@ public class ManageUsersActivity extends AppCompatActivity {
                         Toast.makeText(ManageUsersActivity.this, "User "
                                 + (status ? "Enabled" : "Disabled"), Toast.LENGTH_SHORT)
                                 .show();
+                        final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+                          format(Calendar.getInstance().getTime()); // Current date and time
+                        String log = date + ", " + "ADMIN: " + Model.getInstance().getCurrentUser()
+                          .getUserId() + ", " + (status ? "Enabled " : "Disabled ") + toManage.getUserId();
+                        Model.getInstance().updateLogs(log);
                         myRef.removeEventListener(this);
                         return;
                     }
@@ -134,6 +143,11 @@ public class ManageUsersActivity extends AppCompatActivity {
                         Toast.makeText(ManageUsersActivity.this, "User "
                                 + (status ? "Enabled" : "Disabled"), Toast.LENGTH_SHORT)
                                 .show();
+                        final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+                          format(Calendar.getInstance().getTime()); // Current date and time
+                        String log = date + ", " + "ADMIN: " + Model.getInstance().getCurrentUser()
+                          .getUserId() + ", " + (status ? "Enabled " : "Disabled ") + toManage.getUserId();
+                        Model.getInstance().updateLogs(log);
                         myRef.removeEventListener(this);
                         return;
                     }
@@ -176,6 +190,11 @@ public class ManageUsersActivity extends AppCompatActivity {
                         Toast.makeText(ManageUsersActivity.this, "User "
                                 + (status ? "Deleted" : "Added"), Toast.LENGTH_SHORT)
                                 .show();
+                        final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+                          format(Calendar.getInstance().getTime()); // Current date and time
+                        String log = date + ", " + "ADMIN: " + Model.getInstance().getCurrentUser()
+                          .getUserId() + ", " + (status ? "Deleted " : "Added ") + toManage.getUserId();
+                        Model.getInstance().updateLogs(log);
                         myRef.removeEventListener(this);
                         return;
                     }
@@ -192,6 +211,11 @@ public class ManageUsersActivity extends AppCompatActivity {
                         Toast.makeText(ManageUsersActivity.this, "User "
                                 + (status ? "Deleted" : "Added"), Toast.LENGTH_SHORT)
                                 .show();
+                        final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+                          format(Calendar.getInstance().getTime()); // Current date and time
+                        String log = date + ", " + "ADMIN: " + Model.getInstance().getCurrentUser()
+                          .getUserId() + ", " + (status ? "Deleted " : "Added ") + toManage.getUserId();
+                        Model.getInstance().updateLogs(log);
                         myRef.removeEventListener(this);
                         return;
                     }

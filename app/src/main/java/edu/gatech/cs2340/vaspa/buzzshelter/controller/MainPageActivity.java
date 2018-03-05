@@ -16,6 +16,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.AccountHolder;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Admin;
@@ -90,6 +93,14 @@ public class MainPageActivity extends AppCompatActivity {
                         updateVacanciesButton.setEnabled(false);
                         logoutButton.setVisibility(View.VISIBLE);
                         logoutButton.setEnabled(true);
+                    } else if (currentlyLoggedIn.isDeleted()) {
+                        welcomeTextview.setText("ACCOUNT IS DELETED");
+                        settingsButton.setEnabled(false);
+                        searchSheltersButton.setEnabled(false);
+                        manageUsersButton.setEnabled(false);
+                        updateVacanciesButton.setEnabled(false);
+                        logoutButton.setVisibility(View.VISIBLE);
+                        logoutButton.setEnabled(true);
                     } else {
                         Model.getInstance().setCurrentUser(currentlyLoggedIn);
                         welcomeTextview.setText(currentlyLoggedIn == null ?
@@ -114,6 +125,39 @@ public class MainPageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainPageActivity.this,
                         WelcomePageActivity.class);
+                final AccountHolder currUser = Model.getInstance().getCurrentUser();
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // done because .'s cannot be withing filepath
+                        String path = currUser.getUserId().replace(".", ",");
+                        final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+                          format(Calendar.getInstance().getTime()); // Current date and time
+                        String log = date + ", " + currUser.getUserId() + ", "
+                          + "logged out";
+                        Model.getInstance().updateLogs(log);
+                        if (dataSnapshot.child("logging").child(path).exists()) {
+                            // gets earlier logs
+                            String prevLog = dataSnapshot.child("logging")
+                              .child(path).getValue(String.class);
+                            // appends latest logs to earlier logs
+                            prevLog += Model.getInstance().getLogs();
+                            myRef.child("logging").child(path).setValue(prevLog);
+                        } else {
+                            // as no logs are available, the current logs are put up
+                            myRef.child("logging").child(path)
+                              .setValue(Model.getInstance().getLogs());
+                        }
+                        progressDialog.dismiss();
+                        Model.getInstance().clearLog();
+                        myRef.removeEventListener(this);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
                 mAuth.signOut();
                 Model.getInstance().setCurrentUser(null);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
