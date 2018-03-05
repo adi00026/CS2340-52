@@ -2,17 +2,15 @@ package edu.gatech.cs2340.vaspa.buzzshelter.controller;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -27,13 +25,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.time.Year;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
-import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 
 public class UserRegistrationActivity extends AppCompatActivity {
@@ -129,7 +127,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         dob.add(year);
         String gender = genderSpinner.getSelectedItem().toString();
         boolean isVeteran = vetCheckbox.isChecked();
-        String username = getIntent().getExtras().getString("username");
+        final String username = getIntent().getExtras().getString("username");
         String password = getIntent().getExtras().getString("password");
         String contactInfo = getIntent().getExtras().getString("contactInfo");
         String name = getIntent().getExtras().getString("name");
@@ -158,8 +156,17 @@ public class UserRegistrationActivity extends AppCompatActivity {
                     // Add to DB
                     myRef.child("account_holders").child("users").child(UID).setValue(user);
 
+                    // Logging creation of new account holder
+                    String uid = user.getUserId();
+                    uid = uid.replace('.', ',');
+                    final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+                      format(Calendar.getInstance().getTime()); // Current date and time
+                    String log = date + ", " + user.getUserId() + ", " + "created account";
+                    myRef.child("logging").child(uid).setValue(log);
+
                     Intent intent = new Intent(UserRegistrationActivity.this,
                             WelcomePageActivity.class);
+                    progressDialog.dismiss();
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent.putExtra("username", user.getUserId());
                     intent.putExtra("password", user.getPassword());
