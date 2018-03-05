@@ -123,45 +123,7 @@ public class MainPageActivity extends AppCompatActivity {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainPageActivity.this,
-                        WelcomePageActivity.class);
-                final AccountHolder currUser = Model.getInstance().getCurrentUser();
-                myRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        // done because .'s cannot be withing filepath
-                        String path = currUser.getUserId().replace(".", ",");
-                        final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
-                          format(Calendar.getInstance().getTime()); // Current date and time
-                        String log = date + ", " + currUser.getUserId() + ", "
-                          + "logged out";
-                        Model.getInstance().updateLogs(log);
-                        if (dataSnapshot.child("logging").child(path).exists()) {
-                            // gets earlier logs
-                            String prevLog = dataSnapshot.child("logging")
-                              .child(path).getValue(String.class);
-                            // appends latest logs to earlier logs
-                            prevLog += Model.getInstance().getLogs();
-                            myRef.child("logging").child(path).setValue(prevLog);
-                        } else {
-                            // as no logs are available, the current logs are put up
-                            myRef.child("logging").child(path)
-                              .setValue(Model.getInstance().getLogs());
-                        }
-                        progressDialog.dismiss();
-                        Model.getInstance().clearLog();
-                        myRef.removeEventListener(this);
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-                mAuth.signOut();
-                Model.getInstance().setCurrentUser(null);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                logoutPressed();
             }
         });
 
@@ -192,6 +154,53 @@ public class MainPageActivity extends AppCompatActivity {
                 manageUsersPressed();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        logoutPressed();
+    }
+
+    private void logoutPressed() {
+        Intent intent = new Intent(MainPageActivity.this,
+                WelcomePageActivity.class);
+        final AccountHolder currUser = Model.getInstance().getCurrentUser();
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // done because .'s cannot be withing filepath
+                String path = currUser.getUserId().replace(".", ",");
+                final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+                        format(Calendar.getInstance().getTime()); // Current date and time
+                String log = date + ", " + currUser.getUserId() + ", "
+                        + "logged out";
+                Model.getInstance().updateLogs(log);
+                if (dataSnapshot.child("logging").child(path).exists()) {
+                    // gets earlier logs
+                    String prevLog = dataSnapshot.child("logging")
+                            .child(path).getValue(String.class);
+                    // appends latest logs to earlier logs
+                    prevLog += Model.getInstance().getLogs();
+                    myRef.child("logging").child(path).setValue(prevLog);
+                } else {
+                    // as no logs are available, the current logs are put up
+                    myRef.child("logging").child(path)
+                            .setValue(Model.getInstance().getLogs());
+                }
+                progressDialog.dismiss();
+                Model.getInstance().clearLog();
+                myRef.removeEventListener(this);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        mAuth.signOut();
+        Model.getInstance().setCurrentUser(null);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     private void settingsPressed() {

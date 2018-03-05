@@ -87,7 +87,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                         Model.getInstance().getCurrentUser().getPassword());
         user.reauthenticate(credential)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override   
+                    @Override
                     public void onComplete(Task<Void> task) {
                         if (task.isSuccessful()) {
                             user.updatePassword(newPasswordText.getText().toString())
