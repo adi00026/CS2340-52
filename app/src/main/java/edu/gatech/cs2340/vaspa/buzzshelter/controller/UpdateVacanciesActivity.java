@@ -82,7 +82,7 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
 
     private void updatePressed() {
         ShelterEmployee currentUser = (ShelterEmployee) Model.getInstance().getCurrentUser();
-        String uKey = shelterText.getText().toString().trim();
+        // String uKey = shelterText.getText().toString().trim();
         int vacancies;
         try {
             String vacancyText = vacanciesEditText.getText().toString().trim();
@@ -98,10 +98,6 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
             return;
         }
 
-        if (uKey.length() == 0) {
-            Toast.makeText(UpdateVacanciesActivity.this, "Enter a unique key",
-              Toast.LENGTH_SHORT).show();
-        }
 
         // TODO setup actual updating of vacancies
 
@@ -110,18 +106,14 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
             final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
               format(Calendar.getInstance().getTime()); // Current date and time
             String log = date + ", " + "SHELTER EMPLOYEE: " + currentUser.getUserId() + ", " +
-              "updated vacancies for: " + uKey;
+              "updated vacancies for: " + currentUser.getShelterID();
             Model.getInstance().updateLogs(log);
         }
-        final int newVacancies;
-        try {
-            newVacancies = Integer.parseInt(vacanciesEditText.getText().toString());
-        } catch (NumberFormatException e) {
-            Toast.makeText(UpdateVacanciesActivity.this, "Vacancy must be a number",
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
-        // TODO: Replace with if (vancancies > capacity)
+
+        // SNAGS
+        final int newVacancies = vacancies;
+
+        // TODO: Replace with if (vacancies > capacity)
         if (false) {
             Toast.makeText(UpdateVacanciesActivity.this, "Vacancy cannot exceed "
                             + "capacity", Toast.LENGTH_SHORT).show();
