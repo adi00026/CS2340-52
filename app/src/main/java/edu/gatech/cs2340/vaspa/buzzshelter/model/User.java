@@ -60,6 +60,7 @@ public class User extends AccountHolder {
                 "Password: " + getPassword() + "\n" +
                 "Contact Info: " + getContactInfo() + "\n" +
                 "Gender: " + getGender() + "\n" +
+                "Shelter ID: " + getShelterID() + "\n" +
                 "DOB: " + getDateOfBirth().get(0) + "/" + getDateOfBirth().get(1) + "/"
                 + getDateOfBirth().get(2) + "\n" +
                 "Veteran: " + isVeteran();
