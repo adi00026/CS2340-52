@@ -90,6 +90,8 @@ public class ShelterEmployeeSettingsActivity extends AppCompatActivity {
             String log = date + ", " + "SHELTER EMPLOYEE: " + shelterEmployee.getUserId() + ", "
               + "updated settings";
             Model.getInstance().updateLogs(log);
+            Toast.makeText(ShelterEmployeeSettingsActivity.this, "Information updated!",
+                    Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(ShelterEmployeeSettingsActivity.this,
               "No attributes are different", Toast.LENGTH_SHORT).show();
