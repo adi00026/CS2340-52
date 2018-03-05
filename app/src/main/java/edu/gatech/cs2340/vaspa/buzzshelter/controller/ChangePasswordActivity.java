@@ -1,8 +1,7 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.controller;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +15,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Admin;
@@ -113,6 +115,11 @@ public class ChangePasswordActivity extends AppCompatActivity {
                                         }
                                         Toast.makeText(ChangePasswordActivity.this,
                                                 "Password Changed!", Toast.LENGTH_SHORT).show();
+                                        final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+                                          format(Calendar.getInstance().getTime()); // Current date and time
+                                        String log = date + ", " + Model.getInstance()
+                                          .getCurrentUser().getUserId() + ", " + "changed password";
+                                        Model.getInstance().updateLogs(log);
                                         onBackPressed();
                                     } else {
                                         Toast.makeText(ChangePasswordActivity.this,
