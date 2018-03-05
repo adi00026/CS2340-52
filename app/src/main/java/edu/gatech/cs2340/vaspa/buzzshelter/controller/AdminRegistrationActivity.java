@@ -2,9 +2,9 @@ package edu.gatech.cs2340.vaspa.buzzshelter.controller;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -20,13 +20,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Admin;
-import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
-import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 
 public class AdminRegistrationActivity extends AppCompatActivity {
 
@@ -103,6 +101,16 @@ public class AdminRegistrationActivity extends AppCompatActivity {
                                     .setValue(admin);
                             Intent intent = new Intent(AdminRegistrationActivity.this,
                                     WelcomePageActivity.class);
+
+                            // Logging creation of new account holder
+                            String uid = admin.getUserId();
+                            uid = uid.replace('.', ',');
+                            final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+                              format(Calendar.getInstance().getTime()); // Current date and time
+                            String log = date + ", " + admin.getUserId() + ", " + "created account";
+                            myRef.child("logging").child(uid).setValue(log);
+                            progressDialog.dismiss();
+
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.putExtra("username", admin.getUserId());
                             intent.putExtra("password", admin.getPassword());
