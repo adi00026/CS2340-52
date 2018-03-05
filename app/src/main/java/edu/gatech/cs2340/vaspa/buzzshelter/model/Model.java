@@ -19,6 +19,8 @@ public class Model {
     private AccountHolder currentUser;
     private HashMap<String, Integer> loginAttempts;
 
+    private String logs;
+
     /**
      * returns the static instance of the model to use in the controller
      *
@@ -136,5 +138,24 @@ public class Model {
     private Model() {
         // empty for now
         loginAttempts = new HashMap<>();
+        logs = "";
+    }
+
+    /**
+     * Updates Model log string
+     *
+     * @param update is the update to be made to the log
+     */
+    private void updateLogs(String update) {
+        logs += update + "\n";
+    }
+
+    /**
+     * Getter method for the logs
+     *
+     * @return the logs
+     */
+    private String getLogs() {
+        return logs;
     }
 }
