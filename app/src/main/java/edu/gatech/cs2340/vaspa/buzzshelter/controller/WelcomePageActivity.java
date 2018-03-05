@@ -140,11 +140,14 @@ public class WelcomePageActivity extends AppCompatActivity {
                             myRef.child("account_holders").child("users").child(key).setValue(user);
 
                             // updates logs saying user was locked out
+                            // gets earlier logs and appends
+                            String prevLog = dataSnapshot.child("logging").child(uid
+                              .replace('.', ',')).getValue(String.class);
                             final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                               format(Calendar.getInstance().getTime()); // Current date and time
                             String log = date + ", " + uid + ", locked out";
                             myRef.child("logging").child(uid.replace('.', ','))
-                              .setValue(log);
+                              .setValue(prevLog + log);
 
                             Toast.makeText(WelcomePageActivity.this, "Locked out. Too many attempts",
                               Toast.LENGTH_SHORT).show();
@@ -163,11 +166,14 @@ public class WelcomePageActivity extends AppCompatActivity {
                                 myRef.child("account_holders").child("shelter_employees").child(key).setValue(user);
 
                                 // updates logs saying user was locked out
+                                // gets earlier logs and appends
+                                String prevLog = dataSnapshot.child("logging").child(uid
+                                  .replace('.', ',')).getValue(String.class);
                                 final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                                   format(Calendar.getInstance().getTime()); // Current date and time
                                 String log = date + ", " + uid + ", locked out";
                                 myRef.child("logging").child(uid.replace('.', ','))
-                                  .setValue(log);
+                                  .setValue(prevLog + log);
 
                                 Toast.makeText(WelcomePageActivity.this, "Locked out. Too many attempts",
                                   Toast.LENGTH_SHORT).show();
