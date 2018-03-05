@@ -37,6 +37,7 @@ public class SearchShelterActivity extends AppCompatActivity {
 
     Button viewShelterButton;
     Button backButton;
+    Button checkoutButton;
     Spinner shelterSpinner;
 
     FirebaseAuth mAuth;
@@ -56,12 +57,20 @@ public class SearchShelterActivity extends AppCompatActivity {
 
         viewShelterButton = (Button) findViewById(R.id.view_shelter_button);
         backButton = (Button) findViewById(R.id.button_back);
+        checkoutButton = (Button) findViewById(R.id.button_checkOut);
         shelterSpinner = (Spinner) findViewById(R.id.shelter_spinner);
 
         sheltersMap = new HashMap<String, Shelter>();
 
         initFirebaseComponents();
 
+
+        Log.d("SEARCHSHELTER", ((User) Model.getInstance().getCurrentUser()).getShelterID());
+        if (((User) Model.getInstance().getCurrentUser()).getShelterID() == null) {
+            backButton.setEnabled(false);
+        } else {
+            backButton.setEnabled(true);
+        }
 
         final ArrayAdapter<String> shelterAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item);
         shelterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -80,7 +89,7 @@ public class SearchShelterActivity extends AppCompatActivity {
             }
         });
 
-        myRef.orderByKey().addChildEventListener(new ChildEventListener() {
+        myRef.child("shelters").orderByKey().addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 Shelter shelter = dataSnapshot.getValue(Shelter.class);
@@ -115,6 +124,35 @@ public class SearchShelterActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        checkoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkoutPressed();
+            }
+        });
+    }
+
+    private void checkoutPressed() {
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.child("account_holders").child("users")
+                        .child(mAuth.getCurrentUser().getUid()).getValue(User.class);
+                String currentID = user.getShelterID();
+                user.setShelterID(null);
+                myRef.child("account_holders").child("users")
+                        .child(mAuth.getCurrentUser().getUid()).setValue(user);
+                int size = dataSnapshot.child("shelters").child(currentID).child("vacancies")
+                        .getValue(Integer.class);
+                myRef.child("shelters").child(currentID).child("vacancies").setValue(size + 1);
+                Model.getInstance().setCurrentUser(user);
+                checkoutButton.setEnabled(false);
+                myRef.removeEventListener(this);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {            }
+        });
     }
 
     private void viewShelterPressed() {
@@ -138,10 +176,11 @@ public class SearchShelterActivity extends AppCompatActivity {
     private void initFirebaseComponents() {
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("shelters");
+        myRef = database.getReference();
     }
 
     private String filter(String inStr) {
+        Log.d("SEARCHSHELTERS", inStr);
         String[] arr = inStr.split(" ");
         String outStr = "";
         for (int i = 0; i < arr.length; i++) {

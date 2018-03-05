@@ -10,6 +10,7 @@ public class User extends AccountHolder {
     private String gender;
     private List<Integer> dateOfBirth;
     private boolean isVeteran;
+    private String shelterID;
 
     public User(String name, String userID, String password, boolean lockedOut, String contactInfo,
                 String gender, List<Integer> dateOfBirth, boolean isVeteran) {
@@ -17,6 +18,7 @@ public class User extends AccountHolder {
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
         this.isVeteran = isVeteran;
+        this.shelterID = null;
     }
     public User(String name, String userID, String contactInfo, String password) {
         this(name, userID, password, false, contactInfo, "Male", null, false);
@@ -61,5 +63,13 @@ public class User extends AccountHolder {
                 "DOB: " + getDateOfBirth().get(0) + "/" + getDateOfBirth().get(1) + "/"
                 + getDateOfBirth().get(2) + "\n" +
                 "Veteran: " + isVeteran();
+    }
+
+    public String getShelterID() {
+        return shelterID;
+    }
+
+    public void setShelterID(String shelterID) {
+        this.shelterID = shelterID;
     }
 }
