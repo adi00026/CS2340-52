@@ -116,7 +116,7 @@ public class WelcomePageActivity extends AppCompatActivity {
         progressDialog.setMessage("Logging in...");
         progressDialog.show();
         String email = usernameEditText.getText().toString().trim();
-        String password = passwordEditText.getText().toString().trim();
+        final String password = passwordEditText.getText().toString().trim();
 
         final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
           format(Calendar.getInstance().getTime()); // Current date and time
@@ -219,6 +219,7 @@ public class WelcomePageActivity extends AppCompatActivity {
                       Intent intent = new Intent(WelcomePageActivity.this,
                         MainPageActivity.class);
                       intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                      intent.putExtra("password", password);
                       // Clears login attempts on successful login
                       model.clearLoginAttempts(uid);
                       // Updates logs
