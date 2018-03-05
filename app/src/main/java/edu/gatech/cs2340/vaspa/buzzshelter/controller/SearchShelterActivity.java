@@ -64,12 +64,10 @@ public class SearchShelterActivity extends AppCompatActivity {
 
         initFirebaseComponents();
 
-
-        Log.d("SEARCHSHELTER", ((User) Model.getInstance().getCurrentUser()).getShelterID());
         if (((User) Model.getInstance().getCurrentUser()).getShelterID() == null) {
-            backButton.setEnabled(false);
+            checkoutButton.setEnabled(false);
         } else {
-            backButton.setEnabled(true);
+            checkoutButton.setEnabled(true);
         }
 
         final ArrayAdapter<String> shelterAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item);
