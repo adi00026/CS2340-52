@@ -21,6 +21,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
@@ -106,6 +109,10 @@ public class WelcomePageActivity extends AppCompatActivity {
         progressDialog.show();
         String email = usernameEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
+
+        final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+          format(Calendar.getInstance().getTime()); // Current date and time
+
         if (email.isEmpty() || password.isEmpty()) {
             return;
         }
@@ -122,6 +129,7 @@ public class WelcomePageActivity extends AppCompatActivity {
                     for (DataSnapshot ds : dataSnapshot.child("account_holders").child("users")
                       .getChildren()) {
                         String key = ds.getKey();
+                        // TODO update that user was locked out
                         User user = ds.getValue(User.class);
                         if (user.getUserId().equals(uid)) {
                             done = true;
@@ -136,6 +144,7 @@ public class WelcomePageActivity extends AppCompatActivity {
                     if (!done) {
                         for (DataSnapshot ds : dataSnapshot.child("account_holders").child("shelter_employees")
                           .getChildren()) {
+                            // TODO update that user was locked out
                             String key = ds.getKey();
                             ShelterEmployee user = ds.getValue(ShelterEmployee.class);
                             if (user.getUserId().equals(uid)) {
@@ -172,13 +181,20 @@ public class WelcomePageActivity extends AppCompatActivity {
               @Override
               public void onComplete(@NonNull Task<AuthResult> task) {
                   if (task.isSuccessful()) {
+
+                      String log = date + ", " + uid + ", " + "Logged In"; // LOG message
+
                       // Sign in success, update UI with the signed-in user's information
                       FirebaseUser user = mAuth.getCurrentUser();
                       Toast.makeText(WelcomePageActivity.this, "Login succeeded.",
                         Toast.LENGTH_SHORT).show();
                       Intent intent = new Intent(WelcomePageActivity.this,
                         MainPageActivity.class);
+
+                      // Clears login attempts on successful login
                       model.clearLoginAttempts(uid);
+                      // Updates logs
+                      model.updateLogs(log);
                       startActivity(intent);
                   } else {
                       // If sign in fails, display a message to the user.

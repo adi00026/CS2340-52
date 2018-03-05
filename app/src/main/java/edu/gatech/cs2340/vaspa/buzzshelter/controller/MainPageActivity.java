@@ -90,6 +90,14 @@ public class MainPageActivity extends AppCompatActivity {
                         updateVacanciesButton.setEnabled(false);
                         logoutButton.setVisibility(View.VISIBLE);
                         logoutButton.setEnabled(true);
+                    } else if (currentlyLoggedIn.isDeleted()) {
+                        welcomeTextview.setText("ACCOUNT IS DELETED");
+                        settingsButton.setEnabled(false);
+                        searchSheltersButton.setEnabled(false);
+                        manageUsersButton.setEnabled(false);
+                        updateVacanciesButton.setEnabled(false);
+                        logoutButton.setVisibility(View.VISIBLE);
+                        logoutButton.setEnabled(true);
                     } else {
                         Model.getInstance().setCurrentUser(currentlyLoggedIn);
                         welcomeTextview.setText(currentlyLoggedIn == null ?
