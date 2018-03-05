@@ -49,6 +49,16 @@ public class SearchShelterActivity extends AppCompatActivity {
     private Model model;
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (((User) Model.getInstance().getCurrentUser()).getShelterID() == null) {
+            checkoutButton.setEnabled(false);
+        } else {
+            checkoutButton.setEnabled(true);
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_shelter);
