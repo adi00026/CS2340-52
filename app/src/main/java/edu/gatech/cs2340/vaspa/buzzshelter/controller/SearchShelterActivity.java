@@ -97,7 +97,12 @@ public class SearchShelterActivity extends AppCompatActivity {
             }
         });
 
-        myRef.child("shelters").orderByKey().addChildEventListener(new ChildEventListener() {
+        for (Shelter shelter : Model.getInstance().getShelters().values()) {
+            shelterAdapter.add(filter(shelter.getName()));
+        }
+        shelterSpinner.setAdapter(shelterAdapter);
+
+        /*myRef.child("shelters").orderByKey().addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 Shelter shelter = dataSnapshot.getValue(Shelter.class);
@@ -123,7 +128,7 @@ public class SearchShelterActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {}
-        });
+        });*/
 
         viewShelterButton.setOnClickListener(new View.OnClickListener() {
             @Override
