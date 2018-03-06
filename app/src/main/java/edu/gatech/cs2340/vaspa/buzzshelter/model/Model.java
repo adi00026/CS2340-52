@@ -1,5 +1,10 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.model;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -139,6 +144,26 @@ public class Model {
         // empty for now
         loginAttempts = new HashMap<>();
         logs = "";
+        shelters = new HashMap<>();
+        FirebaseDatabase.getInstance().getReference().child("shelters").orderByKey()
+                .addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+                Shelter shelter = dataSnapshot.getValue(Shelter.class);
+                shelters.put(shelter.getUniqueKey(), shelter);
+            }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
+                Shelter shelter = dataSnapshot.getValue(Shelter.class);
+                shelters.put(shelter.getUniqueKey(), shelter);
+            }
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {}
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
     }
 
     /**

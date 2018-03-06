@@ -22,6 +22,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
+import edu.gatech.cs2340.vaspa.buzzshelter.util.StringSearch;
 
 public class UpdateVacanciesActivity extends AppCompatActivity {
     Button backButton;
@@ -71,7 +72,6 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,6 +97,13 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
               Toast.LENGTH_SHORT).show();
             return;
         }
+        Shelter thisShelter = Model.getInstance().getShelters().get(currentUser.getShelterID());
+        int capacity = StringSearch.parseCapacity(thisShelter.getCapacity());
+        if (vacancies > capacity) {
+            Toast.makeText(UpdateVacanciesActivity.this, "Vacancy cannot exceed "
+                    + "capacity", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
 
         // TODO setup actual updating of vacancies
@@ -112,13 +119,6 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
 
         // SNAGS
         final int newVacancies = vacancies;
-
-        // TODO: Replace with if (vacancies > capacity)
-        if (false) {
-            Toast.makeText(UpdateVacanciesActivity.this, "Vacancy cannot exceed "
-                            + "capacity", Toast.LENGTH_SHORT).show();
-            return;
-        }
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

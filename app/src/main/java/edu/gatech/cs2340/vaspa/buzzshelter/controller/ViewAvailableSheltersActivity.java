@@ -22,6 +22,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
+import edu.gatech.cs2340.vaspa.buzzshelter.util.StringSearch;
 
 public class ViewAvailableSheltersActivity extends AppCompatActivity {
 
@@ -117,11 +118,16 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
                         .child(mAuth.getCurrentUser().getUid()).setValue(user);
                 int size = dataSnapshot.child("shelters").child(currentID).child("vacancies")
                         .getValue(Integer.class);
-                myRef.child("shelters").child(currentID).child("vacancies").setValue(size + 1);
+                String BSCap = dataSnapshot.child("shelters").child(currentID).child("capacity")
+                        .getValue(String.class);
+                int capacity = StringSearch.parseCapacity(BSCap);
+                if (size + 1 <= capacity) {
+                    myRef.child("shelters").child(currentID).child("vacancies").setValue(size + 1);
+                    shelterInfoTextView.setText(infoString + (size + 1));
+                }
                 Model.getInstance().setCurrentUser(user);
                 checkOutButton.setEnabled(false);
                 checkInButton.setEnabled(true);
-                shelterInfoTextView.setText(infoString + (size + 1));
                 Toast.makeText(ViewAvailableSheltersActivity.this,
                         "Check-out successful!", Toast.LENGTH_SHORT).show();
                 myRef.removeEventListener(this);

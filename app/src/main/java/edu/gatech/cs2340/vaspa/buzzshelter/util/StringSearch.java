@@ -135,7 +135,7 @@ public class StringSearch {
      * @param bullshitCapacity is the BS string from CSV
      * @returns an int that is (hopefully) the capacity
      */
-    public int parseCapacity(String bullshitCapacity) {
+    public static int parseCapacity(String bullshitCapacity) {
         // If bullshitCapacity is empty...
         if (bullshitCapacity.trim().equals("")) {
             return 1000;
