@@ -115,7 +115,7 @@ public class ManageUsersActivity extends AppCompatActivity {
                     String key = ds.getKey();
                     toManage = ds.getValue(User.class);
                     if (toManage != null && toManage.getUserId().equals(userIDText
-                            .getText().toString())) {
+                            .getText().toString().trim())) {
                         toManage.setLockedOut(!status);
                         myRef.child("account_holders").child("users").child(key)
                                 .setValue(toManage);

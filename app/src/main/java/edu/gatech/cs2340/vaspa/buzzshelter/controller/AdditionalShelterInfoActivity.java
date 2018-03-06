@@ -1,5 +1,6 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -115,6 +116,10 @@ public class AdditionalShelterInfoActivity extends AppCompatActivity {
                       .getUserId() + ", " + "added new shelter: " + newShelter.getUniqueKey();
                     Model.getInstance().updateLogs(log);
                     myRef.removeEventListener(this);
+                    Intent intent = new Intent(AdditionalShelterInfoActivity.this,
+                            ManageUsersActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                 }
             }
 
