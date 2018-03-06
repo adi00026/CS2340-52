@@ -24,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
+import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
 
 public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
@@ -76,9 +77,7 @@ public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
         String key = keyText.getText().toString().trim();
         String shelterID = shelterId.getText().toString().trim();
         if (shelterKey.equals(key)) {
-            if (shelterID.length() != 0) {
-                // TODO will be replaced by .contains() of structure containing Shelter objects
-            } else {
+            if (!Model.getInstance().getShelters().containsKey(shelterID)) {
                 progressDialog.hide();
                 Toast.makeText(this, "The inputted shelter ID does not exist",
                         Toast.LENGTH_SHORT).show();

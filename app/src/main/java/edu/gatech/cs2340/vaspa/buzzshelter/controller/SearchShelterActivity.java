@@ -44,8 +44,6 @@ public class SearchShelterActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference myRef;
 
-    HashMap<String, Shelter> sheltersMap;
-
     private Model model;
 
     @Override
@@ -69,8 +67,6 @@ public class SearchShelterActivity extends AppCompatActivity {
         backButton = (Button) findViewById(R.id.button_back);
         checkoutButton = (Button) findViewById(R.id.button_checkOut);
         shelterSpinner = (Spinner) findViewById(R.id.shelter_spinner);
-
-        sheltersMap = new HashMap<String, Shelter>();
 
         initFirebaseComponents();
 
@@ -129,21 +125,18 @@ public class SearchShelterActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });*/
-
         viewShelterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 viewShelterPressed();
             }
         });
-
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
-
         checkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -177,8 +170,6 @@ public class SearchShelterActivity extends AppCompatActivity {
     private void viewShelterPressed() {
         Intent intent = new Intent(SearchShelterActivity.this,
                 ViewAvailableSheltersActivity.class);
-        model.setShelters(sheltersMap);
-
         String name = unfilter(shelterSpinner.getSelectedItem().toString());
         List<Shelter> matches = Model.getInstance().searchShelterByName(name);
         if (!matches.isEmpty()) {
