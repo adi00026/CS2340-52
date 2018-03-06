@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -25,9 +26,8 @@ public class AdditionalShelterInfoActivity extends AppCompatActivity {
     private Button back;
     private Button finish;
     private EditText specialNotesText;
-    private EditText restrictionsText;
     private EditText capacityText;
-
+    private CheckBox[] restrictionsCheckboxes;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +36,16 @@ public class AdditionalShelterInfoActivity extends AppCompatActivity {
         back = (Button) findViewById(R.id.button_back);
         finish = (Button) findViewById(R.id.button_finish);
         specialNotesText = (EditText) findViewById(R.id.shelter_special_notes);
-        restrictionsText = (EditText) findViewById(R.id.shelter_restrictions);
         capacityText = (EditText) findViewById(R.id.shelter_capacity);
+
+        restrictionsCheckboxes = new CheckBox[6];
+
+        restrictionsCheckboxes[0] = findViewById(R.id.checkBox_male);
+        restrictionsCheckboxes[1] = findViewById(R.id.checkBox_female);
+        restrictionsCheckboxes[2] = findViewById(R.id.checkBox_famAndNewborns);
+        restrictionsCheckboxes[3] = findViewById(R.id.checkBox_children);
+        restrictionsCheckboxes[4] = findViewById(R.id.checkBox_youngAdults);
+        restrictionsCheckboxes[5] = findViewById(R.id.checkBox_anyone);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,8 +70,12 @@ public class AdditionalShelterInfoActivity extends AppCompatActivity {
         final String address = getIntent().getExtras().getString("address");
 
         String specialNotes = specialNotesText.getText().toString().trim();
-        String restrictions = restrictionsText.getText().toString().trim();
         String capacity_string = capacityText.getText().toString().trim();
+        String restrictions = "";
+        for (CheckBox restriction : restrictionsCheckboxes) {
+            restrictions = restrictions
+                    + (restriction.isChecked() ? restriction.getText().toString() : "") + ", ";
+        }
 
         if (specialNotes.length() == 0 || restrictions.length() == 0
           || capacity_string.length() == 0) {
