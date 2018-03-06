@@ -75,24 +75,30 @@ public class MainPageActivity extends AppCompatActivity {
                     AccountHolder currentlyLoggedIn = null;
                     if (dataSnapshot.child("account_holders").child("admins").child(UID)
                             .exists()) {
-                        myRef.child("account_holders").child("admins").child(UID)
-                          .child("password").setValue(password);
                         currentlyLoggedIn = dataSnapshot.child("account_holders")
                                 .child("admins").child(UID).getValue(Admin.class);
+                        if (!currentlyLoggedIn.getPassword().equals(password)) {
+                            myRef.child("account_holders").child("admins").child(UID)
+                                    .child("password").setValue(password);
+                        }
                     }
                     if (dataSnapshot.child("account_holders").child("shelter_employees")
                             .child(UID).exists()) {
-                        myRef.child("account_holders").child("shelter_employees").child(UID)
-                          .child("password").setValue(password);
                         currentlyLoggedIn = dataSnapshot.child("account_holders")
                                 .child("shelter_employees").child(UID)
                                 .getValue(ShelterEmployee.class);
+                        if (!currentlyLoggedIn.getPassword().equals(password)) {
+                            myRef.child("account_holders").child("shelter_employees").child(UID)
+                                    .child("password").setValue(password);
+                        }
                     }
                     if (dataSnapshot.child("account_holders").child("users").child(UID).exists()) {
-                        myRef.child("account_holders").child("users").child(UID)
-                          .child("password").setValue(password);
                         currentlyLoggedIn = dataSnapshot.child("account_holders").child("users")
                                 .child(UID).getValue(User.class);
+                        if (!currentlyLoggedIn.getPassword().equals(password)) {
+                            myRef.child("account_holders").child("users").child(UID)
+                                    .child("password").setValue(password);
+                        }
                     }
                     if (currentlyLoggedIn.isLockedOut()) {
                         welcomeTextview.setText("ACCOUNT IS LOCKED");
@@ -120,7 +126,8 @@ public class MainPageActivity extends AppCompatActivity {
                 } else {
                     welcomeTextview.setText("No current user!");
                 }
-                progressDialog.hide();
+                progressDialog.dismiss();
+                myRef.removeEventListener(this);
             }
 
             @Override

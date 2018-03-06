@@ -116,7 +116,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         int year = Integer.parseInt(yearText.getText().toString());
 
         if (!isValidDate(month, day, year)) {
-            progressDialog.hide();
+            progressDialog.dismiss();
             Toast.makeText(this, "Invalid date", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -134,7 +134,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         String email = username;
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            progressDialog.hide();
+            progressDialog.dismiss();
             Toast.makeText(this, "Invalid email address, must be like" +
                             ": username@example.com", Toast.LENGTH_LONG).show();
             return;
@@ -182,7 +182,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                                 Toast.LENGTH_SHORT).show();
                     }
                 }
-                progressDialog.hide();
+                progressDialog.dismiss();
             }
         });
     }
