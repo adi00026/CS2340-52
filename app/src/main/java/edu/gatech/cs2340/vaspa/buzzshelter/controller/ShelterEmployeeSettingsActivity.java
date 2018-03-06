@@ -76,7 +76,11 @@ public class ShelterEmployeeSettingsActivity extends AppCompatActivity {
         String name = nameEditText.getText().toString().trim();
         String contactInfo = contactEditText.getText().toString().trim();
         String shelterID = shelterIDEditText.getText().toString().trim();
-
+        if (!Model.getInstance().getShelters().containsKey(shelterID)) {
+            Toast.makeText(ShelterEmployeeSettingsActivity.this, "Invalid Shelter ID",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (!name.equals(shelterEmployee.getName()) || !contactInfo.equals(shelterEmployee
           .getContactInfo()) || !shelterID.equals(shelterEmployee.getShelterID())) {
             ShelterEmployee newEmployee = new ShelterEmployee(name, shelterEmployee.getUserId(),
