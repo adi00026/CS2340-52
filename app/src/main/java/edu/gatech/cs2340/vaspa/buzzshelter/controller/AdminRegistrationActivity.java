@@ -73,7 +73,7 @@ public class AdminRegistrationActivity extends AppCompatActivity {
         progressDialog.show();
         String key = keyText.getText().toString().trim();
         if (!adminKey.equals(key)) {
-            progressDialog.hide();
+            progressDialog.dismiss();
             Toast.makeText(this, "The inputted key is incorrect",
                     Toast.LENGTH_SHORT).show();
             return;
@@ -126,7 +126,7 @@ public class AdminRegistrationActivity extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
                             }
                         }
-                        progressDialog.hide();
+                        progressDialog.dismiss();
                     }
                 });
     }

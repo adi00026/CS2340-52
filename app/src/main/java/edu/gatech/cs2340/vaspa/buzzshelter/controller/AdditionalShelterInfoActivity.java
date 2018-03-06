@@ -74,9 +74,9 @@ public class AdditionalShelterInfoActivity extends AppCompatActivity {
         String restrictions = "";
         for (CheckBox restriction : restrictionsCheckboxes) {
             restrictions = restrictions
-                    + (restriction.isChecked() ? restriction.getText().toString() : "") + ", ";
+                    + (restriction.isChecked() ? restriction.getText().toString().toLowerCase()
+                    + ", " : "");
         }
-
         if (specialNotes.length() == 0 || restrictions.length() == 0
           || capacity_string.length() == 0) {
             Toast.makeText(AdditionalShelterInfoActivity.this, "Please fill all fields",
@@ -103,6 +103,7 @@ public class AdditionalShelterInfoActivity extends AppCompatActivity {
                 if (dataSnapshot.child("shelters").child(id).exists()) {
                     Toast.makeText(AdditionalShelterInfoActivity.this,
                       "Shelter with this UID exists", Toast.LENGTH_SHORT).show();
+                    myRef.removeEventListener(this);
                 } else {
                     // Adds shelter to database
                     myRef.child("shelters").child(id).setValue(newShelter);

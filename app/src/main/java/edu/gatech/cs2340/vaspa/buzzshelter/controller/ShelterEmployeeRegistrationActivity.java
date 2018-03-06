@@ -78,7 +78,7 @@ public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
         String shelterID = shelterId.getText().toString().trim();
         if (shelterKey.equals(key)) {
             if (!Model.getInstance().getShelters().containsKey(shelterID)) {
-                progressDialog.hide();
+                progressDialog.dismiss();
                 Toast.makeText(this, "The inputted shelter ID does not exist",
                         Toast.LENGTH_SHORT).show();
                 return;
@@ -86,7 +86,7 @@ public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "The inputted key is incorrect",
                     Toast.LENGTH_SHORT).show();
-            progressDialog.hide();
+            progressDialog.dismiss();
             return;
         }
         String username = getIntent().getExtras().getString("username");
@@ -138,7 +138,7 @@ public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
                             }
                         }
-                        progressDialog.hide();
+                        progressDialog.dismiss();
                     }
                 });
     }
