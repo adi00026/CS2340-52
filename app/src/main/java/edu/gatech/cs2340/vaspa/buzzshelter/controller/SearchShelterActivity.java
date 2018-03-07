@@ -160,7 +160,7 @@ public class SearchShelterActivity extends AppCompatActivity {
         //AgeSpinner
         ageAdapter.add("Children");
         ageAdapter.add("Young Adults");
-        ageAdapter.add("Families with newborns");
+        ageAdapter.add("Families");
         ageAdapter.add("Anyone");
 
         shelterSpinner.setAdapter(shelterAdapter);
@@ -172,7 +172,7 @@ public class SearchShelterActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 Shelter shelter = dataSnapshot.getValue(Shelter.class);
                 sheltersMap.put(shelter.getUniqueKey(), shelter);
-                shelterAdapter.add(filter(shelter.getName()));
+                shelterAdapter.add(amilter(shelter.getName()));
                 // Maybe move the line below outside the listener?
                 shelterSpinner.setAdapter(shelterAdapter);
             }
