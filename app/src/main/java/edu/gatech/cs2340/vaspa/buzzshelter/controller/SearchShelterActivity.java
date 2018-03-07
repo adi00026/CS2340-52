@@ -98,33 +98,6 @@ public class SearchShelterActivity extends AppCompatActivity {
         }
         shelterSpinner.setAdapter(shelterAdapter);
 
-        /*myRef.child("shelters").orderByKey().addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                Shelter shelter = dataSnapshot.getValue(Shelter.class);
-                sheltersMap.put(shelter.getUniqueKey(), shelter);
-                shelterAdapter.add(filter(shelter.getName()));
-                // Maybe move the line below outside the listener?
-                shelterSpinner.setAdapter(shelterAdapter);
-            }
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
-                Shelter shelter = dataSnapshot.getValue(Shelter.class);
-                sheltersMap.put(shelter.getUniqueKey(), shelter);
-                shelterAdapter.add(filter(shelter.getName()));
-                // Maybe move the line below outside the listener?
-                shelterSpinner.setAdapter(shelterAdapter);
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {}
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {}
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });*/
         viewShelterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

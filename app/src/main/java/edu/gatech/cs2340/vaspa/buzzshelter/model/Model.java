@@ -5,6 +5,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -95,12 +96,19 @@ public class Model {
 
     /**
      * Function to search shelter that have str in their name.
+     * This method assumes ageRange is not null.
      *
      * @param ageRange string to search for.
      * @return a list of shelters containing str in their names
      */
-    public List<Shelter> searchShelterByAge(String ageRange) {
-        return null;
+    public Collection<Shelter> filterShelterByAge(String ageRange) {
+        List<Shelter> list = new LinkedList<Shelter>();
+        for (Shelter sh: shelters.values()) {
+            if (sh.getRestrictions().contains(ageRange)) {
+                list.add(sh);
+            }
+        }
+        return list;
     }
 
     /**
@@ -109,9 +117,37 @@ public class Model {
      * @param gender string to search for.
      * @return a list of shelters containing str in their names
      */
-    public List<Shelter> searchShelterByGender(String gender) {
-        return null;
+    public Collection<Shelter> filterShelterByGender(String gender) {
+        List<Shelter> list = new LinkedList<Shelter>();
+        for (Shelter sh: shelters.values()) {
+            if (sh.getRestrictions().contains(gender)) {
+                list.add(sh);
+            }
+        }
+        return list;
     }
+
+    public Collection<Shelter> allShelters() {
+        return shelters.values();
+    }
+
+    /**
+     * Function to search shelter that have str in their name.
+     *
+     * @param gender string to search for.
+     * @return a list of shelters containing str in their names
+     */
+    public List<Shelter> filterShelterByAgeGender(String ageRange, String gender) {
+        List<Shelter> list = new LinkedList<Shelter>();
+        for (Shelter sh: shelters.values()) {
+            if (sh.getRestrictions().contains(gender) && sh.getRestrictions().contains(ageRange)) {
+                list.add(sh);
+            }
+        }
+        return list;
+    }
+
+
 
     /**
      * Function that clears the number of login attempts the user has made
