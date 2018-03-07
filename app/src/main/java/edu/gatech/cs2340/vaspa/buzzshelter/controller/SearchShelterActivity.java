@@ -1,5 +1,6 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.controller;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -42,6 +44,8 @@ public class SearchShelterActivity extends AppCompatActivity {
     Spinner shelterSpinner;
     Spinner genderSpinner;
     Spinner ageSpinner;
+    EditText nameEditText;
+    Button goButton;
 
     FirebaseAuth mAuth;
     FirebaseDatabase database;
@@ -59,6 +63,7 @@ public class SearchShelterActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,9 +74,11 @@ public class SearchShelterActivity extends AppCompatActivity {
         viewShelterButton = (Button) findViewById(R.id.view_shelter_button);
         backButton = (Button) findViewById(R.id.button_back);
         checkoutButton = (Button) findViewById(R.id.button_checkOut);
+        goButton = (Button) findViewById(R.id.gobutton);
         shelterSpinner = (Spinner) findViewById(R.id.shelter_spinner);
         genderSpinner = (Spinner) findViewById(R.id.gender_spinner);
         ageSpinner = (Spinner) findViewById(R.id.age_spinner);
+        nameEditText = (EditText) findViewById(R.id.namePlainText);
 
         initFirebaseComponents();
 
@@ -136,6 +143,8 @@ public class SearchShelterActivity extends AppCompatActivity {
 
             }
         });
+
+
 
         //ShelterSpinner
         for (Shelter shelter : Model.getInstance().getShelters().values()) {
@@ -203,6 +212,13 @@ public class SearchShelterActivity extends AppCompatActivity {
                 checkoutPressed();
             }
         });
+
+        goButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fillShelterSpinnerAfterNameSearch();
+            }
+        });
     }
 
     private void checkoutPressed() {
@@ -225,6 +241,17 @@ public class SearchShelterActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {            }
         });
+    }
+
+    private void fillShelterSpinnerAfterNameSearch() {
+        final ArrayAdapter<String> shelterAdapter =
+                new ArrayAdapter(this,android.R.layout.simple_spinner_item);
+        shelterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Collection<Shelter> list = model.filterShelterByName(nameEditText.getText().toString());
+        for (Shelter sh: list) {
+            shelterAdapter.add(sh.getName());
+        }
+        shelterSpinner.setAdapter(shelterAdapter);
     }
 
     private void repopulateShelterSpinner() {
