@@ -153,8 +153,8 @@ public class SearchShelterActivity extends AppCompatActivity {
 
         //GenderSpinner
         genderAdapter.add("Any");
-        genderAdapter.add("Male");
-        genderAdapter.add("Female");
+        genderAdapter.add("Men");
+        genderAdapter.add("Women");
         genderAdapter.add("Other");
 
         //AgeSpinner
@@ -247,7 +247,7 @@ public class SearchShelterActivity extends AppCompatActivity {
         final ArrayAdapter<String> shelterAdapter =
                 new ArrayAdapter(this,android.R.layout.simple_spinner_item);
         shelterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Collection<Shelter> list = model.filterShelterByName(nameEditText.getText().toString());
+        Collection<Shelter> list = model.filterShelterByName(nameEditText.getText().toString().trim());
         for (Shelter sh: list) {
             shelterAdapter.add(sh.getName());
         }
