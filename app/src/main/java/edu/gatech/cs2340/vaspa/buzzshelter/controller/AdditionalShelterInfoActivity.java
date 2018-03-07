@@ -39,7 +39,7 @@ public class AdditionalShelterInfoActivity extends AppCompatActivity {
         specialNotesText = (EditText) findViewById(R.id.shelter_special_notes);
         capacityText = (EditText) findViewById(R.id.shelter_capacity);
 
-        restrictionsCheckboxes = new CheckBox[6];
+        restrictionsCheckboxes = new CheckBox[7];
 
         restrictionsCheckboxes[0] = findViewById(R.id.checkBox_male);
         restrictionsCheckboxes[1] = findViewById(R.id.checkBox_female);
@@ -47,6 +47,9 @@ public class AdditionalShelterInfoActivity extends AppCompatActivity {
         restrictionsCheckboxes[3] = findViewById(R.id.checkBox_children);
         restrictionsCheckboxes[4] = findViewById(R.id.checkBox_youngAdults);
         restrictionsCheckboxes[5] = findViewById(R.id.checkBox_anyone);
+        restrictionsCheckboxes[6] = findViewById(R.id.checkBox_other);
+
+
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
