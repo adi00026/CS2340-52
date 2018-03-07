@@ -29,6 +29,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -113,6 +114,7 @@ public class SearchShelterActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View arg1,
                                        int arg2, long arg3) {
                 ((TextView) parent.getChildAt(0)).setTextSize(23);
+                repopulateShelterSpinner();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -127,6 +129,7 @@ public class SearchShelterActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View arg1,
                                        int arg2, long arg3) {
                 ((TextView) parent.getChildAt(0)).setTextSize(23);
+                repopulateShelterSpinner();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -222,6 +225,36 @@ public class SearchShelterActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {            }
         });
+    }
+
+    private void repopulateShelterSpinner() {
+        Collection<Shelter> list;
+        final ArrayAdapter<String> shelterAdapter =
+                new ArrayAdapter(this,android.R.layout.simple_spinner_item);
+        shelterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        if (ageSpinner.getSelectedItem().equals("Anyone")
+                && genderSpinner.getSelectedItem().equals("Any")) {
+            for (Shelter shelter : model.allShelters()) {
+                shelterAdapter.add(filter(shelter.getName()));
+            }
+        } else if (ageSpinner.getSelectedItem().equals("Anyone")) {
+            for (Shelter shelter : model.filterShelterByGender((String) genderSpinner.getSelectedItem())) {
+                shelterAdapter.add(filter(shelter.getName()));
+            }
+        } else if (genderSpinner.getSelectedItem().equals("Any")) {
+            for (Shelter shelter : model.filterShelterByAge((String) ageSpinner.getSelectedItem())) {
+                shelterAdapter.add(filter(shelter.getName()));
+            }
+        } else {
+            for (Shelter shelter : model.filterShelterByAgeGender((String) ageSpinner.getSelectedItem(),
+                    (String) genderSpinner.getSelectedItem())) {
+                shelterAdapter.add(filter(shelter.getName()));
+            }
+        }
+
+        shelterSpinner.setAdapter(shelterAdapter);
+
     }
 
     private void viewShelterPressed() {
