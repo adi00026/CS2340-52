@@ -121,8 +121,7 @@ public class Model {
     public Collection<Shelter> filterShelterByGender(String gender) {
         List<Shelter> list = new LinkedList<Shelter>();
         for (Shelter sh: shelters.values()) {
-            if (sh.getRestrictions().toLowerCase().
-                    contains(gender.toLowerCase())) {
+            if (sh.getRestrictions().contains(gender)) {
                 list.add(sh);
             }
         }
