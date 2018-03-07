@@ -129,6 +129,17 @@ public class Model {
         return list;
     }
 
+    public Collection<Shelter> filterShelterByName(String name) {
+        List<Shelter> list = new LinkedList<Shelter>();
+        for (Shelter sh: shelters.values()) {
+            if (sh.getName().toLowerCase().
+                    contains(name.toLowerCase())) {
+                list.add(sh);
+            }
+        }
+        return list;
+    }
+
     public Collection<Shelter> allShelters() {
         return shelters.values();
     }
