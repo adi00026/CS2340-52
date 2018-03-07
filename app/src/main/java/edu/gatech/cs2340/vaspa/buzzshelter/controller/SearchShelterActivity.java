@@ -285,19 +285,23 @@ public class SearchShelterActivity extends AppCompatActivity {
     }
 
     private void viewShelterPressed() {
-        Intent intent = new Intent(SearchShelterActivity.this,
-                ViewAvailableSheltersActivity.class);
-        String name = unfilter(shelterSpinner.getSelectedItem().toString());
-        List<Shelter> matches = Model.getInstance().searchShelterByName(name);
-        if (!matches.isEmpty()) {
-            intent.putExtra("shelter", matches.get(0));
-            startActivity(intent);
-            return;
+        try {
+            Intent intent = new Intent(SearchShelterActivity.this,
+                    ViewAvailableSheltersActivity.class);
+            String name = unfilter(shelterSpinner.getSelectedItem().toString());
+            List<Shelter> matches = Model.getInstance().searchShelterByName(name);
+            if (!matches.isEmpty()) {
+                intent.putExtra("shelter", matches.get(0));
+                startActivity(intent);
+                return;
+            }
+            // This shouldn't EVER happen:
+            Toast.makeText(SearchShelterActivity.this, "An error occurred: " +
+                            "the shelter you requested was not found in our database.",
+                    Toast.LENGTH_LONG).show();
+        } catch (NullPointerException e) {
+
         }
-        // This shouldn't EVER happen:
-        Toast.makeText(SearchShelterActivity.this ,"An error occurred: " +
-                "the shelter you requested was not found in our database.",
-                Toast.LENGTH_LONG).show();
     }
 
     private void initFirebaseComponents() {
