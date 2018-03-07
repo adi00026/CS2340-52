@@ -104,7 +104,8 @@ public class Model {
     public Collection<Shelter> filterShelterByAge(String ageRange) {
         List<Shelter> list = new LinkedList<Shelter>();
         for (Shelter sh: shelters.values()) {
-            if (sh.getRestrictions().contains(ageRange)) {
+            if (sh.getRestrictions().toLowerCase().
+                    contains(ageRange.toLowerCase())) {
                 list.add(sh);
             }
         }
@@ -120,7 +121,8 @@ public class Model {
     public Collection<Shelter> filterShelterByGender(String gender) {
         List<Shelter> list = new LinkedList<Shelter>();
         for (Shelter sh: shelters.values()) {
-            if (sh.getRestrictions().contains(gender)) {
+            if (sh.getRestrictions().toLowerCase().
+                    contains(gender.toLowerCase())) {
                 list.add(sh);
             }
         }
@@ -140,7 +142,10 @@ public class Model {
     public List<Shelter> filterShelterByAgeGender(String ageRange, String gender) {
         List<Shelter> list = new LinkedList<Shelter>();
         for (Shelter sh: shelters.values()) {
-            if (sh.getRestrictions().contains(gender) && sh.getRestrictions().contains(ageRange)) {
+            if (sh.getRestrictions().toLowerCase().
+                    contains(gender.toLowerCase())
+                    && sh.getRestrictions().toLowerCase()
+                    .contains(ageRange.toLowerCase())) {
                 list.add(sh);
             }
         }
