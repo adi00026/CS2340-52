@@ -75,7 +75,8 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
                         + "Vacancies: ";
                 shelterInfoTextView.setText(sh.getName() + "\n" + sh.getAddress() + "\n" +
                         "Capacity: " + sh.getCapacity() + "\n"
-                        + "Vacancies: " + sh.getVacancies());
+                        + "Vacancies: " + sh.getVacancies() + "\n"
+                        + "Restrictions: " + sh.getRestrictions());
                 if (sh.getVacancies() == 0) {
                     checkInButton.setEnabled(false);
                 } else {
