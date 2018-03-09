@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="edu.gatech.cs2340.vaspa.buzzshelter">
 
+    <uses-permission
+        android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission
+        android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +15,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBZ02QH7mnUNyJSsIyA4ruSzePOlY8hPDM" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
         <activity android:name=".controller.WelcomePageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -38,6 +52,13 @@
         </activity>
         <activity android:name=".controller.ForgotPasswordActivity">
         </activity>
+        <activity
+            android:name=".controller.MapsActivity"
+            android:label="Map"></activity>
     </application>
 
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"
+        />
 </manifest>
