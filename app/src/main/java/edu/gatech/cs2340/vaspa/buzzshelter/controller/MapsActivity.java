@@ -37,7 +37,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 	@Override
 	public void onMapReady(GoogleMap googleMap) {
 		mMap = googleMap;
-		
+		googleMap = googleMap;
 		LatLng atl = new LatLng(33.7490, -84.3880);
 		mMap.addMarker(new MarkerOptions().position(atl).title("Shelter 1"));
 		
