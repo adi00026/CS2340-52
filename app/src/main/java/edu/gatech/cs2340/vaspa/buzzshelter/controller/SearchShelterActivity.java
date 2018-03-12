@@ -52,6 +52,8 @@ public class SearchShelterActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference myRef;
 
+    int currCheckedIn;
+
     private Model model;
 
     @Override
@@ -151,7 +153,7 @@ public class SearchShelterActivity extends AppCompatActivity {
         for (Shelter shelter : Model.getInstance().getShelters().values()) {
             Log.d("SEARCHDEBUG", "user shelter id: " + ((User) Model.getInstance().getCurrentUser()).getShelterID());
             Log.d("SEARCHDEBUG", "actual shelter id: " + shelter.getUniqueKey());
-            Log.d("SEARCHDEBUG", "--------------" + selected);
+            Log.d("SEARCHDEBUG", selected + "\n--------------");
             if (((User) Model.getInstance().getCurrentUser()).getShelterID() != null
                     && ((User) Model.getInstance().getCurrentUser()).getShelterID()
                     .equals(shelter.getUniqueKey())) {
@@ -162,7 +164,10 @@ public class SearchShelterActivity extends AppCompatActivity {
             }
             shelterAdapter.add(filter(shelter.getName()));
         }
-        selected--;
+        if (!set) {
+            selected = 0;
+        }
+        currCheckedIn = selected;
         //GenderSpinner
         genderAdapter.add("Any");
         genderAdapter.add("Men");
@@ -177,9 +182,9 @@ public class SearchShelterActivity extends AppCompatActivity {
 
         shelterSpinner.setAdapter(shelterAdapter);
         Log.d("SEARCHDEBUG", "selected: " + selected);
-        //shelterSpinner.setSelection(selected);
         genderSpinner.setAdapter(genderAdapter);
         ageSpinner.setAdapter(ageAdapter);
+        shelterSpinner.setSelection(selected);
 
         viewShelterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -280,7 +285,10 @@ public class SearchShelterActivity extends AppCompatActivity {
             }
         });
         shelterSpinner.setAdapter(shelterAdapter);
-
+        if (ageSpinner.getSelectedItem().equals("Anyone")
+                && genderSpinner.getSelectedItem().equals("Any")) {
+            shelterSpinner.setSelection(currCheckedIn);
+        }
     }
 
     private void viewShelterPressed() {
