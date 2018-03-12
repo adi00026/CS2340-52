@@ -221,6 +221,7 @@ public class SearchShelterActivity extends AppCompatActivity {
                         .child(mAuth.getCurrentUser().getUid()).getValue(User.class);
                 String currentID = user.getShelterID();
                 user.setShelterID(null);
+                user.setNumCheckedIn(0);
                 myRef.child("account_holders").child("users")
                         .child(mAuth.getCurrentUser().getUid()).setValue(user);
                 int size = dataSnapshot.child("shelters").child(currentID).child("vacancies")
