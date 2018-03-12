@@ -286,7 +286,6 @@ public class MainPageActivity extends AppCompatActivity {
             searchSheltersButton.setVisibility(View.INVISIBLE);
             manageUsersButton.setVisibility(View.INVISIBLE);
             updateVacanciesButton.setVisibility(View.INVISIBLE);
-            mapButton.setVisibility(View.INVISIBLE);
         } else {
             logoutButton.setEnabled(true);
             settingsButton.setEnabled(true);
@@ -304,8 +303,6 @@ public class MainPageActivity extends AppCompatActivity {
             updateVacanciesButton
                     .setVisibility(currentlyLoggedIn instanceof ShelterEmployee ?
                             View.VISIBLE : View.INVISIBLE);
-            mapButton.setVisibility(currentlyLoggedIn instanceof User ?
-                    View.VISIBLE : View.INVISIBLE);
         }
     }
 }
