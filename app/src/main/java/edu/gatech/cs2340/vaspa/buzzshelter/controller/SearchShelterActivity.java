@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -144,13 +145,24 @@ public class SearchShelterActivity extends AppCompatActivity {
             }
         });
 
-
-
         //ShelterSpinner
+        boolean set = false;
+        int selected = 0;
         for (Shelter shelter : Model.getInstance().getShelters().values()) {
+            Log.d("SEARCHDEBUG", "user shelter id: " + ((User) Model.getInstance().getCurrentUser()).getShelterID());
+            Log.d("SEARCHDEBUG", "actual shelter id: " + shelter.getUniqueKey());
+            Log.d("SEARCHDEBUG", "--------------" + selected);
+            if (((User) Model.getInstance().getCurrentUser()).getShelterID() != null
+                    && ((User) Model.getInstance().getCurrentUser()).getShelterID()
+                    .equals(shelter.getUniqueKey())) {
+                set = true;
+            }
+            if (!set) {
+                selected++;
+            }
             shelterAdapter.add(filter(shelter.getName()));
         }
-
+        selected--;
         //GenderSpinner
         genderAdapter.add("Any");
         genderAdapter.add("Men");
@@ -158,42 +170,17 @@ public class SearchShelterActivity extends AppCompatActivity {
         genderAdapter.add("Other");
 
         //AgeSpinner
+        ageAdapter.add("Anyone");
         ageAdapter.add("Children");
         ageAdapter.add("Young Adults");
         ageAdapter.add("Families");
-        ageAdapter.add("Anyone");
 
         shelterSpinner.setAdapter(shelterAdapter);
+        Log.d("SEARCHDEBUG", "selected: " + selected);
+        //shelterSpinner.setSelection(selected);
         genderSpinner.setAdapter(genderAdapter);
         ageSpinner.setAdapter(ageAdapter);
 
-        /*myRef.child("shelters").orderByKey().addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                Shelter shelter = dataSnapshot.getValue(Shelter.class);
-                sheltersMap.put(shelter.getUniqueKey(), shelter);
-                shelterAdapter.add(amilter(shelter.getName()));
-                // Maybe move the line below outside the listener?
-                shelterSpinner.setAdapter(shelterAdapter);
-            }
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {
-                Shelter shelter = dataSnapshot.getValue(Shelter.class);
-                sheltersMap.put(shelter.getUniqueKey(), shelter);
-                shelterAdapter.add(filter(shelter.getName()));
-                // Maybe move the line below outside the listener?
-                shelterSpinner.setAdapter(shelterAdapter);
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {}
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {}
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });*/
         viewShelterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -279,7 +266,19 @@ public class SearchShelterActivity extends AppCompatActivity {
                 shelterAdapter.add(filter(shelter.getName()));
             }
         }
+        //ShelterSpinner set up
+        shelterAdapter.setDropDownViewResource(R.layout.spinner_layout_2);
+        shelterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View arg1,
+                                       int arg2, long arg3) {
+                ((TextView) parent.getChildAt(0)).setTextSize(23);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
         shelterSpinner.setAdapter(shelterAdapter);
 
     }
