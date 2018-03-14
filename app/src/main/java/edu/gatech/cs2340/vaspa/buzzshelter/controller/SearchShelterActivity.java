@@ -241,6 +241,7 @@ public class SearchShelterActivity extends AppCompatActivity {
                 new ArrayAdapter(this,android.R.layout.simple_spinner_item);
         shelterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Collection<Shelter> list = model.filterShelterByName(nameEditText.getText().toString().trim());
+        model.setFilteredShelters(list);
         for (Shelter sh: list) {
             shelterAdapter.add(sh.getName());
         }
@@ -255,22 +256,19 @@ public class SearchShelterActivity extends AppCompatActivity {
 
         if (ageSpinner.getSelectedItem().equals("Anyone")
                 && genderSpinner.getSelectedItem().equals("Any")) {
-            for (Shelter shelter : model.allShelters()) {
-                shelterAdapter.add(filter(shelter.getName()));
-            }
+            model.setFilteredShelters(model.allShelters());
         } else if (ageSpinner.getSelectedItem().equals("Anyone")) {
-            for (Shelter shelter : model.filterShelterByGender((String) genderSpinner.getSelectedItem())) {
-                shelterAdapter.add(filter(shelter.getName()));
-            }
+            model.setFilteredShelters(model.filterShelterByGender((String) genderSpinner
+                    .getSelectedItem()));
         } else if (genderSpinner.getSelectedItem().equals("Any")) {
-            for (Shelter shelter : model.filterShelterByAge((String) ageSpinner.getSelectedItem())) {
-                shelterAdapter.add(filter(shelter.getName()));
-            }
+            model.setFilteredShelters(model.filterShelterByAge((String) ageSpinner
+                    .getSelectedItem()));
         } else {
-            for (Shelter shelter : model.filterShelterByAgeGender((String) ageSpinner.getSelectedItem(),
-                    (String) genderSpinner.getSelectedItem())) {
-                shelterAdapter.add(filter(shelter.getName()));
-            }
+            model.setFilteredShelters(model.filterShelterByAgeGender((String) ageSpinner
+                            .getSelectedItem(), (String) genderSpinner.getSelectedItem()));
+        }
+        for (Shelter shelter : model.getFilteredShelters()) {
+            shelterAdapter.add(filter(shelter.getName()));
         }
         //ShelterSpinner set up
         shelterAdapter.setDropDownViewResource(R.layout.spinner_layout_2);
