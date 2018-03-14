@@ -31,6 +31,7 @@ public class MainPageActivity extends AppCompatActivity {
     TextView welcomeTextview;
     Button logoutButton;
     Button settingsButton;
+    Button mapButton;
     Button searchSheltersButton;
     Button manageUsersButton;
     Button updateVacanciesButton;
@@ -64,6 +65,10 @@ public class MainPageActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main_page);
 
+        //Temp Map Stuff goes below
+        
+        //Temp Map Stuff goes above
+        
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
@@ -78,6 +83,7 @@ public class MainPageActivity extends AppCompatActivity {
         searchSheltersButton = (Button) findViewById(R.id.button_search);
         manageUsersButton = (Button) findViewById(R.id.button_manage_users);
         updateVacanciesButton = (Button) findViewById(R.id.button_update_vacancies);
+        mapButton = (Button) findViewById(R.id.button_map);
 
         setUpButtons(Model.getInstance().getCurrentUser());
 
@@ -123,6 +129,7 @@ public class MainPageActivity extends AppCompatActivity {
                         searchSheltersButton.setEnabled(false);
                         manageUsersButton.setEnabled(false);
                         updateVacanciesButton.setEnabled(false);
+                        mapButton.setEnabled(false);
                         logoutButton.setVisibility(View.VISIBLE);
                         logoutButton.setEnabled(true);
                     } else if (currentlyLoggedIn.isDeleted()) {
@@ -131,6 +138,7 @@ public class MainPageActivity extends AppCompatActivity {
                         searchSheltersButton.setEnabled(false);
                         manageUsersButton.setEnabled(false);
                         updateVacanciesButton.setEnabled(false);
+                        mapButton.setEnabled(false);
                         logoutButton.setVisibility(View.VISIBLE);
                         logoutButton.setEnabled(true);
                     } else {
@@ -192,6 +200,12 @@ public class MainPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 manageUsersPressed();
+            }
+        });
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mapPressed();
             }
         });
     }
@@ -274,6 +288,11 @@ public class MainPageActivity extends AppCompatActivity {
         startActivity(new Intent(MainPageActivity.this,
                 ManageUsersActivity.class));
     }
+    
+    private void mapPressed() {
+        startActivity(new Intent(MainPageActivity.this,
+                MapsActivity.class));
+    }
 
     private void setUpButtons(AccountHolder currentlyLoggedIn) {
         if (currentlyLoggedIn == null) {
@@ -283,7 +302,8 @@ public class MainPageActivity extends AppCompatActivity {
             searchSheltersButton.setEnabled(false);
             manageUsersButton.setEnabled(false);
             updateVacanciesButton.setEnabled(false);
-
+            mapButton.setEnabled(false);
+    
             // Setting visibilities all to false
             logoutButton.setVisibility(View.INVISIBLE);
             settingsButton.setVisibility(View.INVISIBLE);
@@ -296,7 +316,8 @@ public class MainPageActivity extends AppCompatActivity {
             searchSheltersButton.setEnabled(currentlyLoggedIn instanceof User);
             manageUsersButton.setEnabled(currentlyLoggedIn instanceof Admin);
             updateVacanciesButton.setEnabled(currentlyLoggedIn instanceof ShelterEmployee);
-
+            mapButton.setEnabled(currentlyLoggedIn instanceof User);
+    
             logoutButton.setVisibility(View.VISIBLE);
             settingsButton.setVisibility(View.VISIBLE);
             searchSheltersButton.setVisibility(currentlyLoggedIn instanceof User ?
