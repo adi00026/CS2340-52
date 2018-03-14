@@ -5,6 +5,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -21,6 +22,7 @@ public class Model {
      */
     private static final Model instance = new Model();
 
+    private Collection<Shelter> filteredShelters;
     private HashMap<String, Shelter> shelters;
     private AccountHolder currentUser;
     private HashMap<String, Integer> loginAttempts;
@@ -240,5 +242,23 @@ public class Model {
      */
     public void clearLog() {
         logs = "";
+    }
+
+    /**
+     * Getter for filtered Shelters.
+     *
+     * @return the List of filtered shelters
+     */
+    public Collection<Shelter> getFilteredShelters() {
+        return filteredShelters;
+    }
+
+    /**
+     * Getter for filtered Shelters.
+     *
+     * @param filteredShelters the List of filtered shelters
+     */
+    public void setFilteredShelters(Collection<Shelter> filteredShelters) {
+        this.filteredShelters = filteredShelters;
     }
 }
