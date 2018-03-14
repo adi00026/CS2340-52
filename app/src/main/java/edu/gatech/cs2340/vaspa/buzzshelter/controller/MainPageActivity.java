@@ -23,6 +23,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.AccountHolder;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Admin;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
+import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 
@@ -41,6 +42,22 @@ public class MainPageActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseDatabase database;
     DatabaseReference myRef;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String shelterText = "";
+        AccountHolder currentlyLoggedIn = Model.getInstance().getCurrentUser();
+        if (currentlyLoggedIn instanceof User) {
+            Shelter curr = Model.getInstance().getShelters()
+                    .get(((User) currentlyLoggedIn).getShelterID());
+            shelterText = "\nCurrent shelter:\n"
+                    + (curr == null ? "NONE" : curr.getName());
+        }
+        welcomeTextview.setText(currentlyLoggedIn == null ?
+                "No user currently logged in" : "Welcome, "
+                + currentlyLoggedIn.getName() + "!\n" + shelterText);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,9 +142,16 @@ public class MainPageActivity extends AppCompatActivity {
                         logoutButton.setVisibility(View.VISIBLE);
                         logoutButton.setEnabled(true);
                     } else {
+                        String shelterText = "";
+                        if (currentlyLoggedIn instanceof User) {
+                            Shelter curr = Model.getInstance().getShelters()
+                                    .get(((User) currentlyLoggedIn).getShelterID());
+                            shelterText = "\n\nCurrent shelter:\n"
+                                    + (curr == null ? "NONE" : curr.getName());
+                        }
                         welcomeTextview.setText(currentlyLoggedIn == null ?
                           "No user currently logged in" : "Welcome, "
-                          + currentlyLoggedIn.getName() + "!");
+                                + currentlyLoggedIn.getName() + "!" + shelterText);
                         setUpButtons(currentlyLoggedIn);
                     }
                     Model.getInstance().setCurrentUser(currentlyLoggedIn);

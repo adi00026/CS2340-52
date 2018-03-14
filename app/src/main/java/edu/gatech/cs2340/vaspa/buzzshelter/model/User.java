@@ -11,6 +11,7 @@ public class User extends AccountHolder {
     private List<Integer> dateOfBirth;
     private boolean isVeteran;
     private String shelterID;
+    private int numCheckedIn;
 
     public User(String name, String userID, String password, boolean lockedOut, String contactInfo,
                 String gender, List<Integer> dateOfBirth, boolean isVeteran) {
@@ -19,6 +20,7 @@ public class User extends AccountHolder {
         this.dateOfBirth = dateOfBirth;
         this.isVeteran = isVeteran;
         this.shelterID = null;
+        this.numCheckedIn = 0;
     }
     public User(String name, String userID, String contactInfo, String password) {
         this(name, userID, password, false, contactInfo, "Male", null, false);
@@ -72,5 +74,13 @@ public class User extends AccountHolder {
 
     public void setShelterID(String shelterID) {
         this.shelterID = shelterID;
+    }
+
+    public int getNumCheckedIn() {
+        return numCheckedIn;
+    }
+
+    public void setNumCheckedIn(int numCheckedIn) {
+        this.numCheckedIn = numCheckedIn;
     }
 }
