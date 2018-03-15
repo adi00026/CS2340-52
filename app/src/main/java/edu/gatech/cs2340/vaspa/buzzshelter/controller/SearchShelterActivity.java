@@ -1,40 +1,35 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.controller;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
-import edu.gatech.cs2340.vaspa.buzzshelter.model.AccountHolder;
-import edu.gatech.cs2340.vaspa.buzzshelter.model.Admin;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
-import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
 
 
 public class SearchShelterActivity extends AppCompatActivity {
@@ -47,15 +42,22 @@ public class SearchShelterActivity extends AppCompatActivity {
     Spinner ageSpinner;
     EditText nameEditText;
     Button goButton;
+    Button mapButton;
 
     FirebaseAuth mAuth;
     FirebaseDatabase database;
     DatabaseReference myRef;
 
+    Collection<Shelter> filteredS = new ArrayList<>();
+	Collection<Shelter> unfilteredS = new ArrayList<>();
+    
     int currCheckedIn;
 
     private Model model;
-
+    
+    private ArrayAdapter<String> shelterAdapter;
+    
+	
     @Override
     public void onResume() {
         super.onResume();
@@ -78,13 +80,14 @@ public class SearchShelterActivity extends AppCompatActivity {
         backButton = (Button) findViewById(R.id.button_back);
         checkoutButton = (Button) findViewById(R.id.button_checkOut);
         goButton = (Button) findViewById(R.id.gobutton);
+        mapButton = (Button) findViewById(R.id.button_map);
         shelterSpinner = (Spinner) findViewById(R.id.shelter_spinner);
         genderSpinner = (Spinner) findViewById(R.id.gender_spinner);
         ageSpinner = (Spinner) findViewById(R.id.age_spinner);
         nameEditText = (EditText) findViewById(R.id.namePlainText);
 
         initFirebaseComponents();
-
+        
         if (((User) Model.getInstance().getCurrentUser()).getShelterID() == null) {
             checkoutButton.setEnabled(false);
         } else {
@@ -92,7 +95,7 @@ public class SearchShelterActivity extends AppCompatActivity {
         }
 
         //ShelterSpinner
-        final ArrayAdapter<String> shelterAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item);
+	    shelterAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item);
         shelterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         //GenderSpinner
@@ -204,7 +207,12 @@ public class SearchShelterActivity extends AppCompatActivity {
                 checkoutPressed();
             }
         });
-
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mapPressed();
+            }
+        });
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -307,6 +315,22 @@ public class SearchShelterActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
         } catch (NullPointerException e) {
 
+        }
+    }
+    
+    private void mapPressed() {
+        startActivity(new Intent(SearchShelterActivity.this,
+                MapsActivity.class));
+        Intent intent = new Intent();
+	
+	    filteredS.addAll(model.getFilteredShelters());
+	    unfilteredS.addAll(model.getShelters().values());
+	    
+        if (filteredS.size() < unfilteredS.size()) {
+	        intent.putParcelableArrayListExtra("shelters", (ArrayList<? extends Parcelable>) filteredS);
+        } else {
+	        intent.putParcelableArrayListExtra("shelters", (ArrayList<? extends Parcelable>
+			        ) unfilteredS);
         }
     }
 
