@@ -257,7 +257,6 @@ public class SearchShelterActivity extends AppCompatActivity {
     }
 
     private void repopulateShelterSpinner() {
-        Collection<Shelter> list;
         final ArrayAdapter<String> shelterAdapter =
                 new ArrayAdapter(this,android.R.layout.simple_spinner_item);
         shelterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -319,9 +318,8 @@ public class SearchShelterActivity extends AppCompatActivity {
     }
     
     private void mapPressed() {
-        startActivity(new Intent(SearchShelterActivity.this,
-                MapsActivity.class));
-        Intent intent = new Intent();
+        Intent intent = new Intent(SearchShelterActivity.this,
+                MapsActivity.class);
 	
 	    filteredS.addAll(model.getFilteredShelters());
 	    unfilteredS.addAll(model.getShelters().values());
@@ -332,6 +330,7 @@ public class SearchShelterActivity extends AppCompatActivity {
 	        intent.putParcelableArrayListExtra("shelters", (ArrayList<? extends Parcelable>
 			        ) unfilteredS);
         }
+        startActivity(intent);
     }
 
     private void initFirebaseComponents() {

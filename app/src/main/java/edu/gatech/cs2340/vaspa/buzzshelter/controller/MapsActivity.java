@@ -24,8 +24,6 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
 public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
 	
 	ArrayList<Shelter> shelters;
-	Shelter filteredS;
-	Shelter unfilteredS;
 	Button backButton;
 	
 	private GoogleMap mMap;
@@ -33,8 +31,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		shelters = getIntent().getParcelableExtra("shelters");
-		System.out.println("shelters_list: " + shelters);
+		shelters = getIntent().getParcelableArrayListExtra("shelters");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_maps);
 		
@@ -75,10 +72,9 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
 			mMap.addMarker(new MarkerOptions().position(shelterLL).title(shelter.getName()));
 		}
 		
-		//LatLng shelter = new LatLng(34, -85);
-		//mMap.addMarker(new MarkerOptions().position(shelter).title("Atl"));
-		//mMap.moveCamera(CameraUpdateFactory.newLatLng(shelter));
-		CameraUpdate zoom = CameraUpdateFactory.zoomTo(18);
+		LatLng atl = new LatLng(33.7490, -84.3880);
+		mMap.moveCamera(CameraUpdateFactory.newLatLng(atl));
+		CameraUpdate zoom = CameraUpdateFactory.zoomTo(12);
 		mMap.animateCamera(zoom);
 		
 		mMap.setOnMarkerClickListener(this);
