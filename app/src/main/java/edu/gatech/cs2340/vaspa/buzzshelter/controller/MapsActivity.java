@@ -1,28 +1,56 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.controller;
 
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import edu.gatech.cs2340.vaspa.buzzshelter.R;
+import java.util.ArrayList;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+import edu.gatech.cs2340.vaspa.buzzshelter.R;
+import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
+
+public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
+	
+	ArrayList<Shelter> shelters;
+	Shelter filteredS;
+	Shelter unfilteredS;
+	Button backButton;
 	
 	private GoogleMap mMap;
+	private UiSettings mUiSettings;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		shelters = getIntent().getParcelableExtra("shelters");
+		System.out.println("shelters_list: " + shelters);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_maps);
+		
+		backButton = findViewById(R.id.button_back);
+		
 		// Obtain the SupportMapFragment and get notified when the map is ready to be used.
 		SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.map);
 		mapFragment.getMapAsync(this);
+		
+		backButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				onBackPressed();
+			}
+		});
 	}
 	
 	/**
@@ -37,38 +65,39 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 	@Override
 	public void onMapReady(GoogleMap googleMap) {
 		mMap = googleMap;
-		googleMap = googleMap;
-		LatLng atl = new LatLng(33.7490, -84.3880);
-		mMap.addMarker(new MarkerOptions().position(atl).title("Shelter 1"));
+		mUiSettings = mMap.getUiSettings();
 		
-		LatLng shelt2 = new LatLng(33.775710, -84.399041);
-		mMap.addMarker(new MarkerOptions().position(shelt2).title("Shelter 2"));
+		mUiSettings.setZoomControlsEnabled(true);
 		
-		LatLng shelt3 = new LatLng(33.752696, -84.385508);
-		mMap.addMarker(new MarkerOptions().position(shelt3).title("Shelter 3"));
 		
-		mMap.moveCamera(CameraUpdateFactory.newLatLng(atl));
-		
-		//Temp Map Stuff goes below
-		/**
-		ArrayList<MarkerData> markersArray = new ArrayList<MarkerData>();
-		
-		for(int i = 0 ; i < markersArray.size() ; i++ ) {
-			
-			createMarker(markersArray.get(i).getLatitude(), markersArray.get(i).getLongitude(), markersArray.get(i).getTitle(), markersArray.get(i).getSnippet(), markersArray.get(i).getIconResID());
+		for (Shelter shelter : shelters) {
+			LatLng shelterLL = new LatLng(shelter.getLatitude(), shelter.getLongitude());
+			mMap.addMarker(new MarkerOptions().position(shelterLL).title(shelter.getName()));
 		}
-
-...
 		
-		protected Marker createMarker(double latitude, double longitude, String title, String snippet, int iconResID) {
-			
-			return googleMap.addMarker(new MarkerOptions()
-					.position(new LatLng(latitude, longitude))
-					.anchor(0.5f, 0.5f)
-					.title(title)
-					.snippet(snippet);
-            .icon(BitmapDescriptorFactory.fromResource(iconResID)))
-		 **/
-		//Temp Map Stuff goes above
+		//LatLng shelter = new LatLng(34, -85);
+		//mMap.addMarker(new MarkerOptions().position(shelter).title("Atl"));
+		//mMap.moveCamera(CameraUpdateFactory.newLatLng(shelter));
+		CameraUpdate zoom = CameraUpdateFactory.zoomTo(18);
+		mMap.animateCamera(zoom);
+		
+		mMap.setOnMarkerClickListener(this);
+	}
+	
+	@Override
+	public boolean onMarkerClick(final Marker marker) {
+		for (Shelter shelter : shelters) {
+			Toast.makeText(this,
+					" Phone number: " + shelter.getContactInfo(),
+					Toast.LENGTH_SHORT).show();
+		}
+		//Toast.makeText(this,
+		//		" Phone number: " + shelters.getContactInfo(),
+		//		Toast.LENGTH_SHORT).show();
+		
+		// Return false to indicate that we have not consumed the event and that we wish
+		// for the default behavior to occur (which is for the camera to move such that the
+		// marker is centered and for the marker's info window to open, if it has one).
+		return false;
 	}
 }
