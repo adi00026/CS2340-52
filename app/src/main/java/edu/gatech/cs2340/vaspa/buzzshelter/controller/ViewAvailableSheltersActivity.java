@@ -188,19 +188,15 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
     }
 
     private void checkInPressed() {
-        // get prompts.xml view
+        // get check_in_prompt.xml view
         LayoutInflater li = LayoutInflater.from(this);
         View promptsView = li.inflate(R.layout.check_in_prompt, null);
-
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 this);
-
         // set prompts.xml to alertdialog builder
         alertDialogBuilder.setView(promptsView);
-
         final EditText userInput = (EditText) promptsView
                 .findViewById(R.id.editTextDialogUserInput);
-
         // set dialog message
         alertDialogBuilder
                 .setCancelable(false)
@@ -223,10 +219,8 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
                                 dialog.cancel();
                             }
                         });
-
         // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
-
         // show it
         alertDialog.show();
     }
