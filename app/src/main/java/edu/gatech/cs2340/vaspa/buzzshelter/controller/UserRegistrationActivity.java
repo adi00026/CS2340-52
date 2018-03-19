@@ -32,7 +32,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
+import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
+import edu.gatech.cs2340.vaspa.buzzshelter.util.Validation;
 
 public class UserRegistrationActivity extends AppCompatActivity {
 
@@ -114,8 +116,12 @@ public class UserRegistrationActivity extends AppCompatActivity {
         int month = Integer.parseInt(monthText.getText().toString());
         int day = Integer.parseInt(dayText.getText().toString());
         int year = Integer.parseInt(yearText.getText().toString());
+        final String username = getIntent().getExtras().getString("username");
+        String email = username;
 
-        if (!isValidDate(month, day, year)) {
+        boolean isValid = Validation.isValidDate(month, day, year);
+
+        if (!isValid) {
             progressDialog.dismiss();
             Toast.makeText(this, "Invalid date", Toast.LENGTH_SHORT).show();
             return;
@@ -125,21 +131,12 @@ public class UserRegistrationActivity extends AppCompatActivity {
         dob.add(month);
         dob.add(day);
         dob.add(year);
+
         String gender = genderSpinner.getSelectedItem().toString();
         boolean isVeteran = vetCheckbox.isChecked();
-        final String username = getIntent().getExtras().getString("username");
         String password = getIntent().getExtras().getString("password");
         String contactInfo = getIntent().getExtras().getString("contactInfo");
         String name = getIntent().getExtras().getString("name");
-        String email = username;
-
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            progressDialog.dismiss();
-            Toast.makeText(this, "Invalid email address, must be like" +
-                            ": username@example.com", Toast.LENGTH_LONG).show();
-            return;
-        }
-
 
         final User user = new User(name, username, password, false, contactInfo, gender, dob,
                 isVeteran);
@@ -185,19 +182,5 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 progressDialog.dismiss();
             }
         });
-    }
-
-    private boolean isValidDate(int month, int day, int year) {
-        int[] dateArr = {-1, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-        if (year % 4 == 0) {
-            dateArr[2] = 29;
-        }
-        if (month < 1 || month > 12) {
-            return false;
-        }
-        if (day < 1 || day > dateArr[month]) {
-            return false;
-        }
-        return true;
     }
 }
