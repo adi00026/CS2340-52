@@ -17,6 +17,9 @@ import edu.gatech.cs2340.vaspa.buzzshelter.util.StringSearch;
 
 /**
  * "Model Facade" class
+ *
+ * @author All
+ * @version 6.9
  */
 public class Model {
     /**
@@ -103,7 +106,7 @@ public class Model {
      * This method assumes ageRange is not null.
      *
      * @param ageRange string to search for.
-     * @return a list of shelters containing str in their names
+     * @return a collection of shelters containing str in their names
      */
     public Collection<Shelter> filterShelterByAge(String ageRange) {
         List<Shelter> list = new LinkedList<Shelter>();
@@ -120,7 +123,7 @@ public class Model {
      * Function to search shelter that have str in their name.
      *
      * @param gender string to search for.
-     * @return a list of shelters containing str in their names
+     * @return a collection of shelters containing str in their names
      */
     public Collection<Shelter> filterShelterByGender(String gender) {
         List<Shelter> list = new LinkedList<Shelter>();
@@ -132,6 +135,12 @@ public class Model {
         return list;
     }
 
+    /**
+     * Function to filter shelters that have name in their name.
+     *
+     * @param name to search for.
+     * @return a collection of shelters containing str in their names
+     */
     public Collection<Shelter> filterShelterByName(String name) {
         List<Shelter> list = new LinkedList<Shelter>();
         for (Shelter sh: shelters.values()) {
@@ -143,6 +152,11 @@ public class Model {
         return list;
     }
 
+    /**
+     * Method to return a list of all shelters currently in the database
+     *
+     * @return a Collection of all the shelters.
+     */
     public Collection<Shelter> allShelters() {
         return shelters.values();
     }

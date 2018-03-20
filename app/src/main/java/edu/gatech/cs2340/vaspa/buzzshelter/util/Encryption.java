@@ -1,9 +1,11 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.util;
 
 /**
- * Created by aniruddhadas on 08/02/18.
+ * Class definition for util class Encryption.
+ *
+ * @author Aniruddha Das
+ * @version 6.9
  */
-
 public class Encryption {
     private static byte encryptionKey = 0x7A;
     /**

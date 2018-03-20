@@ -5,9 +5,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by Sanath on 2/26/2018.
+ * Class definition for util class StringSearch.
+ *
+ * @author Sanath Nagaraj
+ * @version 6.9
  */
-
 public class StringSearch {
     /**
      * Method returns whether text is contained in pattern. It is case sensitive.
@@ -133,7 +135,7 @@ public class StringSearch {
      * -1 is returned. Else the sum of all numbers in the string are returned.
      *
      * @param bullshitCapacity is the BS string from CSV
-     * @returns an int that is (hopefully) the capacity
+     * @return an int that is (hopefully) the capacity
      */
     public static int parseCapacity(String bullshitCapacity) {
         // If bullshitCapacity is empty...
