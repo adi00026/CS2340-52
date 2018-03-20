@@ -45,11 +45,6 @@ public class WelcomePageActivity extends AppCompatActivity {
 
     private static final String TAG = "WELCOME PAGE ACTIVITY";
 
-    /**
-     * method called when welcome page is loaded.
-     *
-     * @param savedInstanceState auto generated
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

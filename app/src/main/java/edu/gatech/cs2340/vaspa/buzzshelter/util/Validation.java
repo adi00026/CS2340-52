@@ -1,9 +1,11 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.util;
 
 /**
- * Created by Sanath on 3/19/2018.
+ * Class definition for util class Validation.
+ *
+ * @author Sanath Nagaraj
+ * @version 6.9
  */
-
 public class Validation {
     /**
      * Method to validate an entered date.
