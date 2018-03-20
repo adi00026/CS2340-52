@@ -20,6 +20,13 @@ import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
 
+/**
+ * Class to handle the Shelter Employee Settings page activity. This is only accessible to Shelter
+ * Employees.
+ *
+ * @author Sanath Nagaraj
+ * @version 6.9
+ */
 public class ShelterEmployeeSettingsActivity extends AppCompatActivity {
     Button backButton;
     Button updateButton;
@@ -71,6 +78,12 @@ public class ShelterEmployeeSettingsActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method to handle what happens when the update button is pressed. If the data in the inputs
+     * are different from what the Shelter Employee's current attribute values are, it updates
+     * his/her info on firebase and locally on the app. If the entered unique shelter key is not
+     * valid, it says so.
+     */
     private void updatePressed() {
         final ShelterEmployee shelterEmployee = (ShelterEmployee) Model.getInstance().getCurrentUser();
         String name = nameEditText.getText().toString().trim();

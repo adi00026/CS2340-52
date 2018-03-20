@@ -29,6 +29,13 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 
+/**
+ * Class to handle the Change welcome page activity. All AccountHolders will access this page from
+ * their respective settings page. This page is shared by all types of AccountHolders.
+ *
+ * @author Sanath Nagaraj
+ * @version 6.9
+ */
 public class WelcomePageActivity extends AppCompatActivity {
     private Model model;
     private Button loginButton;
@@ -232,18 +239,20 @@ public class WelcomePageActivity extends AppCompatActivity {
     }
 
     /**
-     * Method to handle what happens when the "cancel" button is pressed
+     * Method to handle what happens when the "cancel" button is pressed. Sets textboxes to empty
+     * and re enables all buttons.
      */
     private void cancelPressed() {
         usernameEditText.setText("");
         passwordEditText.setText("");
+        loginButton.setEnabled(true);
         Toast.makeText(getApplicationContext(), "Login Canceled!",
                 Toast.LENGTH_SHORT).show();
     }
 
     /**
      * Method called when forgotPass button is clicked.
-     * Will redirect to a new page.
+     * Will redirect to a new page to retrieve password.
      */
     private void forgotPassClicked() {
         Intent nextIntent = new Intent(WelcomePageActivity.this,

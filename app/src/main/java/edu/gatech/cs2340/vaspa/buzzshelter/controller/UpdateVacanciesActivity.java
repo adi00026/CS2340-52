@@ -24,6 +24,13 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
 import edu.gatech.cs2340.vaspa.buzzshelter.util.StringSearch;
 
+/**
+ * Class to handle the Update Vacancies page activity. This page is only accessible to Shelter
+ * Employees.
+ *
+ * @author Sanath Nagaraj
+ * @version 6.9
+ */
 public class UpdateVacanciesActivity extends AppCompatActivity {
     Button backButton;
     Button updateButton;
@@ -80,9 +87,15 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method to handle what happens when the update vacancies button is pressed. If the entered
+     * number of vacancies is not numeric, an error is displayed. If the entered number is less than
+     * 0 or larger than this employee's respective shelter's capacity, an error is displayed. If
+     * no error, this activity is added to the local log and then the the vacancies are updated on
+     * both firebase and locally.
+     */
     private void updatePressed() {
         ShelterEmployee currentUser = (ShelterEmployee) Model.getInstance().getCurrentUser();
-        // String uKey = shelterText.getText().toString().trim();
         int vacancies;
         try {
             String vacancyText = vacanciesEditText.getText().toString().trim();
@@ -93,8 +106,8 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
             return;
         }
         if (vacancies < 0) {
-            Toast.makeText(UpdateVacanciesActivity.this, "Vacancies must be non-negative",
-              Toast.LENGTH_SHORT).show();
+            Toast.makeText(UpdateVacanciesActivity.this,
+                    "Vacancies must be non-negative", Toast.LENGTH_SHORT).show();
             return;
         }
         Shelter thisShelter = Model.getInstance().getShelters().get(currentUser.getShelterID());
@@ -105,9 +118,6 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
             return;
         }
 
-
-        // TODO setup actual updating of vacancies
-
         // TODO remove once updating of vacancies is implemented
         if (false) {
             final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
@@ -117,7 +127,6 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
             Model.getInstance().updateLogs(log);
         }
 
-        // SNAGS
         final int newVacancies = vacancies;
         myRef.addValueEventListener(new ValueEventListener() {
             @Override

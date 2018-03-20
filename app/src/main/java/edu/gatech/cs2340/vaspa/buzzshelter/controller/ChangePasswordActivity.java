@@ -24,6 +24,13 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.Admin;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 
+/**
+ * Class to handle the Change Password page activity. All AccountHolders will access this page from
+ * their respective settings page. This page is shared by all types of AccountHolders.
+ *
+ * @author Sanath Nagaraj
+ * @version 6.9
+ */
 public class ChangePasswordActivity extends AppCompatActivity {
     Button backButton;
     Button changePasswordButton;
@@ -65,6 +72,12 @@ public class ChangePasswordActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method to handle what happens when the change password button is pressed. If the old
+     * password is wrong or if the two entries of the new passwords do not match, it will display
+     * the error. If the new password is less than 8 characters, it will display the error. If all
+     * is fine, it changes the user's details both on firebase database and firebase auth.
+     */
     private void changePasswordPressed() {
         if (!oldPasswordText.getText().toString().equals(Model.getInstance().getCurrentUser()
                 .getPassword())) {
@@ -115,8 +128,10 @@ public class ChangePasswordActivity extends AppCompatActivity {
                                         }
                                         Toast.makeText(ChangePasswordActivity.this,
                                                 "Password Changed!", Toast.LENGTH_SHORT).show();
-                                        final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
-                                          format(Calendar.getInstance().getTime()); // Current date and time
+                                        final String date
+                                                = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                                                .format(Calendar.getInstance().getTime());
+                                                // Current date and time
                                         String log = date + ", " + Model.getInstance()
                                           .getCurrentUser().getUserId() + ", " + "changed password";
                                         Model.getInstance().updateLogs(log);
