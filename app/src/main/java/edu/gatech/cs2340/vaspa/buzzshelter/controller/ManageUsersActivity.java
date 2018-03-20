@@ -24,6 +24,12 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 
+/**
+ * Class to handle the Change Password page activity. This page is only accessible to Admins.
+ *
+ * @author Sanath Nagaraj
+ * @version 6.9
+ */
 public class ManageUsersActivity extends AppCompatActivity {
     private Button backButton;
     private Button removeButton;
@@ -88,7 +94,8 @@ public class ManageUsersActivity extends AppCompatActivity {
 
 
     /**
-     * Method to redirect to the add shelter page
+     * Method to handle the event of the add button being pressed. It redirects to the add shelter
+     * page
      */
     private void addButtonClicked() {
         Intent intent = new Intent(ManageUsersActivity.this,
@@ -98,15 +105,14 @@ public class ManageUsersActivity extends AppCompatActivity {
 
     /**
      * Method to set a certain homeless user's account to either enabled or
-     * disabled.
+     * disabled. This activity is logged locally.
      *
      * @param status what you want the User's enabled status to be.
      */
     private void setUserEnabled(final boolean status) {
-        /**
+        /*
          * Search database. If not found, Toast it. If found, set locked out to status.
          */
-
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -125,7 +131,8 @@ public class ManageUsersActivity extends AppCompatActivity {
                         final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                           format(Calendar.getInstance().getTime()); // Current date and time
                         String log = date + ", " + "ADMIN: " + Model.getInstance().getCurrentUser()
-                          .getUserId() + ", " + (status ? "Enabled " : "Disabled ") + toManage.getUserId();
+                          .getUserId() + ", " + (status ? "Enabled " : "Disabled ") + toManage
+                                .getUserId();
                         Model.getInstance().updateLogs(log);
                         myRef.removeEventListener(this);
                         return;
@@ -146,7 +153,8 @@ public class ManageUsersActivity extends AppCompatActivity {
                         final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                           format(Calendar.getInstance().getTime()); // Current date and time
                         String log = date + ", " + "ADMIN: " + Model.getInstance().getCurrentUser()
-                          .getUserId() + ", " + (status ? "Enabled " : "Disabled ") + toManage.getUserId();
+                          .getUserId() + ", " + (status ? "Enabled " : "Disabled ") + toManage
+                                .getUserId();
                         Model.getInstance().updateLogs(log);
                         myRef.removeEventListener(this);
                         return;
@@ -166,7 +174,7 @@ public class ManageUsersActivity extends AppCompatActivity {
 
     /**
      * Method to set a certain homeless user's account to either deleted or
-     * add.
+     * add. This activity is logged locally.
      *
      * @param status what you want the User's enabled status to be.
      */
@@ -193,7 +201,8 @@ public class ManageUsersActivity extends AppCompatActivity {
                         final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                           format(Calendar.getInstance().getTime()); // Current date and time
                         String log = date + ", " + "ADMIN: " + Model.getInstance().getCurrentUser()
-                          .getUserId() + ", " + (status ? "Deleted " : "Added ") + toManage.getUserId();
+                          .getUserId() + ", " + (status ? "Deleted " : "Added ") + toManage
+                                .getUserId();
                         Model.getInstance().updateLogs(log);
                         myRef.removeEventListener(this);
                         return;
@@ -214,7 +223,8 @@ public class ManageUsersActivity extends AppCompatActivity {
                         final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                           format(Calendar.getInstance().getTime()); // Current date and time
                         String log = date + ", " + "ADMIN: " + Model.getInstance().getCurrentUser()
-                          .getUserId() + ", " + (status ? "Deleted " : "Added ") + toManage.getUserId();
+                          .getUserId() + ", " + (status ? "Deleted " : "Added ") + toManage
+                                .getUserId();
                         Model.getInstance().updateLogs(log);
                         myRef.removeEventListener(this);
                         return;

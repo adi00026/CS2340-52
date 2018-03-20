@@ -20,6 +20,12 @@ import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Admin;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 
+/**
+ * Class to handle the Admin Settings page activity. This is only accessible to Admins.
+ *
+ * @author Sanath Nagaraj
+ * @version 6.9
+ */
 public class AdminSettingsActivity extends AppCompatActivity {
     Button backButton;
     Button updateButton;
@@ -75,6 +81,11 @@ public class AdminSettingsActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method to handle what happens when the update button is pressed. If the data in the inputs
+     * are different from what the Admin's current attribute values are, it updates his/her info on
+     * firebase and locally on the app. This action is logged locally.
+     */
     private void updatePressed() {
         Admin admin = (Admin) Model.getInstance().getCurrentUser();
         if (!(nameEditText.getText().toString().trim().equals(admin.getName())

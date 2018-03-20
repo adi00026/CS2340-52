@@ -25,6 +25,13 @@ import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 
+/**
+ * Class to handle the Homeless User Settings page activity. This is only accessible to Homeless
+ * Users.
+ *
+ * @author Sanath Nagaraj
+ * @version 6.9
+ */
 public class UserSettingsActivity extends AppCompatActivity {
     Button backButton;
     Button updateButton;
@@ -107,6 +114,11 @@ public class UserSettingsActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method to handle what happens when the update button is pressed. If the data in the inputs
+     * are different from what the Shelter Employee's current attribute values are, it updates
+     * his/her info on firebase and locally on the app.
+     */
     private void updatePressed() {
         User user = (User) Model.getInstance().getCurrentUser();
         String name = nameEditText.getText().toString().trim();

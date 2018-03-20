@@ -27,6 +27,14 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 
+/**
+ * Class to handle the Main page activity. All Account holders are directed to this page after
+ * logging in. Depending on the type of user. certain buttons are visible and certain buttons are
+ * not.
+ *
+ * @author Aniruddha Das, Sanath Nagaraj
+ * @version 6.9
+ */
 public class MainPageActivity extends AppCompatActivity {
     TextView welcomeTextview;
     Button logoutButton;
@@ -202,6 +210,10 @@ public class MainPageActivity extends AppCompatActivity {
         logoutPressed();
     }
 
+    /**
+     * Method to handle what happens when the logout button is pressed. All logged data is pushed
+     * up to firebase. User is logged out and returned to the Welcome Page.
+     */
     private void logoutPressed() {
         Intent intent = new Intent(MainPageActivity.this,
                 WelcomePageActivity.class);
@@ -244,6 +256,10 @@ public class MainPageActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Method to handle what happens when the settings button is pressed. Depending on what type of
+     * AccountHolder is logged in, they are directed to the respective settings page.
+     */
     private void settingsPressed() {
         Intent intent;
         if (Model.getInstance().getCurrentUser() instanceof User) {
@@ -261,21 +277,47 @@ public class MainPageActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Method to handle what happens when the Search Shelters button is pressed. This method can
+     * only be accessed by a Homeless User. The Homeless User is directed to the Search Shelter
+     * Activity
+     */
     private void searchShelterClicked() {
         startActivity(new Intent(MainPageActivity.this,
                 SearchShelterActivity.class));
     }
 
+    /**
+     * Method to handle what happens when the Update Vacancies button is pressed. This method can
+     * only be accessed by a Shelter Employee. The Shelter Employee is directed to the Update
+     * Vacancies Activity
+     */
     private void updateVacanciesPressed() {
         startActivity(new Intent(MainPageActivity.this,
                 UpdateVacanciesActivity.class));
     }
 
+    /**
+     * Method to handle what happens when the Manage Users button is pressed. This method can
+     * only be accessed by a Admin. The Admiin is directed to the Manage Users Activity.
+     */
     private void manageUsersPressed() {
         startActivity(new Intent(MainPageActivity.this,
                 ManageUsersActivity.class));
     }
 
+    /**
+     * Method to set up which buttons are visible based on the currently logged in user. If no one
+     * is logged in, all buttons are invisible. In all cases of some valid AccountHolder logged in,
+     * Settings and Logout are both visible and enabled. The other three buttons are enabled
+     * exclusively for the following type of AccountHolder:
+     *  - Homeless User : Search Shelters
+     *  - Shelter Employee : Update Vacancies
+     *  - Admin : Manage Users
+     *
+     * @param currentlyLoggedIn is the AccountHolder object representing the currently logged in
+     *                          user.
+     */
     private void setUpButtons(AccountHolder currentlyLoggedIn) {
         if (currentlyLoggedIn == null) {
             // Disabling all buttons

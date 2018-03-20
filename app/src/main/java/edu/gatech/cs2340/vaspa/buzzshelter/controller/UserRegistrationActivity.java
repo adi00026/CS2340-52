@@ -36,6 +36,13 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 import edu.gatech.cs2340.vaspa.buzzshelter.util.Validation;
 
+/**
+ * Class to handle the User Registration page activity. This page is only accessible to Registering
+ * Homeless users.
+ *
+ * @author Sanath Nagaraj
+ * @version 6.9
+ */
 public class UserRegistrationActivity extends AppCompatActivity {
 
     Spinner genderSpinner;
@@ -107,8 +114,11 @@ public class UserRegistrationActivity extends AppCompatActivity {
         });
     }
 
-
-
+    /**
+     * Method to handle what happens when the register button is pressed. If the entered date of
+     * birth is an invalid date, an error is shown. If no error, a new user is created on Firebase
+     * Auth and added to Firebase Database in the . --> AccountHolders --> Users branch.
+     */
     private void register() {
         progressDialog.setMessage("Registering User...");
         progressDialog.show();
