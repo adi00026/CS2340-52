@@ -3,12 +3,14 @@ package edu.gatech.cs2340.vaspa.buzzshelter.controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,6 +23,7 @@ import java.util.Calendar;
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
+import edu.gatech.cs2340.vaspa.buzzshelter.util.LocationFromAddress;
 
 public class AdditionalShelterInfoActivity extends AppCompatActivity {
 
@@ -95,8 +98,17 @@ public class AdditionalShelterInfoActivity extends AppCompatActivity {
               Toast.LENGTH_SHORT).show();
             return;
         }
-        final Shelter newShelter = new Shelter(id, name, "" + capacity, restrictions, 69.0,
-          69.0, address, specialNotes, contact_info, capacity);
+        LatLng latLng = LocationFromAddress.getLocationFromAddress(this, address);
+        final Shelter newShelter;
+        if (latLng != null) {
+            Log.d("ADDITIONAL_SHELTER_INFO", latLng.latitude + ", " + latLng.longitude);
+            newShelter = new Shelter(id, name, "" + capacity, restrictions, latLng.longitude,
+              latLng.latitude, address, specialNotes, contact_info, capacity);
+        } else {
+            Log.d("ADDITIONAL_SHELTER_INFO", "latlng was null. Default values placed");
+            newShelter = new Shelter(id, name, "" + capacity, restrictions, 69.0,
+              69.0, address, specialNotes, contact_info, capacity);
+        }
 
         final DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
 
