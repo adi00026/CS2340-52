@@ -34,7 +34,8 @@ public class LocationFromAddress {
             address = coder.getFromLocationName(strAddress, 5);
             if (address == null || address.size() == 0) {
                 // implies backend service is down or no results were found for the address
-                Log.d(TAG, "backend service is down or no results were found for the address");
+                Log.d(TAG, "backend service is down or no results were found " +
+                    "for the address, address is: " + address);
                 return null;
             }
 
