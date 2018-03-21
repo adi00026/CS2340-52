@@ -3,6 +3,7 @@ package edu.gatech.cs2340.vaspa.buzzshelter.util;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
+import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -14,6 +15,7 @@ import java.util.List;
  */
 
 public class LocationFromAddress {
+    private static final String TAG = "LocationFromAddress";
     /**
      * Static method uses Google Maps API to return latitude and longitude based on passed in address
      *
@@ -32,6 +34,7 @@ public class LocationFromAddress {
             address = coder.getFromLocationName(strAddress, 5);
             if (address == null || address.size() == 0) {
                 // implies backend service is down or no results were found for the address
+                Log.d(TAG, "backend service is down or no results were found for the address");
                 return null;
             }
 
@@ -39,7 +42,8 @@ public class LocationFromAddress {
             latLng = new LatLng(location.getLatitude(), location.getLongitude() );
 
         } catch (IOException ex) {
-            ex.printStackTrace();
+            Log.d(TAG, ex.getMessage());
+            Log.getStackTraceString(ex);
         }
         // latitude and longitude are public data members of LatLng
         return latLng;
