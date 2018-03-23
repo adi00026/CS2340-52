@@ -112,6 +112,7 @@ public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
                             myRef.child("account_holders").child("shelter_employees").child(UID)
                                     .setValue(shemp);
 
+                            // TODO move to seperate logging class
                             // Logging creation of new account holder
                             String uid = shemp.getUserId();
                             uid = uid.replace('.', ',');
@@ -119,6 +120,7 @@ public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
                               format(Calendar.getInstance().getTime()); // Current date and time
                             String log = date + ", " + shemp.getUserId() + ", " + "created account";
                             myRef.child("logging").child(uid).setValue(log);
+
                             progressDialog.dismiss();
                             Intent intent = new Intent(
                                     ShelterEmployeeRegistrationActivity.this,

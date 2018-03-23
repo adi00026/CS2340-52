@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -32,7 +31,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
-import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 import edu.gatech.cs2340.vaspa.buzzshelter.util.Validation;
 
@@ -163,6 +161,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
                     // Add to DB
                     myRef.child("account_holders").child("users").child(UID).setValue(user);
 
+                    // TODO move to seperate logging class
                     // Logging creation of new account holder
                     String uid = user.getUserId();
                     uid = uid.replace('.', ',');
