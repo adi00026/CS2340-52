@@ -147,6 +147,7 @@ public class WelcomePageActivity extends AppCompatActivity {
                             // adds user to database with locked out value to true
                             myRef.child("account_holders").child("users").child(key).setValue(user);
 
+                            // TODO move to seperate logging class
                             // updates logs saying user was locked out
                             // gets earlier logs and appends
                             String prevLog = dataSnapshot.child("logging").child(uid
@@ -172,6 +173,7 @@ public class WelcomePageActivity extends AppCompatActivity {
                                 // adds user to database with locked out value to true
                                 myRef.child("account_holders").child("shelter_employees").child(key).setValue(user);
 
+                                // TODO move to seperate logging class
                                 // updates logs saying user was locked out
                                 // gets earlier logs and appends
                                 String prevLog = dataSnapshot.child("logging").child(uid

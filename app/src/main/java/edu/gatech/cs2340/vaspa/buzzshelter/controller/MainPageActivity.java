@@ -221,6 +221,9 @@ public class MainPageActivity extends AppCompatActivity {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                // TODO move to seperate logging class
+
                 // done because .'s cannot be withing filepath
                 String path = currUser.getUserId().replace(".", ",");
                 final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
@@ -240,6 +243,7 @@ public class MainPageActivity extends AppCompatActivity {
                     myRef.child("logging").child(path)
                             .setValue(Model.getInstance().getLogs());
                 }
+
                 progressDialog.dismiss();
                 Model.getInstance().clearLog();
                 myRef.removeEventListener(this);
