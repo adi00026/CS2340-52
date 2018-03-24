@@ -104,11 +104,14 @@ public class AdminRegistrationActivity extends AppCompatActivity {
 
                             // Logging creation of new account holder
                             String uid = admin.getUserId();
+
+                            // TODO move to seperate logging class
                             uid = uid.replace('.', ',');
                             final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                               format(Calendar.getInstance().getTime()); // Current date and time
                             String log = date + ", " + admin.getUserId() + ", " + "created account";
                             myRef.child("logging").child(uid).setValue(log);
+
                             progressDialog.dismiss();
 
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
