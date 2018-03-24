@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import edu.gatech.cs2340.vaspa.buzzshelter.util.StringSearch;
+import edu.gatech.cs2340.vaspa.buzzshelter.util.StringOps;
 
 /**
  * "Model Facade" class
@@ -81,28 +81,6 @@ public class Model {
 
     /**
      * Function to search shelter that have str in their name.
-     *
-     * @param str string to search for.
-     * @return a list of shelters containing str in their names
-     */
-    public List<Shelter> searchShelterByName(String str) {
-        LinkedList<Shelter> output = new LinkedList<>();
-
-        // Go through the shelters, and searching by name. Unfortunately, because
-        // the shelters are stored in the HashMap by their unique key, we can't
-        // make use of quick indexing by name.
-        // This may have to be rewritten at some point to take that into account
-        // if this app is to scale.
-        for (Shelter sh : shelters.values()) {
-            if (StringSearch.contains(sh.getName().trim(), str)) {
-                output.addLast(sh);
-            }
-        }
-        return output;
-    }
-
-    /**
-     * Function to search shelter that have str in their name.
      * This method assumes ageRange is not null.
      *
      * @param ageRange string to search for.
@@ -144,8 +122,7 @@ public class Model {
     public Collection<Shelter> filterShelterByName(String name) {
         List<Shelter> list = new LinkedList<Shelter>();
         for (Shelter sh: shelters.values()) {
-            if (sh.getName().toLowerCase().
-                    contains(name.toLowerCase())) {
+            if (StringOps.fuzzySearchContains(sh.getName().toLowerCase(), name.toLowerCase())) {
                 list.add(sh);
             }
         }
