@@ -34,7 +34,7 @@
         android:layout_marginTop="28dp"
         android:background="@drawable/round_button_blue"
         android:text="Logout"
-        android:textSize="20sp"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.031"
@@ -52,7 +52,7 @@
         android:layout_marginTop="28dp"
         android:background="@drawable/round_button_blue"
         android:text="Settings"
-        android:textSize="20sp"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.934"
@@ -104,14 +104,12 @@
         android:layout_marginTop="28dp"
         android:background="@drawable/round_button_blue"
         android:text="Update Vacancies"
-        android:textSize="20sp"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.976" />
-
-
 
     <ImageView
         android:id="@+id/imageView2"

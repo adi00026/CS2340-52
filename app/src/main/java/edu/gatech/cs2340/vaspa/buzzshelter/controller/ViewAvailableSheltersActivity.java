@@ -22,7 +22,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
-import edu.gatech.cs2340.vaspa.buzzshelter.util.StringSearch;
+import edu.gatech.cs2340.vaspa.buzzshelter.util.StringOps;
 
 public class ViewAvailableSheltersActivity extends AppCompatActivity {
 
@@ -130,7 +130,7 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
                         .getValue(Integer.class);
                 String BSCap = dataSnapshot.child("shelters").child(currentID).child("capacity")
                         .getValue(String.class);
-                int capacity = StringSearch.parseCapacity(BSCap);
+                int capacity = StringOps.parseCapacity(BSCap);
                 if (size + numCheckedIn <= capacity
                         && selectedShelter.getUniqueKey().equals(prevShelterID)) {
                     myRef.child("shelters").child(currentID).child("vacancies")

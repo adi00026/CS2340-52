@@ -302,7 +302,7 @@ public class SearchShelterActivity extends AppCompatActivity {
             Intent intent = new Intent(SearchShelterActivity.this,
                     ViewAvailableSheltersActivity.class);
             String name = unfilter(shelterSpinner.getSelectedItem().toString());
-            List<Shelter> matches = Model.getInstance().searchShelterByName(name);
+            List<Shelter> matches = (List<Shelter>) Model.getInstance().filterShelterByName(name);
             if (!matches.isEmpty()) {
                 intent.putExtra("shelter", matches.get(0));
                 startActivity(intent);

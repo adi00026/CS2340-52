@@ -22,7 +22,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
-import edu.gatech.cs2340.vaspa.buzzshelter.util.StringSearch;
+import edu.gatech.cs2340.vaspa.buzzshelter.util.StringOps;
 
 /**
  * Class to handle the Update Vacancies page activity. This page is only accessible to Shelter
@@ -111,7 +111,7 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
             return;
         }
         Shelter thisShelter = Model.getInstance().getShelters().get(currentUser.getShelterID());
-        int capacity = StringSearch.parseCapacity(thisShelter.getCapacity());
+        int capacity = StringOps.parseCapacity(thisShelter.getCapacity());
         if (vacancies > capacity) {
             Toast.makeText(UpdateVacanciesActivity.this, "Vacancy cannot exceed "
                     + "capacity", Toast.LENGTH_SHORT).show();
