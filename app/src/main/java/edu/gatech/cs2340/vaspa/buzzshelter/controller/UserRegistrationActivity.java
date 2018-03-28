@@ -127,18 +127,18 @@ public class UserRegistrationActivity extends AppCompatActivity {
         final String username = getIntent().getExtras().getString("username");
         String email = username;
 
-        boolean isValid = Validation.isValidDate(month, day, year);
+        List<Integer> dob = new LinkedList<>();
+        dob.add(month);
+        dob.add(day);
+        dob.add(year);
+
+        boolean isValid = Validation.isValidDate(dob);
 
         if (!isValid) {
             progressDialog.dismiss();
             Toast.makeText(this, "Invalid date", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        List<Integer> dob = new LinkedList<>();
-        dob.add(month);
-        dob.add(day);
-        dob.add(year);
 
         String gender = genderSpinner.getSelectedItem().toString();
         boolean isVeteran = vetCheckbox.isChecked();
