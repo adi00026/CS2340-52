@@ -321,14 +321,14 @@ public class SearchShelterActivity extends AppCompatActivity {
         Intent intent = new Intent(SearchShelterActivity.this,
                 MapsActivity.class);
 	
+        filteredS.clear();
 	    filteredS.addAll(model.getFilteredShelters());
 	    unfilteredS.addAll(model.getShelters().values());
 	    
         if (filteredS.size() < unfilteredS.size()) {
 	        intent.putParcelableArrayListExtra("shelters", (ArrayList<? extends Parcelable>) filteredS);
         } else {
-	        intent.putParcelableArrayListExtra("shelters", (ArrayList<? extends Parcelable>
-			        ) unfilteredS);
+	        intent.putParcelableArrayListExtra("shelters", (ArrayList<? extends Parcelable>) unfilteredS);
         }
         startActivity(intent);
     }
