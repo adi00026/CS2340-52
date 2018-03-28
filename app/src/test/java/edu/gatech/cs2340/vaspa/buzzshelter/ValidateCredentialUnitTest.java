@@ -151,10 +151,10 @@ public class ValidateCredentialUnitTest {
      * Helper method to check Validation's isValidDate method. Method was changed, but it is too
      * much to change every line to reflect this.
      * 
-     * @param month
-     * @param day
-     * @param year
-     * @return
+     * @param month bs
+     * @param day bs
+     * @param year bs
+     * @return bs
      */
     private boolean isValidDate(int month, int day, int year) {
         List<Integer> dob = new LinkedList<>();

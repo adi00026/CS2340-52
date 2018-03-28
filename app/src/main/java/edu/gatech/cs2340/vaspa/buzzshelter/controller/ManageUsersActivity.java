@@ -31,16 +31,11 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
  * @version 6.9
  */
 public class ManageUsersActivity extends AppCompatActivity {
-    private Button backButton;
-    private Button removeButton;
-    private Button addButton;
-    private Button disableButton;
-    private Button enableButton;
     private EditText userIDText;
 
-    FirebaseAuth mAuth;
-    FirebaseDatabase database;
-    DatabaseReference myRef;
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
 
     private AccountHolder toManage;
 
@@ -53,11 +48,11 @@ public class ManageUsersActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
-        backButton = (Button) findViewById(R.id.button_back);
-        removeButton = (Button) findViewById(R.id.button_remove);
-        addButton = (Button) findViewById(R.id.button_add);
-        disableButton = (Button) findViewById(R.id.button_disable);
-        enableButton = (Button) findViewById(R.id.button_enable);
+        Button backButton = (Button) findViewById(R.id.button_back);
+        Button removeButton = (Button) findViewById(R.id.button_remove);
+        Button addButton = (Button) findViewById(R.id.button_add);
+        Button disableButton = (Button) findViewById(R.id.button_disable);
+        Button enableButton = (Button) findViewById(R.id.button_enable);
         userIDText = (EditText) findViewById(R.id.editText);
 
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +64,7 @@ public class ManageUsersActivity extends AppCompatActivity {
         removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setUserDeleted(true);
+                setUserDeleted();
             }
         });
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -176,10 +171,9 @@ public class ManageUsersActivity extends AppCompatActivity {
      * Method to set a certain homeless user's account to either deleted or
      * add. This activity is logged locally.
      *
-     * @param status what you want the User's enabled status to be.
      */
-    private void setUserDeleted(final boolean status) {
-        /**
+    private void setUserDeleted() {
+        /*
          * Search database. If not found, Toast it. If found, set locked out to status.
          */
 
@@ -192,16 +186,16 @@ public class ManageUsersActivity extends AppCompatActivity {
                     toManage = ds.getValue(User.class);
                     if (toManage != null && toManage.getUserId().equals(userIDText
                             .getText().toString())) {
-                        toManage.setDeleted(status);
+                        toManage.setDeleted(true);
                         myRef.child("account_holders").child("users").child(key)
                                 .setValue(toManage);
                         Toast.makeText(ManageUsersActivity.this, "User "
-                                + (status ? "Deleted" : "Added"), Toast.LENGTH_SHORT)
+                                + ("Deleted"), Toast.LENGTH_SHORT)
                                 .show();
                         final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                           format(Calendar.getInstance().getTime()); // Current date and time
                         String log = date + ", " + "ADMIN: " + Model.getInstance().getCurrentUser()
-                          .getUserId() + ", " + (status ? "Deleted " : "Added ") + toManage
+                          .getUserId() + ", " + ("Deleted ") + toManage
                                 .getUserId();
                         Model.getInstance().updateLogs(log);
                         myRef.removeEventListener(this);
@@ -214,16 +208,16 @@ public class ManageUsersActivity extends AppCompatActivity {
                     toManage = ds.getValue(ShelterEmployee.class);
                     if (toManage != null && toManage.getUserId().equals(userIDText
                             .getText().toString())) {
-                        toManage.setDeleted(status);
+                        toManage.setDeleted(true);
                         myRef.child("account_holders").child("shelter_employees").child(key)
                                 .setValue(toManage);
                         Toast.makeText(ManageUsersActivity.this, "User "
-                                + (status ? "Deleted" : "Added"), Toast.LENGTH_SHORT)
+                                + ("Deleted"), Toast.LENGTH_SHORT)
                                 .show();
                         final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                           format(Calendar.getInstance().getTime()); // Current date and time
                         String log = date + ", " + "ADMIN: " + Model.getInstance().getCurrentUser()
-                          .getUserId() + ", " + (status ? "Deleted " : "Added ") + toManage
+                          .getUserId() + ", " + ("Deleted ") + toManage
                                 .getUserId();
                         Model.getInstance().updateLogs(log);
                         myRef.removeEventListener(this);

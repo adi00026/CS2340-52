@@ -23,8 +23,8 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
 
 public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
 	
-	ArrayList<Shelter> shelters;
-	Button backButton;
+	private ArrayList<Shelter> shelters;
+	private Button backButton;
 	
 	private GoogleMap mMap;
 	private UiSettings mUiSettings;
@@ -86,7 +86,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
 	 */
 	@Override
 	public void onMapReady(GoogleMap googleMap) {
-		LatLng atl = new LatLng(33.7490, -84.3890);;
+		LatLng atl = new LatLng(33.7490, -84.3890);
 		mMap = googleMap;
 		mUiSettings = mMap.getUiSettings();
 		mUiSettings.setZoomControlsEnabled(true);

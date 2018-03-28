@@ -43,19 +43,19 @@ import edu.gatech.cs2340.vaspa.buzzshelter.util.Validation;
  */
 public class UserRegistrationActivity extends AppCompatActivity {
 
-    Spinner genderSpinner;
-    CheckBox vetCheckbox;
-    Button backButton;
-    Button registerButton;
-    EditText dayText;
-    EditText monthText;
-    EditText yearText;
-    ProgressDialog progressDialog;
+    private Spinner genderSpinner;
+    private CheckBox vetCheckbox;
+    private Button backButton;
+    private Button registerButton;
+    private EditText dayText;
+    private EditText monthText;
+    private EditText yearText;
+    private ProgressDialog progressDialog;
 
 
-    FirebaseAuth mAuth;
-    FirebaseDatabase database;
-    DatabaseReference myRef;
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
 
     private final String TAG = "UserRegistrationAct";
 
@@ -125,7 +125,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
         int day = Integer.parseInt(dayText.getText().toString());
         int year = Integer.parseInt(yearText.getText().toString());
         final String username = getIntent().getExtras().getString("username");
-        String email = username;
 
         List<Integer> dob = new LinkedList<>();
         dob.add(month);
@@ -148,7 +147,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
         final User user = new User(name, username, password, false, contactInfo, gender, dob,
                 isVeteran);
-        mAuth.createUserWithEmailAndPassword(email, password)
+        mAuth.createUserWithEmailAndPassword(username, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

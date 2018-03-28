@@ -36,19 +36,19 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
  * @version 6.9
  */
 public class MainPageActivity extends AppCompatActivity {
-    TextView welcomeTextview;
-    Button logoutButton;
-    Button settingsButton;
-    Button searchSheltersButton;
-    Button manageUsersButton;
-    Button updateVacanciesButton;
-    ProgressDialog progressDialog;
+    private TextView welcomeTextview;
+    private Button logoutButton;
+    private Button settingsButton;
+    private Button searchSheltersButton;
+    private Button manageUsersButton;
+    private Button updateVacanciesButton;
+    private ProgressDialog progressDialog;
 
     private static final String TAG = "MAIN PAGE ACTIVITY";
 
-    FirebaseAuth mAuth;
-    FirebaseDatabase database;
-    DatabaseReference myRef;
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
 
     @Override
     protected void onResume() {

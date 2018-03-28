@@ -23,12 +23,6 @@ public class Validation {
         if (year % 4 == 0) {
             dateArr[2] = 29;
         }
-        if (month < 1 || month > 12) {
-            return false;
-        }
-        if (day < 1 || day > dateArr[month]) {
-            return false;
-        }
-        return true;
+        return !(month < 1 || month > 12) && !(day < 1 || day > dateArr[month]);
     }
 }
