@@ -27,16 +27,16 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
  * @version 6.9
  */
 public class AdminSettingsActivity extends AppCompatActivity {
-    Button backButton;
-    Button updateButton;
-    Button changePasswordButton;
-    TextView userIDText;
-    EditText nameEditText;
-    EditText contactEditText;
+    private Button backButton;
+    private Button updateButton;
+    private Button changePasswordButton;
+    private TextView userIDText;
+    private EditText nameEditText;
+    private EditText contactEditText;
 
-    FirebaseAuth mAuth;
-    FirebaseDatabase database;
-    DatabaseReference myRef;
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

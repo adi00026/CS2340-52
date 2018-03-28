@@ -31,15 +31,11 @@ public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
 
     private EditText keyText;
     private EditText shelterId;
-    private Button backButton;
-    private Button finish;
     private ProgressDialog progressDialog;
 
-    private String shelterKey = "temp_shelter_key";
-
-    FirebaseAuth mAuth;
-    FirebaseDatabase database;
-    DatabaseReference myRef;
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +44,8 @@ public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
 
         keyText = (EditText) findViewById(R.id.Shelter_Employee_Key);
         shelterId = (EditText) findViewById(R.id.shelter_ID);
-        finish = (Button) findViewById(R.id.Finish_Button_Shelter);
-        backButton = (Button) findViewById(R.id.shelter_registration_back);
+        Button finish = (Button) findViewById(R.id.Finish_Button_Shelter);
+        Button backButton = (Button) findViewById(R.id.shelter_registration_back);
         progressDialog = new ProgressDialog(this);
 
         mAuth = FirebaseAuth.getInstance();
@@ -76,6 +72,7 @@ public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
         progressDialog.show();
         String key = keyText.getText().toString().trim();
         String shelterID = shelterId.getText().toString().trim();
+        String shelterKey = "temp_shelter_key";
         if (shelterKey.equals(key)) {
             if (!Model.getInstance().getShelters().containsKey(shelterID)) {
                 progressDialog.dismiss();

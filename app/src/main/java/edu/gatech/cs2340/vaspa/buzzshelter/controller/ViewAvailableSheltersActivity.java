@@ -26,28 +26,26 @@ import edu.gatech.cs2340.vaspa.buzzshelter.util.StringOps;
 
 public class ViewAvailableSheltersActivity extends AppCompatActivity {
 
-    TextView shelterInfoTextView;
-    TextView currentShelterTextView;
-    Button backButton;
-    Button checkInButton;
-    Button checkOutButton;
+    private TextView shelterInfoTextView;
+    private TextView currentShelterTextView;
+    private Button backButton;
+    private Button checkInButton;
+    private Button checkOutButton;
 
-    FirebaseAuth mAuth;
-    FirebaseDatabase database;
-    DatabaseReference myRef;
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
 
-    Shelter selectedShelter;
+    private Shelter selectedShelter;
 
-    String infoString;
-
-    private Model model;
+    private String infoString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_shelters);
 
-        model = Model.getInstance();
+        Model model = Model.getInstance();
 
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();

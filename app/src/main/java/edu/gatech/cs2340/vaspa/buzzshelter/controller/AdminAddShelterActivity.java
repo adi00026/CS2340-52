@@ -12,8 +12,6 @@ import edu.gatech.cs2340.vaspa.buzzshelter.R;
 
 public class AdminAddShelterActivity extends AppCompatActivity {
 
-    private Button back;
-    private Button next;
     private EditText id_text;
     private EditText name_text;
     private EditText contact_text;
@@ -22,6 +20,10 @@ public class AdminAddShelterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Button back;
+        Button next;
+
         setContentView(R.layout.activity_admin_add_shelter);
         back = (Button) findViewById(R.id.button_back);
         next = (Button) findViewById(R.id.button_next);
@@ -43,7 +45,7 @@ public class AdminAddShelterActivity extends AppCompatActivity {
             }
         });
     }
-    void nextClicked() {
+    private void nextClicked() {
         String id = id_text.getText().toString().trim();
         String name = name_text.getText().toString().trim();
         String contact_info = contact_text.getText().toString().trim();

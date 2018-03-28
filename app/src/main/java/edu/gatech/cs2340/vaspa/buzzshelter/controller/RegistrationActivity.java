@@ -25,7 +25,6 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText passwordBox;
     private EditText passwordConfirmBox;
     private Spinner typeReg;
-    private Button nextButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +37,7 @@ public class RegistrationActivity extends AppCompatActivity {
         passwordBox = (EditText) findViewById(R.id.password_field);
         passwordConfirmBox = (EditText) findViewById(R.id.password_confirm);
         typeReg = (Spinner) findViewById(R.id.spinner_type);
-        nextButton = (Button) findViewById(R.id.next_button);
+        Button nextButton = (Button) findViewById(R.id.next_button);
 
         String[] userType = {"User", "Admin", "Shelter Employee"};
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,
@@ -73,7 +72,7 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         });
     }
-    void nextClicked() {
+    private void nextClicked() {
         String name = nameBox.getText().toString().trim();
         String username = usernameBox.getText().toString().trim();
         String password = passwordBox.getText().toString().trim();

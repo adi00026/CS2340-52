@@ -23,8 +23,8 @@ public abstract class AccountHolder {
      * @param lockedOut whether the account holder is locked out.
      * @param contactInfo the contact info of the account holder.
      */
-    public AccountHolder(String name, String userId, String password, boolean lockedOut,
-                         String contactInfo) {
+    AccountHolder(String name, String userId, String password, boolean lockedOut,
+                  String contactInfo) {
         this.name = name;
         this.userId = userId;
         this.password = password;
@@ -36,7 +36,7 @@ public abstract class AccountHolder {
     /**
      * No args constructor for AccountHolder. This is in place for Firebase purposes.
      */
-    public AccountHolder() {
+    AccountHolder() {
         // no args constructor
     }
 
