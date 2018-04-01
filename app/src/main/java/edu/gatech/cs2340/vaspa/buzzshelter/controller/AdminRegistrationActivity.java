@@ -26,6 +26,13 @@ import java.util.Calendar;
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Admin;
 
+/**
+ * Class to handle the admin registration activity. Non-AccountHolders will access this page
+ * when they want to add admins. This page is shared by all users.
+ *
+ * @author Aniruddha Das
+ * @version 6.9
+ */
 @SuppressWarnings("ConstantConditions")
 public class AdminRegistrationActivity extends AppCompatActivity {
 
@@ -65,6 +72,10 @@ public class AdminRegistrationActivity extends AppCompatActivity {
         });
     }
 
+
+    /**
+     *  Method that handles authentication and registration of the new admin
+     */
     private void register() {
         progressDialog.setMessage("Registering Admin...");
         progressDialog.show();

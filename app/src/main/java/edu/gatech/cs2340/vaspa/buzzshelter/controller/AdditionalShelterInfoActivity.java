@@ -25,6 +25,14 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
 import edu.gatech.cs2340.vaspa.buzzshelter.util.LocationFromAddress;
 
+/**
+ * Class to handle the additional shelter info activity. Admins will access this page
+ * from their manage users page. This page is shared by all Admins.
+ *
+ * @author Aniruddha Das
+ * @version 6.9
+ */
+
 public class AdditionalShelterInfoActivity extends AppCompatActivity {
 
     private EditText specialNotesText;
@@ -68,6 +76,9 @@ public class AdditionalShelterInfoActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Listener method for finish button
+     */
     private void finishPressed() {
         @SuppressWarnings("ConstantConditions") final String name = getIntent().getExtras()
                 .getString("name");

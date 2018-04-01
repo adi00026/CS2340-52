@@ -17,6 +17,14 @@ import java.util.Arrays;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 
+/**
+ * Class to handle the registration activity. Everyone can access this page
+ * from the welcome page.
+ *
+ * @author Aniruddha Das
+ * @version 6.9
+ */
+
 public class RegistrationActivity extends AppCompatActivity {
 
     private EditText usernameBox;
@@ -72,6 +80,10 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * Method called when listener for next button is called
+     */
     private void nextClicked() {
         String name = nameBox.getText().toString().trim();
         String username = usernameBox.getText().toString().trim();

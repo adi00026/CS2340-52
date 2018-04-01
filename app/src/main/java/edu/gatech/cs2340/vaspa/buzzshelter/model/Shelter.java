@@ -4,7 +4,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by aniruddhadas on 08/02/18.
+ * Class definition for shelter that defines a shelter object.
+ *
+ * @author Aniruddha Das, Sanath Nagaraj
+ * @version 6.9
  */
 
 public class Shelter implements Parcelable {
