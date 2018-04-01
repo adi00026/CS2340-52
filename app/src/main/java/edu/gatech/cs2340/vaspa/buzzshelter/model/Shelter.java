@@ -18,20 +18,40 @@ public class Shelter implements Parcelable {
     private double latitude;
     private double longitude;
 
+    /**
+     * Getter
+     *
+     * @return specialNotes
+     */
     public String getSpecialNotes() {
         return specialNotes;
     }
 
+    /**
+     * Setter
+     *
+     * @param specialNotes new special notes
+     */
     public void setSpecialNotes(String specialNotes) {
         this.specialNotes = specialNotes;
     }
 
     private String specialNotes;
 
+    /**
+     * Getter
+     *
+     * @return address
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     * Setter
+     *
+     * @param address new address
+     */
     public void setAddress(String address) {
         this.address = address;
     }
@@ -65,66 +85,145 @@ public class Shelter implements Parcelable {
 
     }
 
+    /**
+     * Getter
+     *
+     * @return unique key
+     */
     public String getUniqueKey() {
         return uniqueKey;
     }
 
+    /**
+     * Getter
+     *
+     * @return name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Getter
+     *
+     * @return capacity
+     */
     public String getCapacity() {
         return capacity;
     }
 
+    /**
+     * Getter
+     *
+     * @return vacancy
+     */
     public int getVacancies() {
         return vacancies;
     }
 
+    /**
+     * Getter
+     *
+     * @return restrictions
+     */
     public String getRestrictions() {
         return restrictions;
     }
 
+    /**
+     * Getter
+     *
+     * @return contact info
+     */
     public String getContactInfo() {
         return contactInfo;
     }
 
+    /**
+     * Getter
+     *
+     * @return latitude
+     */
     public double getLatitude() {
         return latitude;
     }
 
+    /**
+     * Getter
+     *
+     * @return longitude
+     */
     public double getLongitude() {
         return longitude;
     }
 
+    /**
+     * Setter
+     *
+     * @param key new key
+     */
     public void setUniqueKey(String key) {
         uniqueKey = key;
     }
 
+    /**
+     * Setter
+     *
+     * @param n new name
+     */
     public void setName(String n) {
         name = n;
     }
 
+    /**
+     * Setter
+     *
+     * @param n set capacity
+     */
     public void setCapacity(String n) {
         capacity = n;
     }
 
+    /**
+     * Setter
+     *
+     * @param n new vacancies
+     */
     public void setVacancies(int n) {
         vacancies = n;
     }
 
+    /**
+     * Setter
+     *
+     * @param d new latitude
+     */
     public void setLatitude(double d) {
         latitude = d;
     }
 
+    /**
+     * Setter
+     *
+     * @param d new longitude
+     */
     public void setLongitude(double d) {
         longitude = d;
     }
 
+    /**
+     *  Setter
+     *
+     * @param restr new restrictions
+     */
     public void setRestrictions(String restr) {
         restrictions = restr;
     }
 
+    /**
+     * Setter
+     * @param contact new contact info
+     */
     public void setContactInfo(String contact) {
         contactInfo = contact;
     }
