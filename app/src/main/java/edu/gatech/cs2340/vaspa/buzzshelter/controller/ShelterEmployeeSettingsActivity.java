@@ -29,10 +29,6 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
  */
 @SuppressWarnings("ConstantConditions")
 public class ShelterEmployeeSettingsActivity extends AppCompatActivity {
-    private Button backButton;
-    private Button updateButton;
-    private Button changePasswordButton;
-    private TextView userIDText;
     private EditText nameEditText;
     private EditText contactEditText;
     private EditText shelterIDEditText;
@@ -42,10 +38,10 @@ public class ShelterEmployeeSettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_employee_settings);
 
-        backButton = findViewById(R.id.button_back);
-        updateButton = findViewById(R.id.button_update);
-        changePasswordButton = findViewById(R.id.button_password);
-        userIDText = findViewById(R.id.textView_userid);
+        Button backButton = findViewById(R.id.button_back);
+        Button updateButton = findViewById(R.id.button_update);
+        Button changePasswordButton = findViewById(R.id.button_password);
+        TextView userIDText = findViewById(R.id.textView_userid);
         nameEditText = findViewById(R.id.editText_name);
         contactEditText = findViewById(R.id.editText_contact);
         shelterIDEditText = findViewById(R.id.editText_shelterID);
