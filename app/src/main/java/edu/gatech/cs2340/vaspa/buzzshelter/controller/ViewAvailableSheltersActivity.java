@@ -159,7 +159,7 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
     /**
      * Updates firebase database vacancies for shelter
      *
-     * @param numCheckIn
+     * @param numCheckIn number checked in
      */
     private void checkInFirebaseUpdate(final int numCheckIn) {
         myRef.addValueEventListener(new ValueEventListener() {

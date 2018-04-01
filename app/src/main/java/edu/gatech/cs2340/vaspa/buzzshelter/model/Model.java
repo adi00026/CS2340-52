@@ -139,6 +139,7 @@ public class Model {
     /**
      * Function to search shelter that have str in their name.
      *
+     * @param ageRange the age range
      * @param gender string to search for.
      * @return a list of shelters containing str in their names
      */
