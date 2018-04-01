@@ -25,6 +25,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.R;
  * @version 6.9
  */
 
+@SuppressWarnings("CyclicClassDependency")
 public class RegistrationActivity extends AppCompatActivity {
 
     private EditText usernameBox;

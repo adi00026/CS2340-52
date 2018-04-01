@@ -36,7 +36,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
  * @author Sanath Nagaraj
  * @version 6.9
  */
-@SuppressWarnings("ConstantConditions")
+@SuppressWarnings({"ConstantConditions", "CyclicClassDependency"})
 public class WelcomePageActivity extends AppCompatActivity {
     private Model model;
     private Button loginButton;

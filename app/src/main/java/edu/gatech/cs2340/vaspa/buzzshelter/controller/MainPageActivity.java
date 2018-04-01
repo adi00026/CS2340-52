@@ -35,7 +35,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
  * @author Aniruddha Das, Sanath Nagaraj
  * @version 6.9
  */
-@SuppressWarnings("ConstantConditions")
+@SuppressWarnings({"ConstantConditions", "ClassWithTooManyDependencies", "CyclicClassDependency"})
 public class MainPageActivity extends AppCompatActivity {
     private TextView welcomeTextview;
     private Button logoutButton;

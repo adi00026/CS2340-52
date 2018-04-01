@@ -6,6 +6,7 @@ package edu.gatech.cs2340.vaspa.buzzshelter.model;
  * @author Aniruddha Das, Sanath Nagaraj
  * @version 6.9
  */
+@SuppressWarnings("ClassWithTooManyDependents")
 public abstract class AccountHolder {
     private String name;
     private String userId;

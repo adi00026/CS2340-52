@@ -65,6 +65,9 @@ public class Shelter implements Parcelable {
     // private User[] currentResidents;
 
 
+    /**
+     * titties
+     */
     public Shelter() {
         this(null, null, null, null, 0, 0, null, null, null, 0);
     }

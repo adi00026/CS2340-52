@@ -34,7 +34,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
  * @author Aniruddha Das
  * @version 6.9
  */
-@SuppressWarnings("ConstantConditions")
+@SuppressWarnings({"ConstantConditions", "CyclicClassDependency"})
 public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
 
     private EditText keyText;

@@ -41,7 +41,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.util.Validation;
  * @author Sanath Nagaraj
  * @version 6.9
  */
-@SuppressWarnings("ConstantConditions")
+@SuppressWarnings({"ConstantConditions", "CyclicClassDependency"})
 public class UserRegistrationActivity extends AppCompatActivity {
 
     private Spinner genderSpinner;
