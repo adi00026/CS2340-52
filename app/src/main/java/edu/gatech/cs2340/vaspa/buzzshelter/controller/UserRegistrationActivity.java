@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -64,6 +65,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_registration);
+        Log.d(TAG, "onCreate");
 
         genderSpinner = findViewById(R.id.spinner_gender);
         vetCheckbox = findViewById(R.id.checkBox_vets);
@@ -119,6 +121,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
      * Auth and added to Firebase Database in the . --> AccountHolders --> Users branch.
      */
     private void register() {
+        Log.d(TAG, "register");
         progressDialog.setMessage("Registering User...");
         progressDialog.show();
 

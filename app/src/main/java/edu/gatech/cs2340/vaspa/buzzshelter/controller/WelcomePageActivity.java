@@ -47,7 +47,7 @@ public class WelcomePageActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference myRef;
 
-    private static final String TAG = "WELCOME PAGE ACTIVITY";
+    //private static final String TAG = "WELCOME PAGE ACTIVITY";
 
     @SuppressWarnings("ProhibitedExceptionCaught")
     @Override
@@ -218,7 +218,6 @@ public class WelcomePageActivity extends AppCompatActivity {
                       String log = date + ", " + uid + ", " + "Logged In"; // LOG message
 
                       // Sign in success, update UI with the signed-in user's information
-                      FirebaseUser user = mAuth.getCurrentUser();
                       Toast.makeText(WelcomePageActivity.this, "Login succeeded.",
                         Toast.LENGTH_SHORT).show();
                       Intent intent = new Intent(WelcomePageActivity.this,

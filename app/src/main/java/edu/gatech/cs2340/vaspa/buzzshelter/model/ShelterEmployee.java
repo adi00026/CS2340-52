@@ -58,6 +58,7 @@ public class ShelterEmployee extends AccountHolder {
      *
      * @param shelterID unique ID of shelter this ShelterEmployee works at.
      */
+    @SuppressWarnings("unused")
     public void setShelterID(String shelterID) {
         this.shelterID = shelterID;
     }
