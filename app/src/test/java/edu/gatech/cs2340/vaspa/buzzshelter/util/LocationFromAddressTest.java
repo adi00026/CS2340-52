@@ -12,7 +12,6 @@ import java.lang.reflect.Method;
 /**
  * Created by aniruddhadas on 21/03/18.
  */
-
 public class LocationFromAddressTest {
     public static final int TIMEOUT = 200;
     @Test

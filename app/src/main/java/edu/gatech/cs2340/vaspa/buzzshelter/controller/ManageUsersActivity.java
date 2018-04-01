@@ -30,6 +30,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
  * @author Sanath Nagaraj
  * @version 6.9
  */
+@SuppressWarnings("CyclicClassDependency")
 public class ManageUsersActivity extends AppCompatActivity {
     private EditText userIDText;
 

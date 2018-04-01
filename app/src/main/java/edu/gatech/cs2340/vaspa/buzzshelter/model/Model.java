@@ -18,7 +18,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.util.StringOps;
  * @author All
  * @version 6.9
  */
-@SuppressWarnings("ConstantConditions")
+@SuppressWarnings({"ConstantConditions", "ClassWithTooManyDependents"})
 public class Model {
     /**
      * Singleton instance

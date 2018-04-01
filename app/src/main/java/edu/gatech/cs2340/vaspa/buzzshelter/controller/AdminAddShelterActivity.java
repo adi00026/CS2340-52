@@ -18,6 +18,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.R;
  * @version 6.9
  */
 
+@SuppressWarnings("CyclicClassDependency")
 public class AdminAddShelterActivity extends AppCompatActivity {
 
     private EditText id_text;
