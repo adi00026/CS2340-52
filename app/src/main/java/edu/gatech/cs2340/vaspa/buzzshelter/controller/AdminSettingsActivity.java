@@ -28,15 +28,10 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
  */
 @SuppressWarnings("ConstantConditions")
 public class AdminSettingsActivity extends AppCompatActivity {
-    private Button backButton;
-    private Button updateButton;
-    private Button changePasswordButton;
-    private TextView userIDText;
     private EditText nameEditText;
     private EditText contactEditText;
 
     private FirebaseAuth mAuth;
-    private FirebaseDatabase database;
     private DatabaseReference myRef;
 
     @Override
@@ -44,15 +39,15 @@ public class AdminSettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_settings);
 
-        backButton = findViewById(R.id.button_back);
-        updateButton = findViewById(R.id.button_update);
-        changePasswordButton = findViewById(R.id.button_password);
-        userIDText = findViewById(R.id.textView_userid);
+        Button backButton = findViewById(R.id.button_back);
+        Button updateButton = findViewById(R.id.button_update);
+        Button changePasswordButton = findViewById(R.id.button_password);
+        TextView userIDText = findViewById(R.id.textView_userid);
         nameEditText = findViewById(R.id.editText_name);
         contactEditText = findViewById(R.id.editText_contact);
 
         mAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
         userIDText.setText("User ID: " + Model.getInstance().getCurrentUser().getUserId());
