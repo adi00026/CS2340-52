@@ -39,15 +39,11 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 public class WelcomePageActivity extends AppCompatActivity {
     private Model model;
     private Button loginButton;
-    private Button cancelButton;
-    private Button registrationButton;
-    private Button forgotPass;
     private EditText usernameEditText;
     private EditText passwordEditText;
     private ProgressDialog progressDialog;
 
     private FirebaseAuth mAuth;
-    private FirebaseDatabase database;
     private DatabaseReference myRef;
 
     private static final String TAG = "WELCOME PAGE ACTIVITY";
@@ -57,7 +53,7 @@ public class WelcomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         mAuth = FirebaseAuth.getInstance();
-        database  = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
         setContentView(R.layout.activity_welcome_page);
@@ -65,9 +61,9 @@ public class WelcomePageActivity extends AppCompatActivity {
         model = Model.getInstance();
 
         loginButton = (Button) findViewById(R.id.button_login);
-        cancelButton = (Button) findViewById(R.id.button_cancel);
-        registrationButton = (Button) findViewById(R.id.button_registration);
-        forgotPass = (Button) findViewById(R.id.button_password_forgot);
+        Button cancelButton = (Button) findViewById(R.id.button_cancel);
+        Button registrationButton = (Button) findViewById(R.id.button_registration);
+        Button forgotPass = (Button) findViewById(R.id.button_password_forgot);
         usernameEditText = (EditText) findViewById(R.id.editText_username);
         passwordEditText = (EditText) findViewById(R.id.editText_password);
         progressDialog = new ProgressDialog(this);

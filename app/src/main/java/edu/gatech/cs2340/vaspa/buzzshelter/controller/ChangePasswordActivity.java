@@ -32,15 +32,15 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
  * @version 6.9
  */
 public class ChangePasswordActivity extends AppCompatActivity {
-    Button backButton;
-    Button changePasswordButton;
-    EditText oldPasswordText;
-    EditText newPasswordText;
-    EditText newPasswordRepeatText;
+    private Button backButton;
+    private Button changePasswordButton;
+    private EditText oldPasswordText;
+    private EditText newPasswordText;
+    private EditText newPasswordRepeatText;
 
-    FirebaseAuth mAuth;
-    FirebaseDatabase database;
-    DatabaseReference myRef;
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

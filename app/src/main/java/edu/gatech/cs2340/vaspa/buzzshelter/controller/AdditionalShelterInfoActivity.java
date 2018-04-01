@@ -35,8 +35,6 @@ import edu.gatech.cs2340.vaspa.buzzshelter.util.LocationFromAddress;
 
 public class AdditionalShelterInfoActivity extends AppCompatActivity {
 
-    private Button back;
-    private Button finish;
     private EditText specialNotesText;
     private EditText capacityText;
     private CheckBox[] restrictionsCheckboxes;
@@ -45,8 +43,8 @@ public class AdditionalShelterInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_additional_shelter_info);
 
-        back = (Button) findViewById(R.id.button_back);
-        finish = (Button) findViewById(R.id.button_finish);
+        Button back = (Button) findViewById(R.id.button_back);
+        Button finish = (Button) findViewById(R.id.button_finish);
         specialNotesText = (EditText) findViewById(R.id.shelter_special_notes);
         capacityText = (EditText) findViewById(R.id.shelter_capacity);
 

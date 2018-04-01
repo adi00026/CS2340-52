@@ -66,7 +66,7 @@ public class StringOps {
      *
      * @param text the string sequence to search in
      * @param pattern the string sequence to search for
-     * @returns the size of the largest common subsequence of text
+     * @return the size of the largest common subsequence of text
      *   and pattern.
      */
     private static int lcs(String text, String pattern) {
