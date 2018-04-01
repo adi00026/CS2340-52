@@ -33,7 +33,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.Admin;
  * @author Aniruddha Das
  * @version 6.9
  */
-@SuppressWarnings("ConstantConditions")
+@SuppressWarnings({"ConstantConditions", "CyclicClassDependency"})
 public class AdminRegistrationActivity extends AppCompatActivity {
 
     private EditText keyText;

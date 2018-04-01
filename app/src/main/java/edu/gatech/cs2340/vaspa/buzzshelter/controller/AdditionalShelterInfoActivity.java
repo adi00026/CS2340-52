@@ -33,6 +33,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.util.LocationFromAddress;
  * @version 6.9
  */
 
+@SuppressWarnings("CyclicClassDependency")
 public class AdditionalShelterInfoActivity extends AppCompatActivity {
 
     private EditText specialNotesText;
@@ -111,8 +112,9 @@ public class AdditionalShelterInfoActivity extends AppCompatActivity {
         final Shelter newShelter;
         if (latLng != null) {
             Log.d("ADDITIONAL_SHELTER_INFO", latLng.latitude + ", " + latLng.longitude);
-            newShelter = new Shelter(id, name, "" + capacity, restrictions.toString(), latLng.longitude,
-              latLng.latitude, address, specialNotes, contact_info, capacity);
+            newShelter = new Shelter(id, name, "" + capacity, restrictions.toString(),
+                    latLng.longitude, latLng.latitude, address, specialNotes, contact_info,
+                    capacity);
         } else {
             Log.d("ADDITIONAL_SHELTER_INFO", "latlng was null. Default values placed");
             newShelter = new Shelter(id, name, "" + capacity, restrictions.toString(), 69.0,
