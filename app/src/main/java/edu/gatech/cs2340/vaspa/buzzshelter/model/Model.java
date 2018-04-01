@@ -73,6 +73,7 @@ public class Model {
      *
      * @param shelters shelter to set shelters to.
      */
+    @SuppressWarnings("unused")
     public void setShelters(HashMap<String, Shelter> shelters) {
         this.shelters = shelters;
     }

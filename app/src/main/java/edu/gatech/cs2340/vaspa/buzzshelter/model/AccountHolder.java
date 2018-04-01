@@ -55,6 +55,7 @@ public abstract class AccountHolder {
      *
      * @param userId UserId of account holder
      */
+    @SuppressWarnings("unused")
     public void setUserId(String userId) {
         this.userId = userId;
     }
@@ -73,6 +74,7 @@ public abstract class AccountHolder {
      *
      * @param password password of account holder
      */
+    @SuppressWarnings("unused")
     public void setPassword(String password) {
         this.password = password;
     }
@@ -145,7 +147,7 @@ public abstract class AccountHolder {
      *
      * @param deleted whether the account holder is deleted.
      */
-    public void setDeleted(boolean deleted) {
+    public void setDeleted(@SuppressWarnings("SameParameterValue") boolean deleted) {
         this.deleted = deleted;
     }
 }

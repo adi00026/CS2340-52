@@ -6,7 +6,7 @@ package edu.gatech.cs2340.vaspa.buzzshelter.util;
  * @author Aniruddha Das
  * @version 6.9
  */
-public class Encryption {
+class Encryption {
     private static final byte encryptionKey = 0x7A;
     /**
      * Takes in a string, encodes it and returns encoded string
