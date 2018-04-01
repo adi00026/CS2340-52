@@ -136,7 +136,7 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
                 String BSCap = dataSnapshot.child("shelters").child(currentID).child("capacity")
                         .getValue(String.class);
                 int capacity = StringOps.parseCapacity(BSCap);
-                if (size + numCheckedIn <= capacity
+                if (((size + numCheckedIn) <= capacity)
                         && selectedShelter.getUniqueKey().equals(prevShelterID)) {
                     myRef.child("shelters").child(currentID).child("vacancies")
                             .setValue(size + numCheckedIn);
@@ -218,7 +218,7 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 int numCheckIn = Integer.parseInt(userInput.getText().toString());
-                                if (numCheckIn < 1 || numCheckIn > 5) {
+                                if ((numCheckIn < 1) || (numCheckIn > 5)) {
                                     Toast.makeText(ViewAvailableSheltersActivity.this,
                                             "Number of bed claims cannot exceed 5!",
                                             Toast.LENGTH_SHORT).show();

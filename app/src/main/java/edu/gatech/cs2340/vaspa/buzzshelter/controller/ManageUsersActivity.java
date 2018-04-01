@@ -114,7 +114,7 @@ public class ManageUsersActivity extends AppCompatActivity {
                         .getChildren()) {
                     String key = ds.getKey();
                     toManage = ds.getValue(User.class);
-                    if (toManage != null && toManage.getUserId().equals(userIDText
+                    if ((toManage != null) && toManage.getUserId().equals(userIDText
                             .getText().toString().trim())) {
                         toManage.setLockedOut(!status);
                         myRef.child("account_holders").child("users").child(key)
@@ -137,7 +137,7 @@ public class ManageUsersActivity extends AppCompatActivity {
                         .child("shelter_employees").getChildren()) {
                     String key = ds.getKey();
                     toManage = ds.getValue(ShelterEmployee.class);
-                    if (toManage != null && toManage.getUserId().equals(userIDText
+                    if ((toManage != null) && toManage.getUserId().equals(userIDText
                             .getText().toString())) {
                         toManage.setLockedOut(!status);
                         myRef.child("account_holders").child("shelter_employees").child(key)
@@ -186,7 +186,7 @@ public class ManageUsersActivity extends AppCompatActivity {
                         .getChildren()) {
                     String key = ds.getKey();
                     toManage = ds.getValue(User.class);
-                    if (toManage != null && toManage.getUserId().equals(userIDText
+                    if ((toManage != null) && toManage.getUserId().equals(userIDText
                             .getText().toString())) {
                         toManage.setDeleted(true);
                         myRef.child("account_holders").child("users").child(key)
@@ -209,7 +209,7 @@ public class ManageUsersActivity extends AppCompatActivity {
                         .child("shelter_employees").getChildren()) {
                     String key = ds.getKey();
                     toManage = ds.getValue(ShelterEmployee.class);
-                    if (toManage != null && toManage.getUserId().equals(userIDText
+                    if ((toManage != null) && toManage.getUserId().equals(userIDText
                             .getText().toString())) {
                         toManage.setDeleted(true);
                         myRef.child("account_holders").child("shelter_employees").child(key)

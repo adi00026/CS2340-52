@@ -74,7 +74,7 @@ public class UserSettingsActivity extends AppCompatActivity {
         genderSpinner.setAdapter(adapterGender);
         //noinspection LawOfDemeter
         String gender = ((User) Model.getInstance().getCurrentUser()).getGender();
-        genderSpinner.setSelection(gender.equals("Male") ? 0 : (gender.equals("Female") ? 1 : 2));
+        genderSpinner.setSelection("Male".equals(gender) ? 0 : ("Female".equals(gender) ? 1 : 2));
         genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View arg1,
@@ -125,7 +125,7 @@ public class UserSettingsActivity extends AppCompatActivity {
         String gender = genderSpinner.getSelectedItem().toString().trim();
         boolean isVeteran = vetStatusCheckbox.isChecked();
         if (!(user.getName().equals(name) && user.getContactInfo().equals(contactInfo)
-                && user.getGender().equals(gender) && user.isVeteran() == isVeteran)) {
+                && user.getGender().equals(gender) && (user.isVeteran() == isVeteran))) {
             user.setName(name);
             user.setContactInfo(contactInfo);
             user.setGender(gender);

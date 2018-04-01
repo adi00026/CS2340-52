@@ -20,9 +20,9 @@ public class Validation {
         int month = date.get(0);
         int day = date.get(1);
         int year = date.get(2);
-        if (year % 4 == 0) {
+        if ((year % 4) == 0) {
             dateArr[2] = 29;
         }
-        return !(month < 1 || month > 12) && !(day < 1 || day > dateArr[month]);
+        return !((month < 1) || (month > 12)) && !((day < 1) || (day > dateArr[month]));
     }
 }

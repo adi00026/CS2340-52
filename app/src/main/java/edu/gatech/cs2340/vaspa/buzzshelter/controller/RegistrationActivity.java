@@ -108,8 +108,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
         // implies that passwords are equal
 
-        if (name.length() == 0 || username.length() == 0 || password.length() == 0
-          || contactInfo.length() == 0) {
+        if (name.isEmpty() || username.isEmpty() || password.isEmpty()
+                || contactInfo.isEmpty()) {
             Toast.makeText(RegistrationActivity.this, "One or more of the inputted values" +
               " is empty", Toast.LENGTH_SHORT).show();
             return;
@@ -126,10 +126,10 @@ public class RegistrationActivity extends AppCompatActivity {
 
         Intent nextIntent;
 
-        if (selectedItem.equalsIgnoreCase("User")) {
+        if ("User".equalsIgnoreCase(selectedItem)) {
             nextIntent = new Intent(RegistrationActivity.this,
               UserRegistrationActivity.class);
-        } else if (selectedItem.equalsIgnoreCase("Admin")) {
+        } else if ("Admin".equalsIgnoreCase(selectedItem)) {
             nextIntent = new Intent(RegistrationActivity.this,
               AdminRegistrationActivity.class);
         } else {

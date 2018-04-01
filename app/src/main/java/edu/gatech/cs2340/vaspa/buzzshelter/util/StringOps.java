@@ -18,7 +18,7 @@ public class StringOps {
      */
     public static int parseCapacity(String bullshitCapacity) {
         // If bullshitCapacity is empty...
-        if (bullshitCapacity.trim().equals("")) {
+        if ("".equals(bullshitCapacity.trim())) {
             return 1000;
         }
         // If bullshitCapacity is not empty...
@@ -56,7 +56,7 @@ public class StringOps {
             return false;
         }
         double num = 1.0 * lcs(text, pattern);
-        double probMatch = num / ((1 - ALPHA) * text.length() + ALPHA * pattern.length());
+        double probMatch = num / (((1 - ALPHA) * text.length()) + (ALPHA * pattern.length()));
         return probMatch > FUZZY_THRESHOLD;
     }
 

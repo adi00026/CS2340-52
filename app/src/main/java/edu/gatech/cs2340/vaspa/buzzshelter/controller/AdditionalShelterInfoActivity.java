@@ -91,11 +91,11 @@ public class AdditionalShelterInfoActivity extends AppCompatActivity {
         String capacity_string = capacityText.getText().toString().trim();
         StringBuilder restrictions = new StringBuilder();
         for (CheckBox restriction : restrictionsCheckboxes) {
-            restrictions.append(restriction.isChecked() ? restriction.getText().toString()
-                    .toLowerCase() + ", " : "");
+            restrictions.append(restriction.isChecked() ? (restriction.getText().toString()
+                    .toLowerCase() + ", ") : "");
         }
-        if (specialNotes.length() == 0 || restrictions.length() == 0
-          || capacity_string.length() == 0) {
+        if (specialNotes.isEmpty() || (restrictions.length() == 0)
+                || capacity_string.isEmpty()) {
             Toast.makeText(AdditionalShelterInfoActivity.this, "Please fill all fields",
               Toast.LENGTH_SHORT).show();
             return;
