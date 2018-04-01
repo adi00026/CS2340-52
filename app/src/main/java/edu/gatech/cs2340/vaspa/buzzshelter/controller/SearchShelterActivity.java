@@ -59,6 +59,7 @@ public class SearchShelterActivity extends AppCompatActivity {
     private Model model;
 
 
+    @SuppressWarnings("LawOfDemeter")
     @Override
     public void onResume() {
         super.onResume();
@@ -69,7 +70,7 @@ public class SearchShelterActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("OverlyLongMethod")
+    @SuppressWarnings({"OverlyLongMethod", "LawOfDemeter"})
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -232,6 +233,7 @@ public class SearchShelterActivity extends AppCompatActivity {
      */
     private void checkoutPressed() {
         myRef.addValueEventListener(new ValueEventListener() {
+            @SuppressWarnings("LawOfDemeter")
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.child("account_holders").child("users")
@@ -322,6 +324,7 @@ public class SearchShelterActivity extends AppCompatActivity {
             Intent intent = new Intent(SearchShelterActivity.this,
                     ViewAvailableSheltersActivity.class);
             String name = unfilter(shelterSpinner.getSelectedItem().toString());
+            //noinspection LawOfDemeter
             List<Shelter> matches = (List<Shelter>) Model.getInstance().filterShelterByName(name);
             if (!matches.isEmpty()) {
                 intent.putExtra("shelter", matches.get(0));

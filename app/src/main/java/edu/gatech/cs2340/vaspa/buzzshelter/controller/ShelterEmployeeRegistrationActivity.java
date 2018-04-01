@@ -77,6 +77,7 @@ public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
     /**
      *  Helper method for registering the user
      */
+    @SuppressWarnings("LawOfDemeter")
     private void register() {
         progressDialog.setMessage("Registering User...");
         progressDialog.show();
