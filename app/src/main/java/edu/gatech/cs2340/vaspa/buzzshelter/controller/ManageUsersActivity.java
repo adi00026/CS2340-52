@@ -107,7 +107,7 @@ public class ManageUsersActivity extends AppCompatActivity {
          * Search database. If not found, Toast it. If found, set locked out to status.
          */
         myRef.addValueEventListener(new ValueEventListener() {
-            @SuppressWarnings("OverlyComplexMethod")
+            @SuppressWarnings({"OverlyComplexMethod", "LawOfDemeter"})
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.child("account_holders").child("users")
@@ -124,6 +124,7 @@ public class ManageUsersActivity extends AppCompatActivity {
                                 .show();
                         final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                           format(Calendar.getInstance().getTime()); // Current date and time
+                        //noinspection LawOfDemeter,LawOfDemeter
                         String log = date + ", " + "ADMIN: " + Model.getInstance().getCurrentUser()
                           .getUserId() + ", " + (status ? "Enabled " : "Disabled ") + toManage
                                 .getUserId();
@@ -146,6 +147,7 @@ public class ManageUsersActivity extends AppCompatActivity {
                                 .show();
                         final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                           format(Calendar.getInstance().getTime()); // Current date and time
+                        //noinspection LawOfDemeter,LawOfDemeter
                         String log = date + ", " + "ADMIN: " + Model.getInstance().getCurrentUser()
                           .getUserId() + ", " + (status ? "Enabled " : "Disabled ") + toManage
                                 .getUserId();
@@ -177,6 +179,7 @@ public class ManageUsersActivity extends AppCompatActivity {
          */
 
         myRef.addValueEventListener(new ValueEventListener() {
+            @SuppressWarnings("LawOfDemeter")
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.child("account_holders").child("users")
@@ -193,6 +196,7 @@ public class ManageUsersActivity extends AppCompatActivity {
                                 .show();
                         final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                           format(Calendar.getInstance().getTime()); // Current date and time
+                        //noinspection LawOfDemeter,LawOfDemeter
                         String log = date + ", " + "ADMIN: " + Model.getInstance().getCurrentUser()
                           .getUserId() + ", " + ("Deleted ") + toManage
                                 .getUserId();
@@ -215,6 +219,7 @@ public class ManageUsersActivity extends AppCompatActivity {
                                 .show();
                         final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                           format(Calendar.getInstance().getTime()); // Current date and time
+                        //noinspection LawOfDemeter,LawOfDemeter
                         String log = date + ", " + "ADMIN: " + Model.getInstance().getCurrentUser()
                           .getUserId() + ", " + ("Deleted ") + toManage
                                 .getUserId();

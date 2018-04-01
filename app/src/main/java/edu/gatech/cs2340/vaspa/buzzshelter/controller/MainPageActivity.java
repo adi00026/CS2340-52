@@ -51,13 +51,16 @@ public class MainPageActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference myRef;
 
+    @SuppressWarnings("LawOfDemeter")
     @Override
     protected void onResume() {
         super.onResume();
         Log.d(TAG, "Resumed");
         String shelterText = "";
+        //noinspection LawOfDemeter
         AccountHolder currentlyLoggedIn = Model.getInstance().getCurrentUser();
         if (currentlyLoggedIn instanceof User) {
+            //noinspection LawOfDemeter
             Shelter curr = Model.getInstance().getShelters()
                     .get(((User) currentlyLoggedIn).getShelterID());
             shelterText = "\nCurrent shelter:\n"
@@ -68,6 +71,7 @@ public class MainPageActivity extends AppCompatActivity {
                 + currentlyLoggedIn.getName() + "!\n" + shelterText);
     }
 
+    @SuppressWarnings("LawOfDemeter")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +99,7 @@ public class MainPageActivity extends AppCompatActivity {
         // gets it in case password changed as a result of recovery
 
         myRef.addValueEventListener(new ValueEventListener() {
-            @SuppressWarnings({"OverlyLongMethod", "OverlyComplexMethod"})
+            @SuppressWarnings({"OverlyLongMethod", "OverlyComplexMethod", "LawOfDemeter"})
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (mAuth.getCurrentUser() != null) {
@@ -147,6 +151,7 @@ public class MainPageActivity extends AppCompatActivity {
                     } else {
                         String shelterText = "";
                         if (currentlyLoggedIn instanceof User) {
+                            //noinspection LawOfDemeter
                             Shelter curr = Model.getInstance().getShelters()
                                     .get(((User) currentlyLoggedIn).getShelterID());
                             shelterText = "\n\nCurrent shelter:\n"
@@ -217,20 +222,25 @@ public class MainPageActivity extends AppCompatActivity {
      * Method to handle what happens when the logout button is pressed. All logged data is pushed
      * up to firebase. User is logged out and returned to the Welcome Page.
      */
+    @SuppressWarnings("LawOfDemeter")
     private void logoutPressed() {
         Intent intent = new Intent(MainPageActivity.this,
                 WelcomePageActivity.class);
+        //noinspection LawOfDemeter
         final AccountHolder currUser = Model.getInstance().getCurrentUser();
         myRef.addValueEventListener(new ValueEventListener() {
+            @SuppressWarnings("LawOfDemeter")
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 // TODO move to seperate logging class
 
                 // done because .'s cannot be withing filepath
+                //noinspection LawOfDemeter
                 String path = currUser.getUserId().replace(".", ",");
                 final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                         format(Calendar.getInstance().getTime()); // Current date and time
+                //noinspection LawOfDemeter
                 String log = date + ", " + currUser.getUserId() + ", "
                         + "logged out";
                 Model.getInstance().updateLogs(log);
@@ -267,6 +277,7 @@ public class MainPageActivity extends AppCompatActivity {
      * Method to handle what happens when the settings button is pressed. Depending on what type of
      * AccountHolder is logged in, they are directed to the respective settings page.
      */
+    @SuppressWarnings("LawOfDemeter")
     private void settingsPressed() {
         Intent intent;
         if (Model.getInstance().getCurrentUser() instanceof User) {

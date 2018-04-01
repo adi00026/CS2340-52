@@ -41,6 +41,7 @@ public class UserSettingsActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference myRef;
 
+    @SuppressWarnings("LawOfDemeter")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +72,7 @@ public class UserSettingsActivity extends AppCompatActivity {
                 Arrays.asList(genderArray));
         adapterGender.setDropDownViewResource(R.layout.spinner_layout_1);
         genderSpinner.setAdapter(adapterGender);
+        //noinspection LawOfDemeter
         String gender = ((User) Model.getInstance().getCurrentUser()).getGender();
         genderSpinner.setSelection(gender.equals("Male") ? 0 : (gender.equals("Female") ? 1 : 2));
         genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -114,8 +116,9 @@ public class UserSettingsActivity extends AppCompatActivity {
      * are different from what the Shelter Employee's current attribute values are, it updates
      * his/her info on firebase and locally on the app.
      */
-    @SuppressWarnings("ConstantConditions")
+    @SuppressWarnings({"ConstantConditions", "LawOfDemeter"})
     private void updatePressed() {
+        //noinspection LawOfDemeter
         User user = (User) Model.getInstance().getCurrentUser();
         String name = nameEditText.getText().toString().trim();
         String contactInfo = contactEditText.getText().toString().trim();

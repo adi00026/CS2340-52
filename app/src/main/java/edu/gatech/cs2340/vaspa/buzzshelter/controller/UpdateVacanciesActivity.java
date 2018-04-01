@@ -52,7 +52,7 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
         myRef = database.getReference();
 
         myRef.addValueEventListener(new ValueEventListener() {
-            @SuppressWarnings("ProhibitedExceptionCaught")
+            @SuppressWarnings({"ProhibitedExceptionCaught", "LawOfDemeter"})
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
@@ -91,7 +91,9 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
      * no error, this activity is added to the local log and then the the vacancies are updated on
      * both firebase and locally.
      */
+    @SuppressWarnings("LawOfDemeter")
     private void updatePressed() {
+        //noinspection LawOfDemeter
         ShelterEmployee currentUser = (ShelterEmployee) Model.getInstance().getCurrentUser();
         int vacancies;
         try {
@@ -107,6 +109,7 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
                     "Vacancies must be non-negative", Toast.LENGTH_SHORT).show();
             return;
         }
+        //noinspection LawOfDemeter
         Shelter thisShelter = Model.getInstance().getShelters().get(currentUser.getShelterID());
         int capacity = StringOps.parseCapacity(thisShelter.getCapacity());
         if (vacancies > capacity) {
@@ -129,6 +132,7 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
             @SuppressWarnings("ProhibitedExceptionCaught")
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                //noinspection LawOfDemeter
                 ShelterEmployee shemp = (ShelterEmployee) Model.getInstance().getCurrentUser();
                 Shelter shelter = dataSnapshot.child("shelters").child(shemp.getShelterID())
                         .getValue(Shelter.class);

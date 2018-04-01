@@ -125,6 +125,7 @@ public class AdditionalShelterInfoActivity extends AppCompatActivity {
 
 
         myRef.addValueEventListener(new ValueEventListener() {
+            @SuppressWarnings("LawOfDemeter")
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 assert id != null;
@@ -139,6 +140,7 @@ public class AdditionalShelterInfoActivity extends AppCompatActivity {
                       "Shelter added", Toast.LENGTH_SHORT).show();
                     final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                       format(Calendar.getInstance().getTime()); // Current date and time
+                    //noinspection LawOfDemeter,LawOfDemeter
                     String log = date + ", " + "ADMIN: " + Model.getInstance().getCurrentUser()
                       .getUserId() + ", " + "added new shelter: " + newShelter.getUniqueKey();
                     Model.getInstance().updateLogs(log);

@@ -46,7 +46,7 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
 
     private String infoString;
 
-    @SuppressWarnings("ProhibitedExceptionCaught")
+    @SuppressWarnings({"ProhibitedExceptionCaught", "LawOfDemeter"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,6 +119,7 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
      */
     private void checkOutPressed() {
         myRef.addValueEventListener(new ValueEventListener() {
+            @SuppressWarnings("LawOfDemeter")
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.child("account_holders").child("users")
@@ -161,6 +162,7 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
      */
     private void checkInFirebaseUpdate(final int numCheckIn) {
         myRef.addValueEventListener(new ValueEventListener() {
+            @SuppressWarnings("LawOfDemeter")
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.child("account_holders").child("users")

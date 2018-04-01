@@ -34,6 +34,7 @@ public class AdminSettingsActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference myRef;
 
+    @SuppressWarnings("LawOfDemeter")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,7 +83,9 @@ public class AdminSettingsActivity extends AppCompatActivity {
      * are different from what the Admin's current attribute values are, it updates his/her info on
      * firebase and locally on the app. This action is logged locally.
      */
+    @SuppressWarnings("LawOfDemeter")
     private void updatePressed() {
+        //noinspection LawOfDemeter
         Admin admin = (Admin) Model.getInstance().getCurrentUser();
         if (!(nameEditText.getText().toString().trim().equals(admin.getName())
                 && contactEditText.getText().toString().trim().equals(admin.getContactInfo()))) {
