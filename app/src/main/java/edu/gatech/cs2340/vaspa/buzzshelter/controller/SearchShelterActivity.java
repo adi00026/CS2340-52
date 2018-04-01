@@ -31,6 +31,13 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 
+/**
+ * Class to handle the search shelter activity. Users can access this page
+ * from the settings page
+ *
+ * @author Aditya Parekh, Vishnu Kaushik
+ * @version 6.9
+ */
 
 public class SearchShelterActivity extends AppCompatActivity {
 
@@ -221,6 +228,9 @@ public class SearchShelterActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Helper method that handles checking out of a shelter
+     */
     private void checkoutPressed() {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -244,6 +254,9 @@ public class SearchShelterActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     *  Fills the shelter spinner with the new pertinent shelters
+     */
     private void fillShelterSpinnerAfterNameSearch() {
         final ArrayAdapter<String> shelterAdapter =
                 new ArrayAdapter(this,android.R.layout.simple_spinner_item);
@@ -256,6 +269,9 @@ public class SearchShelterActivity extends AppCompatActivity {
         shelterSpinner.setAdapter(shelterAdapter);
     }
 
+    /**
+     *  Repopulates the shelter spinner
+     */
     private void repopulateShelterSpinner() {
         final ArrayAdapter<String> shelterAdapter =
                 new ArrayAdapter(this,android.R.layout.simple_spinner_item);
@@ -297,6 +313,9 @@ public class SearchShelterActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     *  Helper method invoked when view shelter button is pressed
+     */
     private void viewShelterPressed() {
         try {
             Intent intent = new Intent(SearchShelterActivity.this,
@@ -316,7 +335,10 @@ public class SearchShelterActivity extends AppCompatActivity {
 
         }
     }
-    
+
+    /**
+     *  Helper method called when map button listener was invoked
+     */
     private void mapPressed() {
         Intent intent = new Intent(SearchShelterActivity.this,
                 MapsActivity.class);
@@ -333,12 +355,21 @@ public class SearchShelterActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Initializes golden trio
+     */
     private void initFirebaseComponents() {
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
     }
 
+    /**
+     * Helper method for filtering string
+     *
+     * @param inStr string to be filtered
+     * @return filtered string
+     */
     private String filter(String inStr) {
         Log.d("SEARCHSHELTERS", inStr);
         String[] arr = inStr.split(" ");
@@ -354,6 +385,12 @@ public class SearchShelterActivity extends AppCompatActivity {
         return outStr;
     }
 
+    /**
+     * Helper method for un-filtering string
+     *
+     * @param inStr string to be unfiltered
+     * @return unfiltered string
+     */
     private String unfilter(String inStr) {
         return inStr.replace("\n", " ")
                 .trim();
