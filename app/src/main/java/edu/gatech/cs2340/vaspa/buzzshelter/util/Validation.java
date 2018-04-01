@@ -8,6 +8,7 @@ import java.util.List;
  * @author Sanath Nagaraj
  * @version 6.9
  */
+@SuppressWarnings("UtilityClass")
 public class Validation {
     /**
      * Method to validate an entered date.

@@ -8,6 +8,7 @@ import android.util.Log;
  * @author Sanath Nagaraj
  * @version 6.9
  */
+@SuppressWarnings("UtilityClass")
 public class StringOps {
     /**
      * Method to parse the capacity string from the csv. If the entry is empty,

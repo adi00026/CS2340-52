@@ -1,5 +1,7 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.model;
 
+import android.support.annotation.Nullable;
+
 import java.util.List;
 
 /**
@@ -12,6 +14,7 @@ public class User extends AccountHolder {
     private String gender;
     private List<Integer> dateOfBirth;
     private boolean isVeteran;
+    @Nullable
     private String shelterID;
     private int numCheckedIn;
 

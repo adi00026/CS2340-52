@@ -75,7 +75,7 @@ public final class Model {
      */
     @SuppressWarnings("unused")
     public void setShelters(HashMap<String, Shelter> shelters) {
-        this.shelters = shelters;
+        this.shelters = new HashMap<>(shelters);
     }
 
     /**
@@ -251,6 +251,7 @@ public final class Model {
      *
      * @param filteredShelters the List of filtered shelters
      */
+    @SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
     public void setFilteredShelters(Collection<Shelter> filteredShelters) {
         this.filteredShelters = filteredShelters;
     }
