@@ -23,6 +23,7 @@ public class Shelter implements Parcelable {
      *
      * @return specialNotes
      */
+    @SuppressWarnings("unused")
     public String getSpecialNotes() {
         return specialNotes;
     }
@@ -32,6 +33,7 @@ public class Shelter implements Parcelable {
      *
      * @param specialNotes new special notes
      */
+    @SuppressWarnings("unused")
     public void setSpecialNotes(String specialNotes) {
         this.specialNotes = specialNotes;
     }
@@ -52,6 +54,7 @@ public class Shelter implements Parcelable {
      *
      * @param address new address
      */
+    @SuppressWarnings("unused")
     public void setAddress(String address) {
         this.address = address;
     }
@@ -179,6 +182,7 @@ public class Shelter implements Parcelable {
      *
      * @param key new key
      */
+    @SuppressWarnings("unused")
     public void setUniqueKey(String key) {
         uniqueKey = key;
     }
@@ -188,6 +192,7 @@ public class Shelter implements Parcelable {
      *
      * @param n new name
      */
+    @SuppressWarnings("unused")
     public void setName(String n) {
         name = n;
     }
@@ -197,6 +202,7 @@ public class Shelter implements Parcelable {
      *
      * @param n set capacity
      */
+    @SuppressWarnings("unused")
     public void setCapacity(String n) {
         capacity = n;
     }
@@ -215,6 +221,7 @@ public class Shelter implements Parcelable {
      *
      * @param d new latitude
      */
+    @SuppressWarnings("unused")
     public void setLatitude(double d) {
         latitude = d;
     }
@@ -224,6 +231,7 @@ public class Shelter implements Parcelable {
      *
      * @param d new longitude
      */
+    @SuppressWarnings("unused")
     public void setLongitude(double d) {
         longitude = d;
     }
@@ -233,6 +241,7 @@ public class Shelter implements Parcelable {
      *
      * @param restr new restrictions
      */
+    @SuppressWarnings("unused")
     public void setRestrictions(String restr) {
         restrictions = restr;
     }
@@ -241,6 +250,7 @@ public class Shelter implements Parcelable {
      * Setter
      * @param contact new contact info
      */
+    @SuppressWarnings("unused")
     public void setContactInfo(String contact) {
         contactInfo = contact;
     }
@@ -288,6 +298,7 @@ public class Shelter implements Parcelable {
      * Should not have to edit this method if the constructor and write method are
      * working correctly.
      */
+    @SuppressWarnings("unused")
     public static final Parcelable.Creator<Shelter> CREATOR
             = new Parcelable.Creator<Shelter>() {
         @Override

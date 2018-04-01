@@ -52,8 +52,6 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_shelters);
 
-        Model model = Model.getInstance();
-
         mAuth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
@@ -167,7 +165,6 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.child("account_holders").child("users")
                         .child(mAuth.getCurrentUser().getUid()).getValue(User.class);
-                String currentID = user.getShelterID();
                 int size = dataSnapshot.child("shelters").child(selectedShelter.getUniqueKey())
                         .child("vacancies").getValue(Integer.class);
                 if ((size - numCheckIn) >= 0) {

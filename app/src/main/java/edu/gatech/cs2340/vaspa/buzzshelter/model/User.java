@@ -90,6 +90,7 @@ public class User extends AccountHolder {
      *
      * @param dateOfBirth the dateOfBirth of the Homeless User.
      */
+    @SuppressWarnings("unused")
     public void setDateOfBirth(List<Integer> dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }

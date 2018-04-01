@@ -8,7 +8,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,7 +37,7 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
     private TextView shelterText;
     private EditText vacanciesEditText;
 
-    private FirebaseAuth mAuth;
+    //private FirebaseAuth mAuth;
     private FirebaseDatabase database;
     private DatabaseReference myRef;
 
@@ -52,7 +51,7 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
         shelterText = findViewById(R.id.textView_shelterName);
         vacanciesEditText = findViewById(R.id.editText_vacancies);
 
-        mAuth = FirebaseAuth.getInstance();
+        //mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
