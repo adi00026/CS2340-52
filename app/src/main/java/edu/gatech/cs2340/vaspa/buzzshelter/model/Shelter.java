@@ -3,11 +3,11 @@ package edu.gatech.cs2340.vaspa.buzzshelter.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
- * Created by aniruddhadas on 08/02/18.
+ * Class definition for shelter that defines a shelter object.
+ *
+ * @author Aniruddha Das, Sanath Nagaraj
+ * @version 6.9
  */
 
 public class Shelter implements Parcelable {

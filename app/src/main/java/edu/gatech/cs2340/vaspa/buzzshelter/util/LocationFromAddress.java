@@ -11,7 +11,11 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by aniruddhadas on 21/03/18.
+ * Class definition for util class LocationFromAddress. Used to find latitude
+ * and longitude of a passed in address.
+ *
+ * @author Aniruddha Das
+ * @version 6.9
  */
 
 public class LocationFromAddress {

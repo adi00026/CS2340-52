@@ -23,6 +23,14 @@ import java.util.Calendar;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 
+/**
+ * Class to handle the forgot password activity. Everyone can access this page
+ * from the welcome page.
+ *
+ * @author Aniruddha Das
+ * @version 6.9
+ */
+
 public class ForgotPasswordActivity extends AppCompatActivity {
 
     private Button back;
@@ -53,6 +61,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * Helper method called when send is clicked
+     *
+     * Sends email from firebase for password recovery
+     */
     private void sendClicked() {
         final String recovery_email = recovery_emailText.getText().toString().trim();
         if (recovery_email.length() == 0) {

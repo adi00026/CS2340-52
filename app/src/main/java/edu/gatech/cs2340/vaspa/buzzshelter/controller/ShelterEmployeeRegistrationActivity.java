@@ -27,6 +27,14 @@ import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
 
+/**
+ * Class to handle the shelter employees registration activity. Non-AccountHolders will access this
+ * page when they want to add shelter employees. This page is shared by all users.
+ *
+ * @author Aniruddha Das
+ * @version 6.9
+ */
+
 public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
 
     private EditText keyText;
@@ -71,6 +79,9 @@ public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     *  Helper method for registering the user
+     */
     private void register() {
         progressDialog.setMessage("Registering User...");
         progressDialog.show();
