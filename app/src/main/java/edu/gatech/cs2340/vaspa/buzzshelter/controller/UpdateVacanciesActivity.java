@@ -32,13 +32,9 @@ import edu.gatech.cs2340.vaspa.buzzshelter.util.StringOps;
  */
 @SuppressWarnings("ConstantConditions")
 public class UpdateVacanciesActivity extends AppCompatActivity {
-    private Button backButton;
-    private Button updateButton;
     private TextView shelterText;
     private EditText vacanciesEditText;
 
-    //private FirebaseAuth mAuth;
-    private FirebaseDatabase database;
     private DatabaseReference myRef;
 
     @Override
@@ -46,13 +42,13 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_vacancies);
 
-        backButton = findViewById(R.id.button_back);
-        updateButton = findViewById(R.id.button_update);
+        Button backButton = findViewById(R.id.button_back);
+        Button updateButton = findViewById(R.id.button_update);
         shelterText = findViewById(R.id.textView_shelterName);
         vacanciesEditText = findViewById(R.id.editText_vacancies);
 
         //mAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
         myRef.addValueEventListener(new ValueEventListener() {

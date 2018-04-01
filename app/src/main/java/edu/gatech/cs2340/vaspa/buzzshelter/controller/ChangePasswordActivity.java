@@ -33,14 +33,11 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
  * @version 6.9
  */
 public class ChangePasswordActivity extends AppCompatActivity {
-    private Button backButton;
-    private Button changePasswordButton;
     private EditText oldPasswordText;
     private EditText newPasswordText;
     private EditText newPasswordRepeatText;
 
     private FirebaseAuth mAuth;
-    private FirebaseDatabase database;
     private DatabaseReference myRef;
 
     @Override
@@ -48,14 +45,14 @@ public class ChangePasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
 
-        backButton = findViewById(R.id.button_back);
-        changePasswordButton = findViewById(R.id.button_changePassword);
+        Button backButton = findViewById(R.id.button_back);
+        Button changePasswordButton = findViewById(R.id.button_changePassword);
         oldPasswordText = findViewById(R.id.editText_oldPassword);
         newPasswordText = findViewById(R.id.editText_newPassword);
         newPasswordRepeatText = findViewById(R.id.editText_newPassword_repeat);
 
         mAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
         backButton.setOnClickListener(new View.OnClickListener() {

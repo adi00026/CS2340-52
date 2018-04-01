@@ -49,7 +49,6 @@ public class MainPageActivity extends AppCompatActivity {
     private static final String TAG = "MAIN PAGE ACTIVITY";
 
     private FirebaseAuth mAuth;
-    private FirebaseDatabase database;
     private DatabaseReference myRef;
 
     @Override
@@ -76,7 +75,7 @@ public class MainPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_page);
         
         mAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
         progressDialog = new ProgressDialog(this);
