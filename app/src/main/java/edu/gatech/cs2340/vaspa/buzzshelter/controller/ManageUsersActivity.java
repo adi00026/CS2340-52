@@ -33,8 +33,6 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 public class ManageUsersActivity extends AppCompatActivity {
     private EditText userIDText;
 
-    //private FirebaseAuth mAuth;
-    private FirebaseDatabase database;
     private DatabaseReference myRef;
 
     private AccountHolder toManage;
@@ -45,7 +43,7 @@ public class ManageUsersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_manage_users);
 
         //mAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
         Button backButton = findViewById(R.id.button_back);

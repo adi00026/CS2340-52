@@ -47,8 +47,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
     private Spinner genderSpinner;
     private CheckBox vetCheckbox;
-    private Button backButton;
-    private Button registerButton;
     private EditText dayText;
     private EditText monthText;
     private EditText yearText;
@@ -56,7 +54,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
 
     private FirebaseAuth mAuth;
-    private FirebaseDatabase database;
     private DatabaseReference myRef;
 
     private final String TAG = "UserRegistrationAct";
@@ -69,8 +66,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
         genderSpinner = findViewById(R.id.spinner_gender);
         vetCheckbox = findViewById(R.id.checkBox_vets);
-        backButton = findViewById(R.id.button_back);
-        registerButton = findViewById(R.id.button_register);
+        Button backButton = findViewById(R.id.button_back);
+        Button registerButton = findViewById(R.id.button_register);
         dayText = findViewById(R.id.editText_day);
         monthText = findViewById(R.id.editText_month);
         yearText = findViewById(R.id.editText_year);
@@ -79,7 +76,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
         // Firebase stuff initializers
         mAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
 

@@ -40,7 +40,6 @@ public class AdminRegistrationActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
 
     private FirebaseAuth mAuth;
-    private FirebaseDatabase database;
     private DatabaseReference myRef;
 
     @Override
@@ -54,7 +53,7 @@ public class AdminRegistrationActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
 
         mAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
         backButton.setOnClickListener(new View.OnClickListener() {

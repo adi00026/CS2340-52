@@ -42,18 +42,13 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 @SuppressWarnings("ConstantConditions")
 public class SearchShelterActivity extends AppCompatActivity {
 
-    private Button viewShelterButton;
-    private Button backButton;
     private Button checkoutButton;
     private Spinner shelterSpinner;
     private Spinner genderSpinner;
     private Spinner ageSpinner;
     private EditText nameEditText;
-    private Button goButton;
-    private Button mapButton;
 
     private FirebaseAuth mAuth;
-    private FirebaseDatabase database;
     private DatabaseReference myRef;
 
     private final Collection<Shelter> filteredS = new ArrayList<>();
@@ -83,11 +78,11 @@ public class SearchShelterActivity extends AppCompatActivity {
 
         model = Model.getInstance();
 
-        viewShelterButton = findViewById(R.id.view_shelter_button);
-        backButton = findViewById(R.id.button_back);
+        Button viewShelterButton = findViewById(R.id.view_shelter_button);
+        Button backButton = findViewById(R.id.button_back);
         checkoutButton = findViewById(R.id.button_checkOut);
-        goButton = findViewById(R.id.gobutton);
-        mapButton = findViewById(R.id.button_map);
+        Button goButton = findViewById(R.id.gobutton);
+        Button mapButton = findViewById(R.id.button_map);
         shelterSpinner = findViewById(R.id.shelter_spinner);
         genderSpinner = findViewById(R.id.gender_spinner);
         ageSpinner = findViewById(R.id.age_spinner);
@@ -368,7 +363,7 @@ public class SearchShelterActivity extends AppCompatActivity {
      */
     private void initFirebaseComponents() {
         mAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
     }
 
