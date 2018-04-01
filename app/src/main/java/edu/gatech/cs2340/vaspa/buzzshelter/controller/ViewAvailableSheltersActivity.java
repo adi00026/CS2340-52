@@ -1,5 +1,6 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.controller;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -203,7 +204,8 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
     private void checkInPressed() {
         // get check_in_prompt.xml view
         LayoutInflater li = LayoutInflater.from(this);
-        View promptsView = li.inflate(R.layout.check_in_prompt, null);
+        @SuppressLint("InflateParams") View promptsView = li.inflate(R.layout.check_in_prompt,
+                null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 this);
         // set prompts.xml to alertdialog builder

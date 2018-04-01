@@ -18,6 +18,7 @@ import java.util.List;
  * @version 6.9
  */
 
+@SuppressWarnings("UtilityClass")
 public class LocationFromAddress {
     private static final String TAG = "LocationFromAddress";
     /**
