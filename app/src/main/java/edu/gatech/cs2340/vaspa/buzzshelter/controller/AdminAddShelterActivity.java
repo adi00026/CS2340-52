@@ -10,6 +10,14 @@ import android.widget.Toast;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 
+/**
+ * Class to handle the add shelter info activity. Admins will access this page
+ * from their manage users page. This page is shared by all Admins.
+ *
+ * @author Aniruddha Das
+ * @version 6.9
+ */
+
 public class AdminAddShelterActivity extends AppCompatActivity {
 
     private EditText id_text;
@@ -45,6 +53,11 @@ public class AdminAddShelterActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * Listener method for next button
+     */
+
     private void nextClicked() {
         String id = id_text.getText().toString().trim();
         String name = name_text.getText().toString().trim();

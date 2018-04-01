@@ -24,17 +24,22 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 import edu.gatech.cs2340.vaspa.buzzshelter.util.StringOps;
 
+/**
+ * Class to handle the viewing available shelters activity. Users will access this page
+ * when they want to view shelter according to criteria. This page is shared by all users.
+ *
+ * @author Aniruddha Das
+ * @version 6.9
+ */
 @SuppressWarnings("ConstantConditions")
 public class ViewAvailableSheltersActivity extends AppCompatActivity {
 
     private TextView shelterInfoTextView;
     private TextView currentShelterTextView;
-    private Button backButton;
     private Button checkInButton;
     private Button checkOutButton;
 
     private FirebaseAuth mAuth;
-    private FirebaseDatabase database;
     private DatabaseReference myRef;
 
     private Shelter selectedShelter;
@@ -50,12 +55,12 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
         Model model = Model.getInstance();
 
         mAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
         shelterInfoTextView = findViewById(R.id.shelterInfoTextView);
         currentShelterTextView = findViewById(R.id.textView_current);
-        backButton = findViewById(R.id.button_back);
+        Button backButton = findViewById(R.id.button_back);
         checkOutButton = findViewById(R.id.button_checkOut);
         checkInButton = findViewById(R.id.button_checkIn);
 
@@ -111,6 +116,9 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     *  Helper method that handles checking out of users
+     */
     private void checkOutPressed() {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -148,6 +156,11 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Updates firebase database vacancies for shelter
+     *
+     * @param numCheckIn
+     */
     private void checkInFirebaseUpdate(final int numCheckIn) {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -185,6 +198,9 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     *  Helper method for when the check in button is clicked
+     */
     private void checkInPressed() {
         // get check_in_prompt.xml view
         LayoutInflater li = LayoutInflater.from(this);
