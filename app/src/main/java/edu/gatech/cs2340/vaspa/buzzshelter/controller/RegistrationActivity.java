@@ -31,13 +31,13 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        usernameBox = (EditText) findViewById(R.id.registration_username);
-        nameBox = (EditText) findViewById(R.id.registration_name);
-        contactInfoBox = (EditText) findViewById(R.id.registration_contact_info);
-        passwordBox = (EditText) findViewById(R.id.password_field);
-        passwordConfirmBox = (EditText) findViewById(R.id.password_confirm);
-        typeReg = (Spinner) findViewById(R.id.spinner_type);
-        Button nextButton = (Button) findViewById(R.id.next_button);
+        usernameBox = findViewById(R.id.registration_username);
+        nameBox = findViewById(R.id.registration_name);
+        contactInfoBox = findViewById(R.id.registration_contact_info);
+        passwordBox = findViewById(R.id.password_field);
+        passwordConfirmBox = findViewById(R.id.password_confirm);
+        typeReg = findViewById(R.id.spinner_type);
+        Button nextButton = findViewById(R.id.next_button);
 
         String[] userType = {"User", "Admin", "Shelter Employee"};
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,

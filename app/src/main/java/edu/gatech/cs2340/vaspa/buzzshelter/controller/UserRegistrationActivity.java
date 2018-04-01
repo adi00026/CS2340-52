@@ -41,6 +41,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.util.Validation;
  * @author Sanath Nagaraj
  * @version 6.9
  */
+@SuppressWarnings("ConstantConditions")
 public class UserRegistrationActivity extends AppCompatActivity {
 
     private Spinner genderSpinner;
@@ -64,13 +65,13 @@ public class UserRegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_registration);
 
-        genderSpinner = (Spinner) findViewById(R.id.spinner_gender);
-        vetCheckbox = (CheckBox) findViewById(R.id.checkBox_vets);
-        backButton = (Button) findViewById(R.id.button_back);
-        registerButton = (Button) findViewById(R.id.button_register);
-        dayText = (EditText) findViewById(R.id.editText_day);
-        monthText = (EditText) findViewById(R.id.editText_month);
-        yearText = (EditText) findViewById(R.id.editText_year);
+        genderSpinner = findViewById(R.id.spinner_gender);
+        vetCheckbox = findViewById(R.id.checkBox_vets);
+        backButton = findViewById(R.id.button_back);
+        registerButton = findViewById(R.id.button_register);
+        dayText = findViewById(R.id.editText_day);
+        monthText = findViewById(R.id.editText_month);
+        yearText = findViewById(R.id.editText_year);
         progressDialog = new ProgressDialog(this);
 
 

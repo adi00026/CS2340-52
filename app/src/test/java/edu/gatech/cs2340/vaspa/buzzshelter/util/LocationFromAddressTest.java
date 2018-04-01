@@ -20,6 +20,7 @@ public class LocationFromAddressTest {
         String address = "University House Midtown";
         LatLng latLng = LocationFromAddress
           .getLocationFromAddress(getTestContext(), address);
+        assert latLng != null;
         System.out.println(latLng.latitude + latLng.longitude);
     }
 

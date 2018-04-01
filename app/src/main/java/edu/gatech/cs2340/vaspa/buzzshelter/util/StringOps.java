@@ -1,8 +1,6 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.util;
 
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
+import android.util.Log;
 
 /**
  * Class definition for util class StringOps. Class contains String parse and searcb methods.
@@ -29,7 +27,9 @@ public class StringOps {
         for (String s : split) {
             try {
                 capacity += Integer.parseInt(s.trim());
-            } catch (NumberFormatException e) {}
+            } catch (NumberFormatException e) {
+                Log.i("TAG", "Exception caught");
+            }
         }
         return capacity;
     }

@@ -17,7 +17,8 @@ import java.util.List;
 public class LocationFromAddress {
     private static final String TAG = "LocationFromAddress";
     /**
-     * Static method uses Google Maps API to return latitude and longitude based on passed in address
+     * Static method uses Google Maps API to return latitude and longitude based on passed in
+     * address
      *
      * @param context context to be passed in
      * @param strAddress address lf location to find latitude and longitude for

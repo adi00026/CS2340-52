@@ -27,6 +27,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
  * @author Sanath Nagaraj
  * @version 6.9
  */
+@SuppressWarnings("ConstantConditions")
 public class ShelterEmployeeSettingsActivity extends AppCompatActivity {
     private Button backButton;
     private Button updateButton;
@@ -41,13 +42,13 @@ public class ShelterEmployeeSettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_employee_settings);
 
-        backButton = (Button) findViewById(R.id.button_back);
-        updateButton = (Button) findViewById(R.id.button_update);
-        changePasswordButton = (Button) findViewById(R.id.button_password);
-        userIDText = (TextView) findViewById(R.id.textView_userid);
-        nameEditText = (EditText) findViewById(R.id.editText_name);
-        contactEditText = (EditText) findViewById(R.id.editText_contact);
-        shelterIDEditText = (EditText) findViewById(R.id.editText_shelterID);
+        backButton = findViewById(R.id.button_back);
+        updateButton = findViewById(R.id.button_update);
+        changePasswordButton = findViewById(R.id.button_password);
+        userIDText = findViewById(R.id.textView_userid);
+        nameEditText = findViewById(R.id.editText_name);
+        contactEditText = findViewById(R.id.editText_contact);
+        shelterIDEditText = findViewById(R.id.editText_shelterID);
 
         userIDText.setText("User ID: " + Model.getInstance().getCurrentUser().getUserId());
         nameEditText.setText(Model.getInstance().getCurrentUser().getName());
@@ -85,7 +86,8 @@ public class ShelterEmployeeSettingsActivity extends AppCompatActivity {
      * valid, it says so.
      */
     private void updatePressed() {
-        final ShelterEmployee shelterEmployee = (ShelterEmployee) Model.getInstance().getCurrentUser();
+        final ShelterEmployee shelterEmployee = (ShelterEmployee) Model.getInstance()
+                .getCurrentUser();
         String name = nameEditText.getText().toString().trim();
         String contactInfo = contactEditText.getText().toString().trim();
         String shelterID = shelterIDEditText.getText().toString().trim();
@@ -100,7 +102,8 @@ public class ShelterEmployeeSettingsActivity extends AppCompatActivity {
               shelterEmployee.getPassword(), contactInfo, shelterID);
             String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
             final DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
-            myRef.child("account_holders").child("shelter_employees").child(uid).setValue(newEmployee);
+            myRef.child("account_holders").child("shelter_employees").child(uid)
+                    .setValue(newEmployee);
             Model.getInstance().setCurrentUser(newEmployee);
             final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
               format(Calendar.getInstance().getTime()); // Current date and time

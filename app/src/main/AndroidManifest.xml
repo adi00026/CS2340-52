@@ -54,7 +54,7 @@
         </activity>
         <activity
             android:name=".controller.MapsActivity"
-            android:label="Map"></activity>
+            android:label="Map" />
     </application>
 
     <uses-feature

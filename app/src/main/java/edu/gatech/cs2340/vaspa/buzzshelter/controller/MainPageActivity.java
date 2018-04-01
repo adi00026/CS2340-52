@@ -35,6 +35,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
  * @author Aniruddha Das, Sanath Nagaraj
  * @version 6.9
  */
+@SuppressWarnings("ConstantConditions")
 public class MainPageActivity extends AppCompatActivity {
     private TextView welcomeTextview;
     private Button logoutButton;
@@ -80,12 +81,12 @@ public class MainPageActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading your information...");
         progressDialog.show();
 
-        welcomeTextview = (TextView) findViewById(R.id.textview_welcome);
-        logoutButton = (Button) findViewById(R.id.button_logout);
-        settingsButton = (Button) findViewById(R.id.button_settings);
-        searchSheltersButton = (Button) findViewById(R.id.button_search);
-        manageUsersButton = (Button) findViewById(R.id.button_manage_users);
-        updateVacanciesButton = (Button) findViewById(R.id.button_update_vacancies);
+        welcomeTextview = findViewById(R.id.textview_welcome);
+        logoutButton = findViewById(R.id.button_logout);
+        settingsButton = findViewById(R.id.button_settings);
+        searchSheltersButton = findViewById(R.id.button_search);
+        manageUsersButton = findViewById(R.id.button_manage_users);
+        updateVacanciesButton = findViewById(R.id.button_update_vacancies);
 
         setUpButtons(Model.getInstance().getCurrentUser());
 
@@ -93,6 +94,7 @@ public class MainPageActivity extends AppCompatActivity {
         // gets it in case password changed as a result of recovery
 
         myRef.addValueEventListener(new ValueEventListener() {
+            @SuppressWarnings({"OverlyLongMethod", "OverlyComplexMethod"})
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (mAuth.getCurrentUser() != null) {

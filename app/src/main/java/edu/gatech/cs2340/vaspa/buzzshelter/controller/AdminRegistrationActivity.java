@@ -26,6 +26,7 @@ import java.util.Calendar;
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Admin;
 
+@SuppressWarnings("ConstantConditions")
 public class AdminRegistrationActivity extends AppCompatActivity {
 
     private EditText keyText;
@@ -40,9 +41,9 @@ public class AdminRegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_registration);
 
-        keyText = (EditText) findViewById(R.id.admin_Key);
-        Button backButton = (Button) findViewById(R.id.admin_back);
-        Button finish = (Button) findViewById(R.id.Finish_Button);
+        keyText = findViewById(R.id.admin_Key);
+        Button backButton = findViewById(R.id.admin_back);
+        Button finish = findViewById(R.id.Finish_Button);
         progressDialog = new ProgressDialog(this);
 
         mAuth = FirebaseAuth.getInstance();
@@ -102,7 +103,7 @@ public class AdminRegistrationActivity extends AppCompatActivity {
                             // Logging creation of new account holder
                             String uid = admin.getUserId();
 
-                            // TODO move to seperate logging class
+                            // TODO move to separate logging class
                             uid = uid.replace('.', ',');
                             final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                               format(Calendar.getInstance().getTime()); // Current date and time

@@ -1,13 +1,10 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.model;
 
-import android.util.Patterns;
-
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -21,6 +18,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.util.StringOps;
  * @author All
  * @version 6.9
  */
+@SuppressWarnings("ConstantConditions")
 public class Model {
     /**
      * Singleton instance
@@ -87,7 +85,7 @@ public class Model {
      * @return a collection of shelters containing str in their names
      */
     public Collection<Shelter> filterShelterByAge(String ageRange) {
-        List<Shelter> list = new LinkedList<Shelter>();
+        List<Shelter> list = new LinkedList<>();
         for (Shelter sh: shelters.values()) {
             if (sh.getRestrictions().toLowerCase().
                     contains(ageRange.toLowerCase())) {
@@ -104,7 +102,7 @@ public class Model {
      * @return a collection of shelters containing str in their names
      */
     public Collection<Shelter> filterShelterByGender(String gender) {
-        List<Shelter> list = new LinkedList<Shelter>();
+        List<Shelter> list = new LinkedList<>();
         for (Shelter sh: shelters.values()) {
             if (sh.getRestrictions().contains(gender)) {
                 list.add(sh);
@@ -120,7 +118,7 @@ public class Model {
      * @return a collection of shelters containing str in their names
      */
     public Collection<Shelter> filterShelterByName(String name) {
-        List<Shelter> list = new LinkedList<Shelter>();
+        List<Shelter> list = new LinkedList<>();
         for (Shelter sh: shelters.values()) {
             if (StringOps.fuzzySearchContains(sh.getName().toLowerCase(), name.toLowerCase())) {
                 list.add(sh);
@@ -145,7 +143,7 @@ public class Model {
      * @return a list of shelters containing str in their names
      */
     public List<Shelter> filterShelterByAgeGender(String ageRange, String gender) {
-        List<Shelter> list = new LinkedList<Shelter>();
+        List<Shelter> list = new LinkedList<>();
         for (Shelter sh: shelters.values()) {
             if (sh.getRestrictions().toLowerCase().
                     contains(gender.toLowerCase())

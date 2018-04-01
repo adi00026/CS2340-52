@@ -24,6 +24,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 import edu.gatech.cs2340.vaspa.buzzshelter.util.StringOps;
 
+@SuppressWarnings("ConstantConditions")
 public class ViewAvailableSheltersActivity extends AppCompatActivity {
 
     private TextView shelterInfoTextView;
@@ -40,6 +41,7 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
 
     private String infoString;
 
+    @SuppressWarnings("ProhibitedExceptionCaught")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,11 +53,11 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
-        shelterInfoTextView = (TextView) findViewById(R.id.shelterInfoTextView);
-        currentShelterTextView = (TextView) findViewById(R.id.textView_current);
-        backButton = (Button) findViewById(R.id.button_back);
-        checkOutButton = (Button) findViewById(R.id.button_checkOut);
-        checkInButton = (Button) findViewById(R.id.button_checkIn);
+        shelterInfoTextView = findViewById(R.id.shelterInfoTextView);
+        currentShelterTextView = findViewById(R.id.textView_current);
+        backButton = findViewById(R.id.button_back);
+        checkOutButton = findViewById(R.id.button_checkOut);
+        checkInButton = findViewById(R.id.button_checkIn);
 
         if (((User) Model.getInstance().getCurrentUser()).getShelterID() == null) {
             checkOutButton.setEnabled(false);
@@ -73,7 +75,7 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
 
         try {
             if (getIntent().getExtras().containsKey("shelter")) {
-                Shelter sh = (Shelter) getIntent().getExtras().getParcelable("shelter");
+                Shelter sh = getIntent().getExtras().getParcelable("shelter");
                 infoString = sh.getName() + "\n" + sh.getAddress() + "\n" +
                         "Capacity: " + sh.getCapacity() + "\n"
                         + "Vacancies: ";
@@ -83,8 +85,6 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
                         + "Restrictions: " + sh.getRestrictions());
                 if (sh.getVacancies() == 0) {
                     checkInButton.setEnabled(false);
-                } else {
-                    //checkInButton.setEnabled(true);
                 }
             }
         } catch (NullPointerException e) {
@@ -193,14 +193,15 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
                 this);
         // set prompts.xml to alertdialog builder
         alertDialogBuilder.setView(promptsView);
-        final EditText userInput = (EditText) promptsView
+        final EditText userInput = promptsView
                 .findViewById(R.id.editTextDialogUserInput);
         // set dialog message
         alertDialogBuilder
                 .setCancelable(false)
                 .setPositiveButton("Check In",
                         new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
                                 int numCheckIn = Integer.parseInt(userInput.getText().toString());
                                 if (numCheckIn < 1 || numCheckIn > 5) {
                                     Toast.makeText(ViewAvailableSheltersActivity.this,
@@ -213,7 +214,8 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
                         })
                 .setNegativeButton("Cancel",
                         new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
                             }
                         });

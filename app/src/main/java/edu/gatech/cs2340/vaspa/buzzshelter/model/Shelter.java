@@ -3,9 +3,6 @@ package edu.gatech.cs2340.vaspa.buzzshelter.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * Created by aniruddhadas on 08/02/18.
  */
@@ -49,6 +46,7 @@ public class Shelter implements Parcelable {
         this(null, null, null, null, 0, 0, null, null, null, 0);
     }
 
+    @SuppressWarnings("ConstructorWithTooManyParameters")
     public Shelter(String key, String name, String cap, String restrics, double lon, double lat,
                    String addr, String specNotes, String contact, int vac) {
         uniqueKey = key;
@@ -173,10 +171,12 @@ public class Shelter implements Parcelable {
      */
     public static final Parcelable.Creator<Shelter> CREATOR
             = new Parcelable.Creator<Shelter>() {
+        @Override
         public Shelter createFromParcel(Parcel in) {
             return new Shelter(in);
         }
 
+        @Override
         public Shelter[] newArray(int size) {
             return new Shelter[size];
         }
