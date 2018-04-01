@@ -164,7 +164,7 @@ public class SearchShelterActivity extends AppCompatActivity {
                     .getCurrentUser()).getShelterID());
             Log.d("SEARCHDEBUG", "actual shelter id: " + shelter.getUniqueKey());
             Log.d("SEARCHDEBUG", selected + "\n--------------");
-            if (((User) Model.getInstance().getCurrentUser()).getShelterID() != null
+            if ((((User) Model.getInstance().getCurrentUser()).getShelterID() != null)
                     && ((User) Model.getInstance().getCurrentUser()).getShelterID()
                     .equals(shelter.getUniqueKey())) {
                 set = true;
@@ -279,13 +279,13 @@ public class SearchShelterActivity extends AppCompatActivity {
                 new ArrayAdapter<>(this,android.R.layout.simple_spinner_item);
         shelterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        if (ageSpinner.getSelectedItem().equals("Anyone")
-                && genderSpinner.getSelectedItem().equals("Any")) {
+        if ("Anyone".equals(ageSpinner.getSelectedItem())
+                && "Any".equals(genderSpinner.getSelectedItem())) {
             model.setFilteredShelters(model.allShelters());
-        } else if (ageSpinner.getSelectedItem().equals("Anyone")) {
+        } else if ("Anyone".equals(ageSpinner.getSelectedItem())) {
             model.setFilteredShelters(model.filterShelterByGender((String) genderSpinner
                     .getSelectedItem()));
-        } else if (genderSpinner.getSelectedItem().equals("Any")) {
+        } else if ("Any".equals(genderSpinner.getSelectedItem())) {
             model.setFilteredShelters(model.filterShelterByAge((String) ageSpinner
                     .getSelectedItem()));
         } else {
@@ -309,8 +309,8 @@ public class SearchShelterActivity extends AppCompatActivity {
             }
         });
         shelterSpinner.setAdapter(shelterAdapter);
-        if (ageSpinner.getSelectedItem().equals("Anyone")
-                && genderSpinner.getSelectedItem().equals("Any")) {
+        if ("Anyone".equals(ageSpinner.getSelectedItem())
+                && "Any".equals(genderSpinner.getSelectedItem())) {
             shelterSpinner.setSelection(currCheckedIn);
         }
     }
@@ -382,7 +382,7 @@ public class SearchShelterActivity extends AppCompatActivity {
         StringBuilder outStr = new StringBuilder();
         for (int i = 0; i < arr.length; i++) {
             outStr.append(arr[i]);
-            if ((i + 1) % 5 == 0) {
+            if (((i + 1) % 5) == 0) {
                 outStr.append("\n");
             } else {
                 outStr.append(" ");

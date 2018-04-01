@@ -67,7 +67,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
      */
     private void sendClicked() {
         final String recovery_email = recovery_emailText.getText().toString().trim();
-        if (recovery_email.length() == 0) {
+        if (recovery_email.isEmpty()) {
             Toast.makeText(ForgotPasswordActivity.this,
               "Please fill in recovery email", Toast.LENGTH_SHORT).show();
             return;

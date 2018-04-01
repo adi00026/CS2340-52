@@ -66,9 +66,9 @@ public class MainPageActivity extends AppCompatActivity {
             shelterText = "\nCurrent shelter:\n"
                     + (curr == null ? "NONE" : curr.getName());
         }
-        welcomeTextview.setText(currentlyLoggedIn == null ?
-                "No user currently logged in" : "Welcome, "
-                + currentlyLoggedIn.getName() + "!\n" + shelterText);
+        welcomeTextview.setText((currentlyLoggedIn == null) ?
+                "No user currently logged in" : ("Welcome, "
+                + currentlyLoggedIn.getName() + "!\n" + shelterText));
     }
 
     @SuppressWarnings("LawOfDemeter")
@@ -157,9 +157,9 @@ public class MainPageActivity extends AppCompatActivity {
                             shelterText = "\n\nCurrent shelter:\n"
                                     + (curr == null ? "NONE" : curr.getName());
                         }
-                        welcomeTextview.setText(currentlyLoggedIn == null ?
-                          "No user currently logged in" : "Welcome, "
-                                + currentlyLoggedIn.getName() + "!" + shelterText);
+                        welcomeTextview.setText((currentlyLoggedIn == null) ?
+                                "No user currently logged in" : ("Welcome, "
+                                + currentlyLoggedIn.getName() + "!" + shelterText));
                         setUpButtons(currentlyLoggedIn);
                     }
                     Model.getInstance().setCurrentUser(currentlyLoggedIn);
@@ -360,12 +360,12 @@ public class MainPageActivity extends AppCompatActivity {
     
             logoutButton.setVisibility(View.VISIBLE);
             settingsButton.setVisibility(View.VISIBLE);
-            searchSheltersButton.setVisibility(currentlyLoggedIn instanceof User ?
+            searchSheltersButton.setVisibility((currentlyLoggedIn instanceof User) ?
                     View.VISIBLE : View.INVISIBLE);
-            manageUsersButton.setVisibility(currentlyLoggedIn instanceof Admin ?
+            manageUsersButton.setVisibility((currentlyLoggedIn instanceof Admin) ?
                     View.VISIBLE : View.INVISIBLE);
             updateVacanciesButton
-                    .setVisibility(currentlyLoggedIn instanceof ShelterEmployee ?
+                    .setVisibility((currentlyLoggedIn instanceof ShelterEmployee) ?
                             View.VISIBLE : View.INVISIBLE);
         }
     }

@@ -37,7 +37,7 @@ public class LocationFromAddress {
         try {
             // May throw an IOException
             address = coder.getFromLocationName(strAddress, 5);
-            if (address == null || address.size() == 0) {
+            if ((address == null) || address.isEmpty()) {
                 // implies backend service is down or no results were found for the address
                 Log.d(TAG, "backend service is down or no results were found " +
                     "for the address, address is: " + address);

@@ -64,8 +64,8 @@ public class AdminAddShelterActivity extends AppCompatActivity {
         String name = name_text.getText().toString().trim();
         String contact_info = contact_text.getText().toString().trim();
         String address = address_text.getText().toString().trim();
-        if (name.length() == 0 || id.length() == 0 || contact_info.length() == 0
-          || address.length() == 0) {
+        if (name.isEmpty() || id.isEmpty() || contact_info.isEmpty()
+                || address.isEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
             return;
         }
