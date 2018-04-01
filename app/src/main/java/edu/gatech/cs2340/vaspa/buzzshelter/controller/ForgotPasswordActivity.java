@@ -33,8 +33,6 @@ import edu.gatech.cs2340.vaspa.buzzshelter.R;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
-    private Button back;
-    private Button send;
     private EditText recovery_emailText;
 
     @Override
@@ -42,8 +40,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        back = (Button) findViewById(R.id.button_back);
-        send = (Button) findViewById(R.id.button_send);
+        Button back = (Button) findViewById(R.id.button_back);
+        Button send = (Button) findViewById(R.id.button_send);
         recovery_emailText = (EditText) findViewById(R.id.editText_recover_email);
 
         recovery_emailText.setText(getIntent().getStringExtra("username"));

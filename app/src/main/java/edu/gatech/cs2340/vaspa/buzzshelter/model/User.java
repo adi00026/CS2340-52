@@ -80,7 +80,7 @@ public class User extends AccountHolder {
      *
      * @return the dateOfBirth of the Homeless User.
      */
-    public List<Integer> getDateOfBirth() {
+    private List<Integer> getDateOfBirth() {
         return dateOfBirth;
     }
 

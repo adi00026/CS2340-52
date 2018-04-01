@@ -32,14 +32,14 @@ import edu.gatech.cs2340.vaspa.buzzshelter.util.StringOps;
  * @version 6.9
  */
 public class UpdateVacanciesActivity extends AppCompatActivity {
-    Button backButton;
-    Button updateButton;
-    TextView shelterText;
-    EditText vacanciesEditText;
+    private Button backButton;
+    private Button updateButton;
+    private TextView shelterText;
+    private EditText vacanciesEditText;
 
-    FirebaseAuth mAuth;
-    FirebaseDatabase database;
-    DatabaseReference myRef;
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

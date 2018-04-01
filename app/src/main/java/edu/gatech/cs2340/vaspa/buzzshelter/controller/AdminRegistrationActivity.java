@@ -37,15 +37,11 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.Admin;
 public class AdminRegistrationActivity extends AppCompatActivity {
 
     private EditText keyText;
-    private Button backButton;
-    private Button finish;
     private ProgressDialog progressDialog;
 
-    private String adminKey = "temp_admin_key";
-
-    FirebaseAuth mAuth;
-    FirebaseDatabase database;
-    DatabaseReference myRef;
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +49,8 @@ public class AdminRegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_registration);
 
         keyText = (EditText) findViewById(R.id.admin_Key);
-        backButton = (Button) findViewById(R.id.admin_back);
-        finish = (Button) findViewById(R.id.Finish_Button);
+        Button backButton = (Button) findViewById(R.id.admin_back);
+        Button finish = (Button) findViewById(R.id.Finish_Button);
         progressDialog = new ProgressDialog(this);
 
         mAuth = FirebaseAuth.getInstance();
@@ -84,6 +80,7 @@ public class AdminRegistrationActivity extends AppCompatActivity {
         progressDialog.setMessage("Registering Admin...");
         progressDialog.show();
         String key = keyText.getText().toString().trim();
+        String adminKey = "temp_admin_key";
         if (!adminKey.equals(key)) {
             progressDialog.dismiss();
             Toast.makeText(this, "The inputted key is incorrect",

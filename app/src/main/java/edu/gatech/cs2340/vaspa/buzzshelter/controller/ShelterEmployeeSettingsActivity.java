@@ -28,13 +28,13 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
  * @version 6.9
  */
 public class ShelterEmployeeSettingsActivity extends AppCompatActivity {
-    Button backButton;
-    Button updateButton;
-    Button changePasswordButton;
-    TextView userIDText;
-    EditText nameEditText;
-    EditText contactEditText;
-    EditText shelterIDEditText;
+    private Button backButton;
+    private Button updateButton;
+    private Button changePasswordButton;
+    private TextView userIDText;
+    private EditText nameEditText;
+    private EditText contactEditText;
+    private EditText shelterIDEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

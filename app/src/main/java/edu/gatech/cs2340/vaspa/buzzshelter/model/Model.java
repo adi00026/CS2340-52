@@ -30,7 +30,7 @@ public class Model {
     private Collection<Shelter> filteredShelters;
     private HashMap<String, Shelter> shelters;
     private AccountHolder currentUser;
-    private HashMap<String, Integer> loginAttempts;
+    private final HashMap<String, Integer> loginAttempts;
 
     private String logs;
 

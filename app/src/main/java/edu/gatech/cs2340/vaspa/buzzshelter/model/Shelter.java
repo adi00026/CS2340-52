@@ -131,7 +131,7 @@ public class Shelter implements Parcelable {
 
     /**
      * Used internally
-     * @param p
+     * @param p something
      */
     private Shelter(Parcel p) {
         uniqueKey = p.readString();

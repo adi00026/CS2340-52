@@ -41,30 +41,28 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 
 public class SearchShelterActivity extends AppCompatActivity {
 
-    Button viewShelterButton;
-    Button backButton;
-    Button checkoutButton;
-    Spinner shelterSpinner;
-    Spinner genderSpinner;
-    Spinner ageSpinner;
-    EditText nameEditText;
-    Button goButton;
-    Button mapButton;
+    private Button viewShelterButton;
+    private Button backButton;
+    private Button checkoutButton;
+    private Spinner shelterSpinner;
+    private Spinner genderSpinner;
+    private Spinner ageSpinner;
+    private EditText nameEditText;
+    private Button goButton;
+    private Button mapButton;
 
-    FirebaseAuth mAuth;
-    FirebaseDatabase database;
-    DatabaseReference myRef;
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
 
-    Collection<Shelter> filteredS = new ArrayList<>();
-	Collection<Shelter> unfilteredS = new ArrayList<>();
+    private final Collection<Shelter> filteredS = new ArrayList<>();
+	private final Collection<Shelter> unfilteredS = new ArrayList<>();
     
-    int currCheckedIn;
+    private int currCheckedIn;
 
     private Model model;
-    
-    private ArrayAdapter<String> shelterAdapter;
-    
-	
+
+
     @Override
     public void onResume() {
         super.onResume();
@@ -102,15 +100,15 @@ public class SearchShelterActivity extends AppCompatActivity {
         }
 
         //ShelterSpinner
-	    shelterAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item);
+        ArrayAdapter<String> shelterAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
         shelterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         //GenderSpinner
-        final ArrayAdapter<String> genderAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item);
+        final ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item);
         genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         //AgeSpinner
-        final ArrayAdapter<String> ageAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item);
+        final ArrayAdapter<String> ageAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item);
         ageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         //ShelterSpinner set up
@@ -259,7 +257,7 @@ public class SearchShelterActivity extends AppCompatActivity {
      */
     private void fillShelterSpinnerAfterNameSearch() {
         final ArrayAdapter<String> shelterAdapter =
-                new ArrayAdapter(this,android.R.layout.simple_spinner_item);
+                new ArrayAdapter<>(this,android.R.layout.simple_spinner_item);
         shelterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Collection<Shelter> list = model.filterShelterByName(nameEditText.getText().toString().trim());
         model.setFilteredShelters(list);
@@ -274,7 +272,7 @@ public class SearchShelterActivity extends AppCompatActivity {
      */
     private void repopulateShelterSpinner() {
         final ArrayAdapter<String> shelterAdapter =
-                new ArrayAdapter(this,android.R.layout.simple_spinner_item);
+                new ArrayAdapter<>(this,android.R.layout.simple_spinner_item);
         shelterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         if (ageSpinner.getSelectedItem().equals("Anyone")
@@ -343,14 +341,14 @@ public class SearchShelterActivity extends AppCompatActivity {
         Intent intent = new Intent(SearchShelterActivity.this,
                 MapsActivity.class);
 	
+        filteredS.clear();
 	    filteredS.addAll(model.getFilteredShelters());
 	    unfilteredS.addAll(model.getShelters().values());
 	    
         if (filteredS.size() < unfilteredS.size()) {
 	        intent.putParcelableArrayListExtra("shelters", (ArrayList<? extends Parcelable>) filteredS);
         } else {
-	        intent.putParcelableArrayListExtra("shelters", (ArrayList<? extends Parcelable>
-			        ) unfilteredS);
+	        intent.putParcelableArrayListExtra("shelters", (ArrayList<? extends Parcelable>) unfilteredS);
         }
         startActivity(intent);
     }
