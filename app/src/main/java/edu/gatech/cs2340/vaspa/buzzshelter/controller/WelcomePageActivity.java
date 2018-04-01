@@ -36,6 +36,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
  * @author Sanath Nagaraj
  * @version 6.9
  */
+@SuppressWarnings("ConstantConditions")
 public class WelcomePageActivity extends AppCompatActivity {
     private Model model;
     private Button loginButton;
@@ -48,6 +49,7 @@ public class WelcomePageActivity extends AppCompatActivity {
 
     private static final String TAG = "WELCOME PAGE ACTIVITY";
 
+    @SuppressWarnings("ProhibitedExceptionCaught")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,12 +62,12 @@ public class WelcomePageActivity extends AppCompatActivity {
 
         model = Model.getInstance();
 
-        loginButton = (Button) findViewById(R.id.button_login);
-        Button cancelButton = (Button) findViewById(R.id.button_cancel);
-        Button registrationButton = (Button) findViewById(R.id.button_registration);
-        Button forgotPass = (Button) findViewById(R.id.button_password_forgot);
-        usernameEditText = (EditText) findViewById(R.id.editText_username);
-        passwordEditText = (EditText) findViewById(R.id.editText_password);
+        loginButton = findViewById(R.id.button_login);
+        Button cancelButton = findViewById(R.id.button_cancel);
+        Button registrationButton = findViewById(R.id.button_registration);
+        Button forgotPass = findViewById(R.id.button_password_forgot);
+        usernameEditText = findViewById(R.id.editText_username);
+        passwordEditText = findViewById(R.id.editText_password);
         progressDialog = new ProgressDialog(this);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -154,12 +156,13 @@ public class WelcomePageActivity extends AppCompatActivity {
                             myRef.child("logging").child(uid.replace('.', ','))
                               .setValue(prevLog + log);
 
-                            Toast.makeText(WelcomePageActivity.this, "Locked out. Too many attempts",
-                              Toast.LENGTH_SHORT).show();
+                            Toast.makeText(WelcomePageActivity.this,
+                                    "Locked out. Too many attempts", Toast.LENGTH_SHORT).show();
                         }
                     }
                     if (!done) {
-                        for (DataSnapshot ds : dataSnapshot.child("account_holders").child("shelter_employees")
+                        for (DataSnapshot ds : dataSnapshot.child("account_holders")
+                                .child("shelter_employees")
                           .getChildren()) {
                             String key = ds.getKey();
                             ShelterEmployee user = ds.getValue(ShelterEmployee.class);
@@ -167,7 +170,8 @@ public class WelcomePageActivity extends AppCompatActivity {
                                 user.setLockedOut(true);
                                 // sets locked out to true
                                 // adds user to database with locked out value to true
-                                myRef.child("account_holders").child("shelter_employees").child(key).setValue(user);
+                                myRef.child("account_holders").child("shelter_employees")
+                                        .child(key).setValue(user);
 
                                 // TODO move to seperate logging class
                                 // updates logs saying user was locked out
@@ -180,8 +184,9 @@ public class WelcomePageActivity extends AppCompatActivity {
                                 myRef.child("logging").child(uid.replace('.', ','))
                                   .setValue(prevLog + log);
 
-                                Toast.makeText(WelcomePageActivity.this, "Locked out. Too many attempts",
-                                  Toast.LENGTH_SHORT).show();
+                                Toast.makeText(WelcomePageActivity.this,
+                                        "Locked out. Too many attempts", Toast.LENGTH_SHORT)
+                                        .show();
                             }
                         }
                     }

@@ -31,6 +31,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.util.StringOps;
  * @author Sanath Nagaraj
  * @version 6.9
  */
+@SuppressWarnings("ConstantConditions")
 public class UpdateVacanciesActivity extends AppCompatActivity {
     private Button backButton;
     private Button updateButton;
@@ -46,16 +47,17 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_vacancies);
 
-        backButton = (Button) findViewById(R.id.button_back);
-        updateButton = (Button) findViewById(R.id.button_update);
-        shelterText = (TextView) findViewById(R.id.textView_shelterName);
-        vacanciesEditText = (EditText) findViewById(R.id.editText_vacancies);
+        backButton = findViewById(R.id.button_back);
+        updateButton = findViewById(R.id.button_update);
+        shelterText = findViewById(R.id.textView_shelterName);
+        vacanciesEditText = findViewById(R.id.editText_vacancies);
 
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
         myRef.addValueEventListener(new ValueEventListener() {
+            @SuppressWarnings("ProhibitedExceptionCaught")
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
@@ -129,6 +131,7 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
 
         final int newVacancies = vacancies;
         myRef.addValueEventListener(new ValueEventListener() {
+            @SuppressWarnings("ProhibitedExceptionCaught")
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ShelterEmployee shemp = (ShelterEmployee) Model.getInstance().getCurrentUser();

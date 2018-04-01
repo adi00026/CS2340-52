@@ -35,10 +35,10 @@ public class AdditionalShelterInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_additional_shelter_info);
 
-        Button back = (Button) findViewById(R.id.button_back);
-        Button finish = (Button) findViewById(R.id.button_finish);
-        specialNotesText = (EditText) findViewById(R.id.shelter_special_notes);
-        capacityText = (EditText) findViewById(R.id.shelter_capacity);
+        Button back = findViewById(R.id.button_back);
+        Button finish = findViewById(R.id.button_finish);
+        specialNotesText = findViewById(R.id.shelter_special_notes);
+        capacityText = findViewById(R.id.shelter_capacity);
 
         restrictionsCheckboxes = new CheckBox[7];
 
@@ -69,18 +69,18 @@ public class AdditionalShelterInfoActivity extends AppCompatActivity {
     }
 
     private void finishPressed() {
-        final String name = getIntent().getExtras().getString("name");
+        @SuppressWarnings("ConstantConditions") final String name = getIntent().getExtras()
+                .getString("name");
         final String id = getIntent().getExtras().getString("id");
         final String contact_info = getIntent().getExtras().getString("contact_info");
         final String address = getIntent().getExtras().getString("address");
 
         String specialNotes = specialNotesText.getText().toString().trim();
         String capacity_string = capacityText.getText().toString().trim();
-        String restrictions = "";
+        StringBuilder restrictions = new StringBuilder();
         for (CheckBox restriction : restrictionsCheckboxes) {
-            restrictions = restrictions
-                    + (restriction.isChecked() ? restriction.getText().toString().toLowerCase()
-                    + ", " : "");
+            restrictions.append(restriction.isChecked() ? restriction.getText().toString()
+                    .toLowerCase() + ", " : "");
         }
         if (specialNotes.length() == 0 || restrictions.length() == 0
           || capacity_string.length() == 0) {
@@ -100,11 +100,11 @@ public class AdditionalShelterInfoActivity extends AppCompatActivity {
         final Shelter newShelter;
         if (latLng != null) {
             Log.d("ADDITIONAL_SHELTER_INFO", latLng.latitude + ", " + latLng.longitude);
-            newShelter = new Shelter(id, name, "" + capacity, restrictions, latLng.longitude,
+            newShelter = new Shelter(id, name, "" + capacity, restrictions.toString(), latLng.longitude,
               latLng.latitude, address, specialNotes, contact_info, capacity);
         } else {
             Log.d("ADDITIONAL_SHELTER_INFO", "latlng was null. Default values placed");
-            newShelter = new Shelter(id, name, "" + capacity, restrictions, 69.0,
+            newShelter = new Shelter(id, name, "" + capacity, restrictions.toString(), 69.0,
               69.0, address, specialNotes, contact_info, capacity);
         }
 
@@ -114,6 +114,7 @@ public class AdditionalShelterInfoActivity extends AppCompatActivity {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                assert id != null;
                 if (dataSnapshot.child("shelters").child(id).exists()) {
                     Toast.makeText(AdditionalShelterInfoActivity.this,
                       "Shelter with this UID exists", Toast.LENGTH_SHORT).show();

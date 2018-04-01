@@ -32,6 +32,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
 
 
+@SuppressWarnings("ConstantConditions")
 public class SearchShelterActivity extends AppCompatActivity {
 
     private Button viewShelterButton;
@@ -66,6 +67,7 @@ public class SearchShelterActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressWarnings("OverlyLongMethod")
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,15 +76,15 @@ public class SearchShelterActivity extends AppCompatActivity {
 
         model = Model.getInstance();
 
-        viewShelterButton = (Button) findViewById(R.id.view_shelter_button);
-        backButton = (Button) findViewById(R.id.button_back);
-        checkoutButton = (Button) findViewById(R.id.button_checkOut);
-        goButton = (Button) findViewById(R.id.gobutton);
-        mapButton = (Button) findViewById(R.id.button_map);
-        shelterSpinner = (Spinner) findViewById(R.id.shelter_spinner);
-        genderSpinner = (Spinner) findViewById(R.id.gender_spinner);
-        ageSpinner = (Spinner) findViewById(R.id.age_spinner);
-        nameEditText = (EditText) findViewById(R.id.namePlainText);
+        viewShelterButton = findViewById(R.id.view_shelter_button);
+        backButton = findViewById(R.id.button_back);
+        checkoutButton = findViewById(R.id.button_checkOut);
+        goButton = findViewById(R.id.gobutton);
+        mapButton = findViewById(R.id.button_map);
+        shelterSpinner = findViewById(R.id.shelter_spinner);
+        genderSpinner = findViewById(R.id.gender_spinner);
+        ageSpinner = findViewById(R.id.age_spinner);
+        nameEditText = findViewById(R.id.namePlainText);
 
         initFirebaseComponents();
         
@@ -93,15 +95,18 @@ public class SearchShelterActivity extends AppCompatActivity {
         }
 
         //ShelterSpinner
-        ArrayAdapter<String> shelterAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
+        ArrayAdapter<String> shelterAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item);
         shelterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         //GenderSpinner
-        final ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item);
+        final ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item);
         genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         //AgeSpinner
-        final ArrayAdapter<String> ageAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item);
+        final ArrayAdapter<String> ageAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item);
         ageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         //ShelterSpinner set up
@@ -152,7 +157,8 @@ public class SearchShelterActivity extends AppCompatActivity {
         boolean set = false;
         int selected = 0;
         for (Shelter shelter : Model.getInstance().getShelters().values()) {
-            Log.d("SEARCHDEBUG", "user shelter id: " + ((User) Model.getInstance().getCurrentUser()).getShelterID());
+            Log.d("SEARCHDEBUG", "user shelter id: " + ((User) Model.getInstance()
+                    .getCurrentUser()).getShelterID());
             Log.d("SEARCHDEBUG", "actual shelter id: " + shelter.getUniqueKey());
             Log.d("SEARCHDEBUG", selected + "\n--------------");
             if (((User) Model.getInstance().getCurrentUser()).getShelterID() != null
@@ -246,7 +252,8 @@ public class SearchShelterActivity extends AppCompatActivity {
         final ArrayAdapter<String> shelterAdapter =
                 new ArrayAdapter<>(this,android.R.layout.simple_spinner_item);
         shelterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Collection<Shelter> list = model.filterShelterByName(nameEditText.getText().toString().trim());
+        Collection<Shelter> list = model.filterShelterByName(nameEditText.getText().toString()
+                .trim());
         model.setFilteredShelters(list);
         for (Shelter sh: list) {
             shelterAdapter.add(sh.getName());
@@ -295,6 +302,7 @@ public class SearchShelterActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressWarnings("ProhibitedExceptionCaught")
     private void viewShelterPressed() {
         try {
             Intent intent = new Intent(SearchShelterActivity.this,
@@ -311,7 +319,7 @@ public class SearchShelterActivity extends AppCompatActivity {
                             "the shelter you requested was not found in our database.",
                     Toast.LENGTH_LONG).show();
         } catch (NullPointerException e) {
-
+            Log.i("TAG", "Exception caught");
         }
     }
     
@@ -324,9 +332,11 @@ public class SearchShelterActivity extends AppCompatActivity {
 	    unfilteredS.addAll(model.getShelters().values());
 	    
         if (filteredS.size() < unfilteredS.size()) {
-	        intent.putParcelableArrayListExtra("shelters", (ArrayList<? extends Parcelable>) filteredS);
+	        intent.putParcelableArrayListExtra("shelters",
+                    (ArrayList<? extends Parcelable>) filteredS);
         } else {
-	        intent.putParcelableArrayListExtra("shelters", (ArrayList<? extends Parcelable>) unfilteredS);
+	        intent.putParcelableArrayListExtra("shelters",
+                    (ArrayList<? extends Parcelable>) unfilteredS);
         }
         startActivity(intent);
     }
@@ -340,16 +350,16 @@ public class SearchShelterActivity extends AppCompatActivity {
     private String filter(String inStr) {
         Log.d("SEARCHSHELTERS", inStr);
         String[] arr = inStr.split(" ");
-        String outStr = "";
+        StringBuilder outStr = new StringBuilder();
         for (int i = 0; i < arr.length; i++) {
-            outStr += arr[i];
+            outStr.append(arr[i]);
             if ((i + 1) % 5 == 0) {
-                outStr += "\n";
+                outStr.append("\n");
             } else {
-                outStr += " ";
+                outStr.append(" ");
             }
         }
-        return outStr;
+        return outStr.toString();
     }
 
     private String unfilter(String inStr) {

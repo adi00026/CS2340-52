@@ -1,6 +1,7 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.controller;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -47,11 +48,11 @@ public class ChangePasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
 
-        backButton = (Button) findViewById(R.id.button_back);
-        changePasswordButton = (Button) findViewById(R.id.button_changePassword);
-        oldPasswordText = (EditText) findViewById(R.id.editText_oldPassword);
-        newPasswordText = (EditText) findViewById(R.id.editText_newPassword);
-        newPasswordRepeatText = (EditText) findViewById(R.id.editText_newPassword_repeat);
+        backButton = findViewById(R.id.button_back);
+        changePasswordButton = findViewById(R.id.button_changePassword);
+        oldPasswordText = findViewById(R.id.editText_oldPassword);
+        newPasswordText = findViewById(R.id.editText_newPassword);
+        newPasswordRepeatText = findViewById(R.id.editText_newPassword_repeat);
 
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
@@ -100,15 +101,16 @@ public class ChangePasswordActivity extends AppCompatActivity {
         AuthCredential credential = EmailAuthProvider
                 .getCredential(Model.getInstance().getCurrentUser().getUserId(),
                         Model.getInstance().getCurrentUser().getPassword());
+        assert user != null;
         user.reauthenticate(credential)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onComplete(Task<Void> task) {
+                    public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             user.updatePassword(newPasswordText.getText().toString())
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
-                                public void onComplete(Task<Void> task) {
+                                public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
                                         String newPass = newPasswordText.getText().toString();
                                         if (Model.getInstance().getCurrentUser() instanceof User) {

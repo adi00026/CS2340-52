@@ -27,6 +27,7 @@ public class User extends AccountHolder {
      * @param dateOfBirth the date of birth of the Homeless User
      * @param isVeteran whether the Homeless User is a US Veteran.
      */
+    @SuppressWarnings("ConstructorWithTooManyParameters")
     public User(String name, String userID, String password, boolean lockedOut, String contactInfo,
                 String gender, List<Integer> dateOfBirth, boolean isVeteran) {
         super(name, userID, password, lockedOut, contactInfo);

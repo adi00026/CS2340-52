@@ -51,14 +51,14 @@ public class UserSettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_settings);
 
-        backButton = (Button) findViewById(R.id.button_back);
-        updateButton = (Button) findViewById(R.id.button_update);
-        changePasswordButton = (Button) findViewById(R.id.button_password);
-        userIDText = (TextView) findViewById(R.id.textView_userid);
-        nameEditText = (EditText) findViewById(R.id.editText_name);
-        contactEditText = (EditText) findViewById(R.id.editText_contact);
-        genderSpinner = (Spinner) findViewById(R.id.spinner_gender);
-        vetStatusCheckbox = (CheckBox) findViewById(R.id.checkBox_vets);
+        backButton = findViewById(R.id.button_back);
+        updateButton = findViewById(R.id.button_update);
+        changePasswordButton = findViewById(R.id.button_password);
+        userIDText = findViewById(R.id.textView_userid);
+        nameEditText = findViewById(R.id.editText_name);
+        contactEditText = findViewById(R.id.editText_contact);
+        genderSpinner = findViewById(R.id.spinner_gender);
+        vetStatusCheckbox = findViewById(R.id.checkBox_vets);
 
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
@@ -119,6 +119,7 @@ public class UserSettingsActivity extends AppCompatActivity {
      * are different from what the Shelter Employee's current attribute values are, it updates
      * his/her info on firebase and locally on the app.
      */
+    @SuppressWarnings("ConstantConditions")
     private void updatePressed() {
         User user = (User) Model.getInstance().getCurrentUser();
         String name = nameEditText.getText().toString().trim();

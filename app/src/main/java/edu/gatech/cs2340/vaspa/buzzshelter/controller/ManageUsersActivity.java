@@ -48,12 +48,12 @@ public class ManageUsersActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
-        Button backButton = (Button) findViewById(R.id.button_back);
-        Button removeButton = (Button) findViewById(R.id.button_remove);
-        Button addButton = (Button) findViewById(R.id.button_add);
-        Button disableButton = (Button) findViewById(R.id.button_disable);
-        Button enableButton = (Button) findViewById(R.id.button_enable);
-        userIDText = (EditText) findViewById(R.id.editText);
+        Button backButton = findViewById(R.id.button_back);
+        Button removeButton = findViewById(R.id.button_remove);
+        Button addButton = findViewById(R.id.button_add);
+        Button disableButton = findViewById(R.id.button_disable);
+        Button enableButton = findViewById(R.id.button_enable);
+        userIDText = findViewById(R.id.editText);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +109,7 @@ public class ManageUsersActivity extends AppCompatActivity {
          * Search database. If not found, Toast it. If found, set locked out to status.
          */
         myRef.addValueEventListener(new ValueEventListener() {
+            @SuppressWarnings("OverlyComplexMethod")
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.child("account_holders").child("users")

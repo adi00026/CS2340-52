@@ -32,9 +32,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        Button back = (Button) findViewById(R.id.button_back);
-        Button send = (Button) findViewById(R.id.button_send);
-        recovery_emailText = (EditText) findViewById(R.id.editText_recover_email);
+        Button back = findViewById(R.id.button_back);
+        Button send = findViewById(R.id.button_send);
+        recovery_emailText = findViewById(R.id.editText_recover_email);
 
         recovery_emailText.setText(getIntent().getStringExtra("username"));
 
@@ -78,7 +78,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                               .replace('.', ',')).getValue(String.class);
                             final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                               format(Calendar.getInstance().getTime()); // Current date and time
-                            String log = date + ", " + recovery_email + ", sent password recovery email\n";
+                            String log = date + ", " + recovery_email
+                                    + ", sent password recovery email\n";
                             // appends new log to original log and places into database
                             myRef.child("logging").child(recovery_email
                               .replace('.', ',')).setValue(prevLog + log);
@@ -97,7 +98,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     onBackPressed(); // takes them back once recovery email is set
                 } else {
                     Toast.makeText(ForgotPasswordActivity.this,
-                      "An error has occured", Toast.LENGTH_SHORT).show();
+                      "An error has occurred", Toast.LENGTH_SHORT).show();
                 }
             }
         });

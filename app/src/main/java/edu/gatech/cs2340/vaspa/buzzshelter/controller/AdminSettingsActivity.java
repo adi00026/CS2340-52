@@ -26,6 +26,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
  * @author Sanath Nagaraj
  * @version 6.9
  */
+@SuppressWarnings("ConstantConditions")
 public class AdminSettingsActivity extends AppCompatActivity {
     private Button backButton;
     private Button updateButton;
@@ -43,12 +44,12 @@ public class AdminSettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_settings);
 
-        backButton = (Button) findViewById(R.id.button_back);
-        updateButton = (Button) findViewById(R.id.button_update);
-        changePasswordButton = (Button) findViewById(R.id.button_password);
-        userIDText = (TextView) findViewById(R.id.textView_userid);
-        nameEditText = (EditText) findViewById(R.id.editText_name);
-        contactEditText = (EditText) findViewById(R.id.editText_contact);
+        backButton = findViewById(R.id.button_back);
+        updateButton = findViewById(R.id.button_update);
+        changePasswordButton = findViewById(R.id.button_password);
+        userIDText = findViewById(R.id.textView_userid);
+        nameEditText = findViewById(R.id.editText_name);
+        contactEditText = findViewById(R.id.editText_contact);
 
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();

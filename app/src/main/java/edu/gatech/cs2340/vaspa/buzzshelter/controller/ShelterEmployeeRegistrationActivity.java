@@ -27,6 +27,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
 
+@SuppressWarnings("ConstantConditions")
 public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
 
     private EditText keyText;
@@ -42,10 +43,10 @@ public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_employee_registration);
 
-        keyText = (EditText) findViewById(R.id.Shelter_Employee_Key);
-        shelterId = (EditText) findViewById(R.id.shelter_ID);
-        Button finish = (Button) findViewById(R.id.Finish_Button_Shelter);
-        Button backButton = (Button) findViewById(R.id.shelter_registration_back);
+        keyText = findViewById(R.id.Shelter_Employee_Key);
+        shelterId = findViewById(R.id.shelter_ID);
+        Button finish = findViewById(R.id.Finish_Button_Shelter);
+        Button backButton = findViewById(R.id.shelter_registration_back);
         progressDialog = new ProgressDialog(this);
 
         mAuth = FirebaseAuth.getInstance();

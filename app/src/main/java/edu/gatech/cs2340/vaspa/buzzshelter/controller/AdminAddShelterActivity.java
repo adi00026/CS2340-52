@@ -25,12 +25,12 @@ public class AdminAddShelterActivity extends AppCompatActivity {
         Button next;
 
         setContentView(R.layout.activity_admin_add_shelter);
-        back = (Button) findViewById(R.id.button_back);
-        next = (Button) findViewById(R.id.button_next);
-        id_text = (EditText) findViewById(R.id.registration_shelter_id);
-        name_text = (EditText) findViewById(R.id.shelter_name);
-        contact_text = (EditText) findViewById(R.id.shelter_contact_info);
-        address_text = (EditText) findViewById(R.id.registration_shelter_address);
+        back = findViewById(R.id.button_back);
+        next = findViewById(R.id.button_next);
+        id_text = findViewById(R.id.registration_shelter_id);
+        name_text = findViewById(R.id.shelter_name);
+        contact_text = findViewById(R.id.shelter_contact_info);
+        address_text = findViewById(R.id.registration_shelter_address);
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
