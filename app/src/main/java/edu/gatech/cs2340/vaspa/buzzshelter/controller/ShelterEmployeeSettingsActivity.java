@@ -33,6 +33,7 @@ public class ShelterEmployeeSettingsActivity extends AppCompatActivity {
     private EditText contactEditText;
     private EditText shelterIDEditText;
 
+    @SuppressWarnings("LawOfDemeter")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +82,9 @@ public class ShelterEmployeeSettingsActivity extends AppCompatActivity {
      * his/her info on firebase and locally on the app. If the entered unique shelter key is not
      * valid, it says so.
      */
+    @SuppressWarnings("LawOfDemeter")
     private void updatePressed() {
+        //noinspection LawOfDemeter
         final ShelterEmployee shelterEmployee = (ShelterEmployee) Model.getInstance()
                 .getCurrentUser();
         String name = nameEditText.getText().toString().trim();

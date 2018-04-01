@@ -76,6 +76,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
      * the error. If the new password is less than 8 characters, it will display the error. If all
      * is fine, it changes the user's details both on firebase database and firebase auth.
      */
+    @SuppressWarnings("LawOfDemeter")
     private void changePasswordPressed() {
         if (!oldPasswordText.getText().toString().equals(Model.getInstance().getCurrentUser()
                 .getPassword())) {
@@ -95,6 +96,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
             return;
         }
         final FirebaseUser user = mAuth.getCurrentUser();
+        //noinspection LawOfDemeter,LawOfDemeter,LawOfDemeter,LawOfDemeter
         AuthCredential credential = EmailAuthProvider
                 .getCredential(Model.getInstance().getCurrentUser().getUserId(),
                         Model.getInstance().getCurrentUser().getPassword());
@@ -106,6 +108,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             user.updatePassword(newPasswordText.getText().toString())
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @SuppressWarnings("LawOfDemeter")
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
@@ -131,6 +134,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                                                 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
                                                 .format(Calendar.getInstance().getTime());
                                                 // Current date and time
+                                        //noinspection LawOfDemeter,LawOfDemeter
                                         String log = date + ", " + Model.getInstance()
                                           .getCurrentUser().getUserId() + ", " + "changed password";
                                         Model.getInstance().updateLogs(log);
