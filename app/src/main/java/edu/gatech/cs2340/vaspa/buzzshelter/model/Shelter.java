@@ -66,12 +66,26 @@ public class Shelter implements Parcelable {
 
 
     /**
-     * titties
+     *  No args constructor
      */
     public Shelter() {
         this(null, null, null, null, 0, 0, null, null, null, 0);
     }
 
+    /**
+     * Constructor
+     *
+     * @param key key
+     * @param name name
+     * @param cap capacity
+     * @param restrics restrictions
+     * @param lon longitude
+     * @param lat latitude
+     * @param addr address
+     * @param specNotes special notes
+     * @param contact contact info
+     * @param vac vacancy
+     */
     @SuppressWarnings("ConstructorWithTooManyParameters")
     public Shelter(String key, String name, String cap, String restrics, double lon, double lat,
                    String addr, String specNotes, String contact, int vac) {
