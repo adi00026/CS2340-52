@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.util.StringOps;
 
@@ -64,7 +65,7 @@ public final class Model {
      *
      * @return the shelters.
      */
-    public HashMap<String, Shelter> getShelters() {
+    public Map<String, Shelter> getShelters() {
         return shelters;
     }
 
