@@ -122,6 +122,7 @@ public class User extends AccountHolder {
      *
      * @return The Unique ID of the current shelter of this Homeless user.
      */
+    @Nullable
     public String getShelterID() {
         return shelterID;
     }
@@ -131,7 +132,7 @@ public class User extends AccountHolder {
      *
      * @param shelterID The Unique ID of the current shelter of this Homeless user.
      */
-    public void setShelterID(String shelterID) {
+    public void setShelterID(@Nullable String shelterID) {
         this.shelterID = shelterID;
     }
 

@@ -27,7 +27,7 @@ public final class Model {
     private static final Model instance = new Model();
 
     private Collection<Shelter> filteredShelters;
-    private HashMap<String, Shelter> shelters;
+    private Map<String, Shelter> shelters;
     private AccountHolder currentUser;
     private final HashMap<String, Integer> loginAttempts;
 
