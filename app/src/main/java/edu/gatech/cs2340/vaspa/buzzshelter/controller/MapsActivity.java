@@ -1,5 +1,6 @@
 package edu.gatech.cs2340.vaspa.buzzshelter.controller;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,6 +25,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
@@ -41,7 +43,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
 
     private GoogleMap mMap;
     private UiSettings mUiSettings;
-    private HashMap<Marker, Shelter> transferMap;
+    private Map<Marker, Shelter> transferMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,12 +130,13 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
     public boolean onMarkerClick(final Marker marker) {
         // get check_in_prompt.xml view
         LayoutInflater li = LayoutInflater.from(this);
-        View promptsView = li.inflate(R.layout.you_sure_prompt, null);
+        @SuppressLint("InflateParams") View promptsView = li.inflate(R.layout.you_sure_prompt,
+                null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 this);
         // set prompts.xml to alertdialog builder
         alertDialogBuilder.setView(promptsView);
-        final TextView infoTextView = (TextView) promptsView
+        final TextView infoTextView = promptsView
                 .findViewById(R.id.textView1);
         infoTextView.setText("More details about:\n" + marker.getTitle());
         // set dialog message

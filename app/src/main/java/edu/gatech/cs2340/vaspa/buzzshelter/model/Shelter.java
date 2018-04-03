@@ -155,6 +155,7 @@ public class Shelter implements Parcelable {
      *
      * @return contact info
      */
+    @SuppressWarnings("unused")
     public String getContactInfo() {
         return contactInfo;
     }

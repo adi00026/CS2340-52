@@ -10,10 +10,13 @@ import org.junit.Test;
 import java.lang.reflect.Method;
 
 /**
- * Created by aniruddhadas on 21/03/18.
+ * Test cases to test code to get location from address
+ *
+ * @author Aniruddha Das
+ * @version 6.9
  */
 public class LocationFromAddressTest {
-    public static final int TIMEOUT = 200;
+    //public static final int TIMEOUT = 200;
     @Test
     public void checkLatLng() {
         String address = "University House Midtown";
