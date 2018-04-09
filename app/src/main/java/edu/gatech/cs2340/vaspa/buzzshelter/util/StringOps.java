@@ -56,6 +56,7 @@ public class StringOps {
         if (pattern.length() > text.length()) {
             return false;
         }
+
         double num = 1.0 * lcs(text, pattern);
         double probMatch = num / (((1 - ALPHA) * text.length()) + (ALPHA * pattern.length()));
         return probMatch > FUZZY_THRESHOLD;
