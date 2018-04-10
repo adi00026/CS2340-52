@@ -41,4 +41,27 @@ public class StringOpsTest {
         assertFalse(StringOps.fuzzySearchContains(text, pattern));
     }
 
+    @Test(expected = NullPointerException.class)
+    public void testparseCapacityNull() {
+        assertTrue(StringOps.parseCapacity(null));
+    }
+
+    @Test
+    public void testparseCapacity() {
+        //Checking to see if empty string returns 1000
+        String emptyStr = "";
+        assertEquals(1000, StringOps.parseCapacity(emptyStr));
+
+        //Checking with valid strings
+        String text = "cs2340 is the number 1 class";
+        assertEquals(2341, StringOps.parseCapacity(text));
+
+        text = "2340 5 1    ";
+        assertEquals(2346, StringOps.parseCapacity(text));
+
+        text = "2340 5 100 puttingnumbers312931inwords";
+        assertEquals(2445, StringOps.parseCapacity(text));
+
+    }
+
 }
