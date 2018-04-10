@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Class definition for test of util class StringOps. Used to test some of the StringOps methods.
@@ -43,7 +44,7 @@ public class StringOpsTest {
 
     @Test(expected = NullPointerException.class)
     public void testparseCapacityNull() {
-        assertTrue(StringOps.parseCapacity(null));
+        assertEquals(StringOps.parseCapacity(null), 0);
     }
 
     @Test
@@ -54,7 +55,7 @@ public class StringOpsTest {
 
         //Checking with valid strings
         String text = "cs2340 is the number 1 class";
-        assertEquals(2341, StringOps.parseCapacity(text));
+        assertEquals(1, StringOps.parseCapacity(text));
 
         text = "2340 5 1    ";
         assertEquals(2346, StringOps.parseCapacity(text));

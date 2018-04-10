@@ -29,7 +29,7 @@ public class StringOps {
             try {
                 capacity += Integer.parseInt(s.trim());
             } catch (NumberFormatException e) {
-                Log.i("TAG", "Exception caught");
+                // Log.i("TAG", "Exception caught");
             }
         }
         return capacity;
