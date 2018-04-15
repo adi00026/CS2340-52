@@ -142,8 +142,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                             Marker m = mMap.addMarker(new MarkerOptions().position(user_loc)
                               .title("Current Location"));
 
-                            // attempts to set icon of current marker to blue button
-                            //m.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.round_button_blue));
+                            // attempts to set icon of current marker to azure color
                             m.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory
                                     .HUE_AZURE));
 
