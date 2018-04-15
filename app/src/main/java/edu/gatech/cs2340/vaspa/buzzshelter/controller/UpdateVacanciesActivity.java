@@ -118,16 +118,8 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
             return;
         }
 
-        // TODO remove once updating of vacancies is implemented
-        if (false) {
-            final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
-              format(Calendar.getInstance().getTime()); // Current date and time
-            String log = date + ", " + "SHELTER EMPLOYEE: " + currentUser.getUserId() + ", " +
-              "updated vacancies for: " + currentUser.getShelterID();
-            Model.getInstance().updateLogs(log);
-        }
-
         final int newVacancies = vacancies;
+
         myRef.addValueEventListener(new ValueEventListener() {
             @SuppressWarnings("ProhibitedExceptionCaught")
             @Override
@@ -139,6 +131,11 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
                 try {
                     shelter.setVacancies(newVacancies);
                     myRef.child("shelters").child(shemp.getShelterID()).setValue(shelter);
+                    final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+                      format(Calendar.getInstance().getTime()); // Current date and time
+                    String log = date + ", " + "SHELTER EMPLOYEE: " + shemp.getUserId() + ", " +
+                      "updated vacancies for: " + shemp.getShelterID();
+                    Model.getInstance().updateLogs(log);
                 } catch (NullPointerException e) {
                     Toast.makeText(UpdateVacanciesActivity.this, "Your Shelter does "
                             + "not exist!", Toast.LENGTH_SHORT).show();
