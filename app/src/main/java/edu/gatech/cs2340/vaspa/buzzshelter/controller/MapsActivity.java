@@ -147,6 +147,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         } else {
             Log.d("MAPS_ACTIVITY", "Got wrecked. LocationManager is null");
         }
+//        String location_provider  = LocationManager.NETWORK_PROVIDER;
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(atl));
         CameraUpdate zoom = CameraUpdateFactory.zoomTo(13);
