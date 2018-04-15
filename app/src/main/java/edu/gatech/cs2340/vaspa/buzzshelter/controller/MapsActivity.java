@@ -127,17 +127,22 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         if (locationManager != null) {
             Criteria criteria = new Criteria();
             String provider = locationManager.getBestProvider(criteria, true);
-            LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE );
+            if (provider != null) {
+                LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE );
 //        boolean statusOfGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-            if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                try {
-                    Location location = locationManager.getLastKnownLocation(provider);
-                    LatLng user_loc = new LatLng(location.getLatitude(), location.getLongitude());
-                    Marker m = mMap.addMarker(new MarkerOptions().position(user_loc)
-                      .title("Current location"));
-                } catch (SecurityException e) {
-                    Log.d("MAPS_ACTIVITY", "Got wrecked. Security exception");
+                if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    try {
+                        Location location = locationManager.getLastKnownLocation(provider);
+                        LatLng user_loc = new LatLng(location.getLatitude(), location.getLongitude());
+                        Marker m = mMap.addMarker(new MarkerOptions().position(user_loc)
+                          .title("Current location"));
+                        transferMap.put(m, null);
+                    } catch (SecurityException e) {
+                        Log.d("MAPS_ACTIVITY", "Got wrecked. Security exception");
+                    }
                 }
+            } else {
+                Log.d("MAPS_ACTIVITY", "Got wrecked. Provider is null");
             }
         } else {
             Log.d("MAPS_ACTIVITY", "Got wrecked. LocationManager is null");
