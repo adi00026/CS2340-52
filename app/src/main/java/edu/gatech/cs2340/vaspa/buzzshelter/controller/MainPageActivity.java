@@ -23,6 +23,7 @@ import java.util.Calendar;
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.AccountHolder;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Admin;
+import edu.gatech.cs2340.vaspa.buzzshelter.model.Guest;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
@@ -113,8 +114,7 @@ public class MainPageActivity extends AppCompatActivity {
                             myRef.child("account_holders").child("admins").child(UID)
                                     .child("password").setValue(password);
                         }
-                    }
-                    if (dataSnapshot.child("account_holders").child("shelter_employees")
+                    } else if (dataSnapshot.child("account_holders").child("shelter_employees")
                             .child(UID).exists()) {
                         currentlyLoggedIn = dataSnapshot.child("account_holders")
                                 .child("shelter_employees").child(UID)
@@ -123,14 +123,15 @@ public class MainPageActivity extends AppCompatActivity {
                             myRef.child("account_holders").child("shelter_employees").child(UID)
                                     .child("password").setValue(password);
                         }
-                    }
-                    if (dataSnapshot.child("account_holders").child("users").child(UID).exists()) {
+                    } else if (dataSnapshot.child("account_holders").child("users").child(UID).exists()) {
                         currentlyLoggedIn = dataSnapshot.child("account_holders").child("users")
                                 .child(UID).getValue(User.class);
                         if (!currentlyLoggedIn.getPassword().equals(password)) {
                             myRef.child("account_holders").child("users").child(UID)
                                     .child("password").setValue(password);
                         }
+                    } else {
+                        currentlyLoggedIn = new Guest();
                     }
                     if (currentlyLoggedIn.isLockedOut()) {
                         welcomeTextview.setText("ACCOUNT IS LOCKED");
@@ -353,14 +354,16 @@ public class MainPageActivity extends AppCompatActivity {
             updateVacanciesButton.setVisibility(View.INVISIBLE);
         } else {
             logoutButton.setEnabled(true);
-            settingsButton.setEnabled(true);
-            searchSheltersButton.setEnabled(currentlyLoggedIn instanceof User);
+            settingsButton.setEnabled(!(currentlyLoggedIn instanceof Guest));
+            searchSheltersButton.setEnabled(currentlyLoggedIn instanceof User
+                    || currentlyLoggedIn instanceof Guest);
             manageUsersButton.setEnabled(currentlyLoggedIn instanceof Admin);
             updateVacanciesButton.setEnabled(currentlyLoggedIn instanceof ShelterEmployee);
     
             logoutButton.setVisibility(View.VISIBLE);
             settingsButton.setVisibility(View.VISIBLE);
-            searchSheltersButton.setVisibility((currentlyLoggedIn instanceof User) ?
+            searchSheltersButton.setVisibility((currentlyLoggedIn instanceof User
+                    || currentlyLoggedIn instanceof Guest) ?
                     View.VISIBLE : View.INVISIBLE);
             manageUsersButton.setVisibility((currentlyLoggedIn instanceof Admin) ?
                     View.VISIBLE : View.INVISIBLE);

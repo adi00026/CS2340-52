@@ -67,6 +67,7 @@ public class WelcomePageActivity extends AppCompatActivity {
         Button cancelButton = findViewById(R.id.button_cancel);
         Button registrationButton = findViewById(R.id.button_registration);
         Button forgotPass = findViewById(R.id.button_password_forgot);
+        Button guestButton = findViewById(R.id.button_guest_user);
         usernameEditText = findViewById(R.id.editText_username);
         passwordEditText = findViewById(R.id.editText_password);
         progressDialog = new ProgressDialog(this);
@@ -89,6 +90,12 @@ public class WelcomePageActivity extends AppCompatActivity {
                 Intent intent = new Intent(WelcomePageActivity.this,
                         RegistrationActivity.class);
                 startActivity(intent);
+            }
+        });
+        guestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                guestPressed();
             }
         });
         forgotPass.setOnClickListener(new View.OnClickListener() {
@@ -271,12 +278,14 @@ public class WelcomePageActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInAnonymously:success");
+                            Log.d(TAG, "Guest Signed in!");
                             FirebaseUser user = mAuth.getCurrentUser();
+
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInAnonymously:failure", task.getException());
-                            Toast.makeText(WelcomePageActivity.this, "Authentication failed.",
+                            Log.w(TAG, "Could not sign in", task.getException());
+                            Toast.makeText(WelcomePageActivity.this,
+                                    "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
 
