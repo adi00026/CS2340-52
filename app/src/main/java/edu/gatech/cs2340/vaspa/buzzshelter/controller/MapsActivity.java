@@ -123,20 +123,26 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             //atl = new LatLng(shelter.getLatitude(), shelter.getLongitude());
         }
 
+        Log.d("MAPS_ACTIVITY", "Starting location attempt.");
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (locationManager != null) {
+            Log.d("MAPS_ACTIVITY", "Location manager not null.");
             Criteria criteria = new Criteria();
             String provider = locationManager.getBestProvider(criteria, true);
             if (provider != null) {
+                Log.d("MAPS_ACTIVITY", "Provider not null.");
                 LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE );
 //        boolean statusOfGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-                if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                if (manager != null && manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                     try {
-                        Location location = locationManager.getLastKnownLocation(provider);
+                        //Location location = locationManager.getLastKnownLocation(provider);
+                        Location location = getLastKnownLocation();
                         LatLng user_loc = new LatLng(location.getLatitude(), location.getLongitude());
                         Marker m = mMap.addMarker(new MarkerOptions().position(user_loc)
                           .title("Current location"));
                         transferMap.put(m, null);
+                        Log.d("MAPS_ACTIVITY", "Adding current location: "
+                                + location.getLatitude() + ", " + location.getLongitude());
                     } catch (SecurityException e) {
                         Log.d("MAPS_ACTIVITY", "Got wrecked. Security exception");
                     }
@@ -156,7 +162,26 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         mMap.setOnMarkerClickListener(this);
     }
 
-
+    private Location getLastKnownLocation() {
+        LocationManager mLocationManager = (LocationManager)getApplicationContext().getSystemService(LOCATION_SERVICE);
+        List<String> providers = mLocationManager.getProviders(true);
+        Location bestLocation = null;
+        for (String provider : providers) {
+            try {
+                Location l = mLocationManager.getLastKnownLocation(provider);
+                if (l == null) {
+                    continue;
+                }
+                if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+                    // Found best last known location: %s", l);
+                    bestLocation = l;
+                }
+            } catch (SecurityException e) {
+                Log.d("MAPS_ACTIVITY", "getLast killed");
+            }
+        }
+        return bestLocation;
+    }
 
     @Override
     public boolean onMarkerClick(final Marker marker) {
