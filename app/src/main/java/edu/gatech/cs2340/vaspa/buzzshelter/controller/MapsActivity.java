@@ -23,6 +23,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -120,9 +121,9 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             Marker m = mMap.addMarker(new MarkerOptions().position(shelterLL)
                     .title(shelter.getName()).snippet("Vacancies: " + shelter.getVacancies()));
             transferMap.put(m, shelter);
-            //atl = new LatLng(shelter.getLatitude(), shelter.getLongitude());
         }
 
+        // TODO cleanup code later
         Log.d("MAPS_ACTIVITY", "Starting location attempt.");
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (locationManager != null) {
@@ -132,28 +133,36 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             if (provider != null) {
                 Log.d("MAPS_ACTIVITY", "Provider not null.");
                 LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE );
-//        boolean statusOfGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
                 if (manager != null && manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                     try {
                         //Location location = locationManager.getLastKnownLocation(provider);
                         Location location = getLastKnownLocation();
-                        LatLng user_loc = new LatLng(location.getLatitude(), location.getLongitude());
-                        Marker m = mMap.addMarker(new MarkerOptions().position(user_loc)
-                          .title("Current location"));
-                        transferMap.put(m, null);
-                        Log.d("MAPS_ACTIVITY", "Adding current location: "
-                                + location.getLatitude() + ", " + location.getLongitude());
+                        if (location != null) {
+                            LatLng user_loc = new LatLng(location.getLatitude(), location.getLongitude());
+                            Marker m = mMap.addMarker(new MarkerOptions().position(user_loc)
+                              .title("Current location"));
+
+                            // attempts to set icon of current marker to blue button
+                            m.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.round_button_blue));
+
+                            transferMap.put(m, null);
+                            Log.d("MAPS_ACTIVITY", "Adding current location: "
+                              + location.getLatitude() + ", " + location.getLongitude());
+                        } else {
+                            Log.d("MAPS_ACTIVITY", "Got wrecked. Location was null");
+                        }
                     } catch (SecurityException e) {
+                        // TODO request permission for GPS
                         Log.d("MAPS_ACTIVITY", "Got wrecked. Security exception");
                     }
                 }
             } else {
+                // provider null implies turned off GPS
                 Log.d("MAPS_ACTIVITY", "Got wrecked. Provider is null");
             }
         } else {
             Log.d("MAPS_ACTIVITY", "Got wrecked. LocationManager is null");
         }
-//        String location_provider  = LocationManager.NETWORK_PROVIDER;
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(atl));
         CameraUpdate zoom = CameraUpdateFactory.zoomTo(13);
@@ -162,6 +171,12 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         mMap.setOnMarkerClickListener(this);
     }
 
+    /**
+     * Creates a location manager, iterates through providers and finds the best provider that
+     * is valid and gives us an accurate location.
+     *
+     * @return Location that was last known
+     */
     private Location getLastKnownLocation() {
         LocationManager mLocationManager = (LocationManager)getApplicationContext().getSystemService(LOCATION_SERVICE);
         List<String> providers = mLocationManager.getProviders(true);
