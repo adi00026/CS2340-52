@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
+import edu.gatech.cs2340.vaspa.buzzshelter.model.Guest;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
@@ -63,7 +64,11 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
         checkOutButton = findViewById(R.id.button_checkOut);
         checkInButton = findViewById(R.id.button_checkIn);
 
-        if (((User) Model.getInstance().getCurrentUser()).getShelterID() == null) {
+        if (Model.getInstance().getCurrentUser() instanceof Guest) {
+            checkOutButton.setEnabled(false);
+            checkInButton.setEnabled(false);
+            currentShelterTextView.setText("CANNOT CHECK-IN");
+        } else if (((User) Model.getInstance().getCurrentUser()).getShelterID() == null) {
             checkOutButton.setEnabled(false);
             checkInButton.setEnabled(true);
             currentShelterTextView.setText("Current Shelter:\nNONE");
