@@ -2,14 +2,18 @@ package edu.gatech.cs2340.vaspa.buzzshelter.controller;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -85,6 +89,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                 transferMap.put(m, shelter);
             }
 
+
+
             LatLng atl = new LatLng(33.7490, -84.3880);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(atl));
             CameraUpdate zoom = CameraUpdateFactory.zoomTo(13);
@@ -115,6 +121,26 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                     .title(shelter.getName()).snippet("Vacancies: " + shelter.getVacancies()));
             transferMap.put(m, shelter);
             //atl = new LatLng(shelter.getLatitude(), shelter.getLongitude());
+        }
+
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if (locationManager != null) {
+            Criteria criteria = new Criteria();
+            String provider = locationManager.getBestProvider(criteria, true);
+            LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE );
+//        boolean statusOfGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+            if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                try {
+                    Location location = locationManager.getLastKnownLocation(provider);
+                    LatLng user_loc = new LatLng(location.getLatitude(), location.getLongitude());
+                    Marker m = mMap.addMarker(new MarkerOptions().position(user_loc)
+                      .title("Current location"));
+                } catch (SecurityException e) {
+                    Log.d("MAPS_ACTIVITY", "Got wrecked. Security exception");
+                }
+            }
+        } else {
+            Log.d("MAPS_ACTIVITY", "Got wrecked. LocationManager is null");
         }
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(atl));
