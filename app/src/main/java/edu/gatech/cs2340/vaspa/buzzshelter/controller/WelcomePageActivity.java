@@ -130,6 +130,8 @@ public class WelcomePageActivity extends AppCompatActivity {
           format(Calendar.getInstance().getTime()); // Current date and time
 
         if (email.isEmpty() || password.isEmpty()) {
+            progressDialog.dismiss();
+            loginButton.setEnabled(true);
             return;
         }
 
@@ -280,7 +282,8 @@ public class WelcomePageActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "Guest Signed in!");
                             FirebaseUser user = mAuth.getCurrentUser();
-
+                            startActivity(new Intent(WelcomePageActivity.this,
+                                    MainPageActivity.class));
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "Could not sign in", task.getException());

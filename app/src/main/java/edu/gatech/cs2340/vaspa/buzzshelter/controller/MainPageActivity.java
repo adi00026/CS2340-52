@@ -229,45 +229,47 @@ public class MainPageActivity extends AppCompatActivity {
                 WelcomePageActivity.class);
         //noinspection LawOfDemeter
         final AccountHolder currUser = Model.getInstance().getCurrentUser();
-        myRef.addValueEventListener(new ValueEventListener() {
-            @SuppressWarnings("LawOfDemeter")
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+        if (!(currUser instanceof Guest)) {
+            myRef.addValueEventListener(new ValueEventListener() {
+                @SuppressWarnings("LawOfDemeter")
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
 
-                // TODO move to seperate logging class
+                    // TODO move to seperate logging class
 
-                // done because .'s cannot be withing filepath
-                //noinspection LawOfDemeter
-                String path = currUser.getUserId().replace(".", ",");
-                final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
-                        format(Calendar.getInstance().getTime()); // Current date and time
-                //noinspection LawOfDemeter
-                String log = date + ", " + currUser.getUserId() + ", "
-                        + "logged out";
-                Model.getInstance().updateLogs(log);
-                if (dataSnapshot.child("logging").child(path).exists()) {
-                    // gets earlier logs
-                    String prevLog = dataSnapshot.child("logging")
-                            .child(path).getValue(String.class);
-                    // appends latest logs to earlier logs
-                    prevLog += Model.getInstance().getLogs();
-                    myRef.child("logging").child(path).setValue(prevLog);
-                } else {
-                    // as no logs are available, the current logs are put up
-                    myRef.child("logging").child(path)
-                            .setValue(Model.getInstance().getLogs());
+                    // done because .'s cannot be withing filepath
+                    //noinspection LawOfDemeter
+                    String path = currUser.getUserId().replace(".", ",");
+                    final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+                            format(Calendar.getInstance().getTime()); // Current date and time
+                    //noinspection LawOfDemeter
+                    String log = date + ", " + currUser.getUserId() + ", "
+                            + "logged out";
+                    Model.getInstance().updateLogs(log);
+                    if (dataSnapshot.child("logging").child(path).exists()) {
+                        // gets earlier logs
+                        String prevLog = dataSnapshot.child("logging")
+                                .child(path).getValue(String.class);
+                        // appends latest logs to earlier logs
+                        prevLog += Model.getInstance().getLogs();
+                        myRef.child("logging").child(path).setValue(prevLog);
+                    } else {
+                        // as no logs are available, the current logs are put up
+                        myRef.child("logging").child(path)
+                                .setValue(Model.getInstance().getLogs());
+                    }
+
+                    progressDialog.dismiss();
+                    Model.getInstance().clearLog();
+                    myRef.removeEventListener(this);
                 }
 
-                progressDialog.dismiss();
-                Model.getInstance().clearLog();
-                myRef.removeEventListener(this);
-            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+                }
+            });
+        }
         mAuth.signOut();
         Model.getInstance().setCurrentUser(null);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
