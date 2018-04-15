@@ -140,10 +140,12 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                         if (location != null) {
                             LatLng user_loc = new LatLng(location.getLatitude(), location.getLongitude());
                             Marker m = mMap.addMarker(new MarkerOptions().position(user_loc)
-                              .title("Current location"));
+                              .title("Current Location"));
 
                             // attempts to set icon of current marker to blue button
-                            m.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.round_button_blue));
+                            //m.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.round_button_blue));
+                            m.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory
+                                    .HUE_AZURE));
 
                             transferMap.put(m, null);
                             Log.d("MAPS_ACTIVITY", "Adding current location: "
@@ -201,6 +203,9 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
     @Override
     public boolean onMarkerClick(final Marker marker) {
         // get check_in_prompt.xml view
+        if ("Current Location".equals(marker.getTitle())) {
+            return false;
+        }
         LayoutInflater li = LayoutInflater.from(this);
         @SuppressLint("InflateParams") View promptsView = li.inflate(R.layout.you_sure_prompt,
                 null);
