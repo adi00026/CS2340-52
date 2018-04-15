@@ -23,7 +23,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -143,7 +142,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                               .title("Current location"));
 
                             // attempts to set icon of current marker to blue button
-                            m.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.round_button_blue));
+//                            m.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.round_button_blue));
+
 
                             transferMap.put(m, null);
                             Log.d("MAPS_ACTIVITY", "Adding current location: "
