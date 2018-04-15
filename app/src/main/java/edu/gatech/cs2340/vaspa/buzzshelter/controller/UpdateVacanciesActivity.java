@@ -59,7 +59,8 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
                     Shelter shelt = dataSnapshot.child("shelters").child(((ShelterEmployee) Model
                             .getInstance().getCurrentUser()).getShelterID())
                             .getValue(Shelter.class);
-                    shelterText.setText("Shelter: " + shelt.getName());
+                    shelterText.setText("Shelter: " + shelt.getName() + "\nCapacity: "
+                      + shelt.getCapacity());
                     vacanciesEditText.setText("" + shelt.getVacancies());
                 } catch (NullPointerException e) {
                     shelterText.setText("Shelter: ####");
@@ -95,7 +96,7 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
     private void updatePressed() {
         //noinspection LawOfDemeter
         ShelterEmployee currentUser = (ShelterEmployee) Model.getInstance().getCurrentUser();
-        int vacancies;
+        final int vacancies;
         try {
             String vacancyText = vacanciesEditText.getText().toString().trim();
             vacancies = Integer.parseInt(vacancyText);
@@ -129,13 +130,17 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
                 Shelter shelter = dataSnapshot.child("shelters").child(shemp.getShelterID())
                         .getValue(Shelter.class);
                 try {
+                    int initial_vac = shelter.getVacancies();
                     shelter.setVacancies(newVacancies);
                     myRef.child("shelters").child(shemp.getShelterID()).setValue(shelter);
                     final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                       format(Calendar.getInstance().getTime()); // Current date and time
                     String log = date + ", " + "SHELTER EMPLOYEE: " + shemp.getUserId() + ", " +
-                      "updated vacancies for: " + shemp.getShelterID();
+                      "updated vacancies for: " + shemp.getShelterID() + " from " + initial_vac + " to "
+                      + newVacancies;
                     Model.getInstance().updateLogs(log);
+                    Toast.makeText(UpdateVacanciesActivity.this, "Vacancies updated.",
+                      Toast.LENGTH_SHORT).show();
                 } catch (NullPointerException e) {
                     Toast.makeText(UpdateVacanciesActivity.this, "Your Shelter does "
                             + "not exist!", Toast.LENGTH_SHORT).show();
