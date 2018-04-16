@@ -136,7 +136,8 @@ public class UpdateVacanciesActivity extends AppCompatActivity {
                     final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                       format(Calendar.getInstance().getTime()); // Current date and time
                     String log = date + ", " + "SHELTER EMPLOYEE: " + shemp.getUserId() + ", " +
-                      "updated vacancies for: " + shemp.getShelterID() + " from " + initial_vac + " to "
+                      "updated vacancies for: " + Model.getInstance().getShelters()
+                      .get(shemp.getShelterID()).getName() + " from " + initial_vac + " to "
                       + newVacancies;
                     Model.getInstance().updateLogs(log);
                     Toast.makeText(UpdateVacanciesActivity.this, "Vacancies updated.",

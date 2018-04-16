@@ -158,7 +158,7 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
                 final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
                   .format(Calendar.getInstance().getTime()); // Current date and time
                 String log = date + ", " + "USER: " + user.getUserId() + ", checked out from "
-                  + currentID;
+                  + Model.getInstance().getShelters().get(currentID).getName();
                 Model.getInstance().updateLogs(log);
 
                 currentShelterTextView.setText("Current Shelter:\nNONE");
@@ -205,7 +205,7 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
                     final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
                       .format(Calendar.getInstance().getTime()); // Current date and time
                     String log = date + ", " + "USER: " + user.getUserId() + ", checked in " +
-                      numCheckIn + " to " + selectedShelter.getUniqueKey();
+                      numCheckIn + " to " + selectedShelter.getName();
                     Model.getInstance().updateLogs(log);
 
                 } else {
