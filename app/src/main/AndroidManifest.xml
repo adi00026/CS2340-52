@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="edu.gatech.cs2340.vaspa.buzzshelter">
+    package="edu.gatech.cs2340.vaspa.buzzshelter">
 
-    <uses-permission
-        android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission
-        android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -15,7 +16,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBZ02QH7mnUNyJSsIyA4ruSzePOlY8hPDM" />
@@ -25,40 +25,34 @@
 
         <activity android:name=".controller.WelcomePageActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controller.RegistrationActivity"/>
-        <activity android:name=".controller.MainPageActivity"/>
-        <activity android:name=".controller.UserRegistrationActivity"/>
-        <activity android:name=".controller.AdminRegistrationActivity"/>
-        <activity android:name=".controller.ShelterEmployeeRegistrationActivity"/>
-        <activity android:name=".controller.SearchShelterActivity"/>
-        <activity android:name=".controller.AdminSettingsActivity"/>
-        <activity android:name=".controller.UserSettingsActivity"/>
-        <activity android:name=".controller.ShelterEmployeeSettingsActivity"/>
-        <activity android:name=".controller.UpdateVacanciesActivity"/>
-        <activity android:name=".controller.ManageUsersActivity"/>
+        <activity android:name=".controller.RegistrationActivity" />
+        <activity android:name=".controller.MainPageActivity" />
+        <activity android:name=".controller.UserRegistrationActivity" />
+        <activity android:name=".controller.AdminRegistrationActivity" />
+        <activity android:name=".controller.ShelterEmployeeRegistrationActivity" />
+        <activity android:name=".controller.SearchShelterActivity" />
+        <activity android:name=".controller.AdminSettingsActivity" />
+        <activity android:name=".controller.UserSettingsActivity" />
+        <activity android:name=".controller.ShelterEmployeeSettingsActivity" />
+        <activity android:name=".controller.UpdateVacanciesActivity" />
+        <activity android:name=".controller.ManageUsersActivity" />
         <activity
             android:name=".controller.ViewAvailableSheltersActivity"
             android:label="@string/title_activity_view_available_shelters"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".controller.ChangePasswordActivity"/>
-        <activity android:name=".controller.AdminAddShelterActivity">
-        </activity>
-        <activity android:name=".controller.AdditionalShelterInfoActivity">
-        </activity>
-        <activity android:name=".controller.ForgotPasswordActivity">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".controller.ChangePasswordActivity" />
+        <activity android:name=".controller.AdminAddShelterActivity"></activity>
+        <activity android:name=".controller.AdditionalShelterInfoActivity"></activity>
+        <activity android:name=".controller.ForgotPasswordActivity"></activity>
         <activity
             android:name=".controller.MapsActivity"
             android:label="Map" />
+        <activity android:name=".controller.LogActivity"></activity>
     </application>
 
-    <uses-feature
-        android:glEsVersion="0x00020000"
-        android:required="true"
-        />
 </manifest>
