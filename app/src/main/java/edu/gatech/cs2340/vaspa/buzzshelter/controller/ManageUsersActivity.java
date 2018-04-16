@@ -51,6 +51,7 @@ public class ManageUsersActivity extends AppCompatActivity {
         Button addButton = findViewById(R.id.button_add);
         Button disableButton = findViewById(R.id.button_disable);
         Button enableButton = findViewById(R.id.button_enable);
+        final Button logButton = findViewById(R.id.button_log);
         userIDText = findViewById(R.id.editText);
 
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -83,8 +84,22 @@ public class ManageUsersActivity extends AppCompatActivity {
                 setUserEnabled(true);
             }
         });
+        logButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logButtonClicked();
+            }
+        });
     }
 
+    /**
+     * Method to handle the event of the log button being presses. It redirects to the log activity
+     * page
+     */
+    private void logButtonClicked() {
+        Intent intent = new Intent(ManageUsersActivity.this, LogActivity.class);
+        startActivity(intent);
+    }
 
     /**
      * Method to handle the event of the add button being pressed. It redirects to the add shelter
