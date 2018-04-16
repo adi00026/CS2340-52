@@ -19,6 +19,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Guest;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
@@ -151,6 +154,13 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
                 Model.getInstance().setCurrentUser(user);
                 checkOutButton.setEnabled(false);
                 checkInButton.setEnabled(true);
+
+                final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                  .format(Calendar.getInstance().getTime()); // Current date and time
+                String log = date + ", " + "USER: " + user.getUserId() + ", checked out from "
+                  + currentID;
+                Model.getInstance().updateLogs(log);
+
                 currentShelterTextView.setText("Current Shelter:\nNONE");
                 Toast.makeText(ViewAvailableSheltersActivity.this,
                         "Check-out successful!", Toast.LENGTH_SHORT).show();
@@ -191,6 +201,13 @@ public class ViewAvailableSheltersActivity extends AppCompatActivity {
                             .getInstance().getCurrentUser()).getShelterID()));
                     Toast.makeText(ViewAvailableSheltersActivity.this,
                             "Check-in successful!", Toast.LENGTH_SHORT).show();
+
+                    final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                      .format(Calendar.getInstance().getTime()); // Current date and time
+                    String log = date + ", " + "USER: " + user.getUserId() + ", checked in " +
+                      numCheckIn + " to " + selectedShelter.getUniqueKey();
+                    Model.getInstance().updateLogs(log);
+
                 } else {
                     shelterInfoTextView.setText(infoString + (size));
                     Toast.makeText(ViewAvailableSheltersActivity.this,
