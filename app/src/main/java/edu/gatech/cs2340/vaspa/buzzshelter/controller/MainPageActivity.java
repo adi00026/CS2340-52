@@ -271,7 +271,7 @@ public class MainPageActivity extends AppCompatActivity {
             });
         }
         // clears logs on logging out to prevent mixing of user data
-        Model.getInstance().clearLog();
+//        Model.getInstance().clearLog();
         mAuth.signOut();
         Model.getInstance().setCurrentUser(null);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

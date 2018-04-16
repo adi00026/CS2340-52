@@ -22,7 +22,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 
@@ -247,6 +249,13 @@ public class SearchShelterActivity extends AppCompatActivity {
                         .getValue(Integer.class);
                 myRef.child("shelters").child(currentID).child("vacancies").setValue(size + 1);
                 Model.getInstance().setCurrentUser(user);
+
+                final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                  .format(Calendar.getInstance().getTime()); // Current date and time
+                String log = date + ", " + "USER: " + user.getUserId() + ", checked out from "
+                  + currentID;
+                Model.getInstance().updateLogs(log);
+                
                 checkoutButton.setEnabled(false);
                 myRef.removeEventListener(this);
             }
