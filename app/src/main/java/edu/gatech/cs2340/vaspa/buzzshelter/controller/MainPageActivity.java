@@ -269,9 +269,11 @@ public class MainPageActivity extends AppCompatActivity {
 
                 }
             });
+        } else {
+            // clears logs if guest user
+            Model.getInstance().clearLog();
         }
         // clears logs on logging out to prevent mixing of user data
-//        Model.getInstance().clearLog();
         mAuth.signOut();
         Model.getInstance().setCurrentUser(null);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
