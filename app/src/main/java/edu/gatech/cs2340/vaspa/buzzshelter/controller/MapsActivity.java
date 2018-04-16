@@ -123,7 +123,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             transferMap.put(m, shelter);
         }
 
-        // TODO cleanup code later
+        LatLng currLocation = atl;
+        // TODO: cleanup code later
         Log.d("MAPS_ACTIVITY", "Starting location attempt.");
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (locationManager != null) {
@@ -139,6 +140,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                         Location location = getLastKnownLocation();
                         if (location != null) {
                             LatLng user_loc = new LatLng(location.getLatitude(), location.getLongitude());
+                            currLocation = user_loc;
                             Marker m = mMap.addMarker(new MarkerOptions().position(user_loc)
                               .title("Current Location"));
 
@@ -155,6 +157,9 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                     } catch (SecurityException e) {
                         // TODO request permission for GPS
                         Log.d("MAPS_ACTIVITY", "Got wrecked. Security exception");
+                        Toast.makeText(MapsActivity.this,
+                                "Please give BuzzShelter permission to use location",
+                                Toast.LENGTH_SHORT).show();
                     }
                 }
             } else {
@@ -165,7 +170,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             Log.d("MAPS_ACTIVITY", "Got wrecked. LocationManager is null");
         }
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(atl));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(currLocation));
         CameraUpdate zoom = CameraUpdateFactory.zoomTo(13);
         mMap.animateCamera(zoom);
 
