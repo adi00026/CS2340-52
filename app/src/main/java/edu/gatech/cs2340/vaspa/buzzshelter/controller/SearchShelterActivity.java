@@ -29,6 +29,7 @@ import java.util.Collection;
 import java.util.List;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
+import edu.gatech.cs2340.vaspa.buzzshelter.model.Guest;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
@@ -65,7 +66,8 @@ public class SearchShelterActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        if (((User) Model.getInstance().getCurrentUser()).getShelterID() == null) {
+        if ((Model.getInstance().getCurrentUser() instanceof Guest) || ((User) Model.getInstance()
+                .getCurrentUser()).getShelterID() == null) {
             checkoutButton.setEnabled(false);
         } else {
             checkoutButton.setEnabled(true);
@@ -93,7 +95,8 @@ public class SearchShelterActivity extends AppCompatActivity {
 
         initFirebaseComponents();
         
-        if (((User) Model.getInstance().getCurrentUser()).getShelterID() == null) {
+        if ((Model.getInstance().getCurrentUser() instanceof Guest) || ((User) Model.getInstance()
+                .getCurrentUser()).getShelterID() == null) {
             checkoutButton.setEnabled(false);
         } else {
             checkoutButton.setEnabled(true);
@@ -162,11 +165,12 @@ public class SearchShelterActivity extends AppCompatActivity {
         boolean set = false;
         int selected = 0;
         for (Shelter shelter : Model.getInstance().getShelters().values()) {
-            Log.d("SEARCHDEBUG", "user shelter id: " + ((User) Model.getInstance()
-                    .getCurrentUser()).getShelterID());
+            //Log.d("SEARCHDEBUG", "user shelter id: " + ((User) Model.getInstance()
+            //        .getCurrentUser()).getShelterID());
             Log.d("SEARCHDEBUG", "actual shelter id: " + shelter.getUniqueKey());
             Log.d("SEARCHDEBUG", selected + "\n--------------");
-            if ((((User) Model.getInstance().getCurrentUser()).getShelterID() != null)
+            if ((Model.getInstance().getCurrentUser() instanceof User)
+                    && (((User) Model.getInstance().getCurrentUser()).getShelterID() != null)
                     && ((User) Model.getInstance().getCurrentUser()).getShelterID()
                     .equals(shelter.getUniqueKey())) {
                 set = true;
