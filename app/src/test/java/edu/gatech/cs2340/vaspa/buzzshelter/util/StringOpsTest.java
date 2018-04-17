@@ -64,5 +64,39 @@ public class StringOpsTest {
         assertEquals(2445, StringOps.parseCapacity(text));
 
     }
+    
+    @Test(expected = NullPointerException.class)
+    public void testlcsNull() {
+        assertEquals(null, StringOps.lcs(null, null));
+    }
+    
+    @Test
+    public void testlcs() {
+    
+        String text = "m mij u p p hku jyu m p p n uooknj";
+        String pattern = " p p ";
+        assertEquals(5, StringOps.lcs(text, pattern));
+        
+        text = "APNBCNDGHFKILKTI";
+        pattern = "FK";
+        assertEquals(2, StringOps.lcs(text, pattern));
+    
+        pattern = "APNBCNDGHFKILKTI";
+        assertEquals(16, StringOps.lcs(text, pattern));
+        
+        pattern = "OU";
+        assertEquals(0, StringOps.lcs(text, pattern));
+        
+        text = "_IL_JHTANRTE_TCRS";
+        pattern = "KIO_HLARTCFE_PCST";
+        assertEquals(10, StringOps.lcs(text, pattern));
+        
+        pattern = "";
+        assertEquals(0, StringOps.lcs(text, pattern));
+        
+        text = "";
+        assertEquals(0, StringOps.lcs(text, pattern));
+        
+    }
 
 }
