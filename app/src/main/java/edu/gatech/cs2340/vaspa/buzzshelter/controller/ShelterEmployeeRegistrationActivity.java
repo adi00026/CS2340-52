@@ -129,7 +129,6 @@ public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
                               format(Calendar.getInstance().getTime()); // Current date and time
                             String log = date + ", " + shemp.getUserId() + ", " + "created account";
                             myRef.child("logging").child(uid).setValue(Encryption.encode(log));
-//                            myRef.child("logging").child(uid).setValue(log);
 
                             progressDialog.dismiss();
                             Intent intent = new Intent(
