@@ -170,7 +170,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
                       format(Calendar.getInstance().getTime()); // Current date and time
                     String log = date + ", " + user.getUserId() + ", " + "created account";
                     myRef.child("logging").child(uid).setValue(Encryption.encode(log));
-//                    myRef.child("logging").child(uid).setValue(log);
 
                     Intent intent = new Intent(UserRegistrationActivity.this,
                             WelcomePageActivity.class);
