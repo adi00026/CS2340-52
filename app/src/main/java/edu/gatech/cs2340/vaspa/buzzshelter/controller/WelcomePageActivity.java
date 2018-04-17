@@ -29,6 +29,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
+import edu.gatech.cs2340.vaspa.buzzshelter.util.Encryption;
 
 /**
  * Class to handle the Change welcome page activity. All AccountHolders will access this page from
@@ -163,8 +164,10 @@ public class WelcomePageActivity extends AppCompatActivity {
                             final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                               format(Calendar.getInstance().getTime()); // Current date and time
                             String log = date + ", " + uid + ", locked out";
+//                            myRef.child("logging").child(uid.replace('.', ','))
+//                              .setValue(prevLog + log);
                             myRef.child("logging").child(uid.replace('.', ','))
-                              .setValue(prevLog + log);
+                              .setValue(Encryption.encode(prevLog + log));
 
                             Toast.makeText(WelcomePageActivity.this,
                                     "Locked out. Too many attempts", Toast.LENGTH_SHORT).show();
@@ -191,8 +194,10 @@ public class WelcomePageActivity extends AppCompatActivity {
                                 final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                                   format(Calendar.getInstance().getTime()); // Current date and time
                                 String log = date + ", " + uid + ", locked out";
+//                                myRef.child("logging").child(uid.replace('.', ','))
+//                                  .setValue(prevLog + log);
                                 myRef.child("logging").child(uid.replace('.', ','))
-                                  .setValue(prevLog + log);
+                                  .setValue(Encryption.encode(prevLog + log));
 
                                 Toast.makeText(WelcomePageActivity.this,
                                         "Locked out. Too many attempts", Toast.LENGTH_SHORT)

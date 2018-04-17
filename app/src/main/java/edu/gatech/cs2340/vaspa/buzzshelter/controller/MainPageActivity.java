@@ -28,6 +28,7 @@ import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Shelter;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
+import edu.gatech.cs2340.vaspa.buzzshelter.util.Encryption;
 
 /**
  * Class to handle the Main page activity. All Account holders are directed to this page after
@@ -252,11 +253,16 @@ public class MainPageActivity extends AppCompatActivity {
                                 .child(path).getValue(String.class);
                         // appends latest logs to earlier logs
                         prevLog += Model.getInstance().getLogs();
-                        myRef.child("logging").child(path).setValue(prevLog);
+//                        myRef.child("logging").child(path).setValue(prevLog);
+                        myRef.child("logging").child(path).setValue(Encryption.encode(prevLog));
+
                     } else {
                         // as no logs are available, the current logs are put up
+//                        Encryption.encode(Model.getInstance().getLogs())
+//                        myRef.child("logging").child(path)
+//                                .setValue(Model.getInstance().getLogs());
                         myRef.child("logging").child(path)
-                                .setValue(Model.getInstance().getLogs());
+                          .setValue(Encryption.encode(Model.getInstance().getLogs()));
                     }
 
                     progressDialog.dismiss();

@@ -26,6 +26,7 @@ import java.util.Calendar;
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.ShelterEmployee;
+import edu.gatech.cs2340.vaspa.buzzshelter.util.Encryption;
 
 /**
  * Class to handle the shelter employees registration activity. Non-AccountHolders will access this
@@ -127,7 +128,8 @@ public class ShelterEmployeeRegistrationActivity extends AppCompatActivity {
                             final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                               format(Calendar.getInstance().getTime()); // Current date and time
                             String log = date + ", " + shemp.getUserId() + ", " + "created account";
-                            myRef.child("logging").child(uid).setValue(log);
+                            myRef.child("logging").child(uid).setValue(Encryption.encode(log));
+//                            myRef.child("logging").child(uid).setValue(log);
 
                             progressDialog.dismiss();
                             Intent intent = new Intent(

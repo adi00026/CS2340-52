@@ -20,6 +20,7 @@ import java.util.Calendar;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.Model;
+import edu.gatech.cs2340.vaspa.buzzshelter.util.Encryption;
 
 public class LogActivity extends AppCompatActivity {
 
@@ -88,6 +89,9 @@ public class LogActivity extends AppCompatActivity {
                       .toString();
                     Log.d("LOG_ACTIVITY", retrieved_log);
 
+                    String decoded = Encryption.decode(retrieved_log);
+                    Log.d("LOG_ACTIVITY", "Decoded\n" + decoded);
+
                     final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                       format(Calendar.getInstance().getTime()); // Current date and time
                     String log = date + ", " + "ADMIN: " + Model.getInstance().getCurrentUser()
@@ -98,7 +102,7 @@ public class LogActivity extends AppCompatActivity {
                     i.setType("message/rfc822");
                     i.putExtra(Intent.EXTRA_EMAIL  , new String[]{emailText});
                     i.putExtra(Intent.EXTRA_SUBJECT, "Logs for user: " + userIdText);
-                    i.putExtra(Intent.EXTRA_TEXT   , retrieved_log);
+                    i.putExtra(Intent.EXTRA_TEXT   , decoded);
 
                     try {
                         startActivity(Intent.createChooser(i, "Send mail..."));

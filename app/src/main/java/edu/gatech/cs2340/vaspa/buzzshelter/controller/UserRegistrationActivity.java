@@ -33,6 +33,7 @@ import java.util.List;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.User;
+import edu.gatech.cs2340.vaspa.buzzshelter.util.Encryption;
 import edu.gatech.cs2340.vaspa.buzzshelter.util.Validation;
 
 /**
@@ -168,7 +169,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
                     final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                       format(Calendar.getInstance().getTime()); // Current date and time
                     String log = date + ", " + user.getUserId() + ", " + "created account";
-                    myRef.child("logging").child(uid).setValue(log);
+                    myRef.child("logging").child(uid).setValue(Encryption.encode(log));
+//                    myRef.child("logging").child(uid).setValue(log);
 
                     Intent intent = new Intent(UserRegistrationActivity.this,
                             WelcomePageActivity.class);
