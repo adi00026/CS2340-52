@@ -89,8 +89,8 @@ public final class Model {
     public Collection<Shelter> filterShelterByAge(String ageRange) {
         List<Shelter> list = new LinkedList<>();
         for (Shelter sh: shelters.values()) {
-            if (sh.getRestrictions().toLowerCase().
-                    contains(ageRange.toLowerCase())) {
+            if (sh.getRestrictions().toLowerCase().contains(ageRange.toLowerCase())
+                    || sh.getRestrictions().toLowerCase().contains("anyone")) {
                 list.add(sh);
             }
         }
@@ -105,8 +105,14 @@ public final class Model {
      */
     public Collection<Shelter> filterShelterByGender(String gender) {
         List<Shelter> list = new LinkedList<>();
+        String oppoGender = gender;
+        if ("Men".equals(gender)) {
+            oppoGender = "Women";
+        } else if ("Women".equals(gender)) {
+            oppoGender = "Men";
+        }
         for (Shelter sh: shelters.values()) {
-            if (sh.getRestrictions().contains(gender)) {
+            if (!sh.getRestrictions().contains(oppoGender)) {
                 list.add(sh);
             }
         }
