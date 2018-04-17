@@ -47,7 +47,7 @@
 
     <Button
         android:id="@+id/button_back"
-        android:layout_width="165dp"
+        android:layout_width="145dp"
         android:layout_height="65dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -65,7 +65,7 @@
 
     <Button
         android:id="@+id/button_next"
-        android:layout_width="165dp"
+        android:layout_width="145dp"
         android:layout_height="65dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"

@@ -44,7 +44,7 @@
 
     <Button
         android:id="@+id/button_back"
-        android:layout_width="165dp"
+        android:layout_width="145dp"
         android:layout_height="65dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -100,7 +100,7 @@
 
     <Button
         android:id="@+id/button_finish"
-        android:layout_width="165dp"
+        android:layout_width="145dp"
         android:layout_height="65dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -135,8 +135,8 @@
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="138dp"
-        android:layout_height="37dp"
+        android:layout_width="269dp"
+        android:layout_height="36dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
