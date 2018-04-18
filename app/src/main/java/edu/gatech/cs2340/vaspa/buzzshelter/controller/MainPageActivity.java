@@ -22,9 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.AccountHolder;
@@ -262,8 +260,8 @@ public class MainPageActivity extends AppCompatActivity {
                     Model.getInstance().updateLogs(log);
                     if (dataSnapshot.child("logging").child(path).exists()) {
                         // gets earlier logs
-                        String prevLog = dataSnapshot.child("logging")
-                                .child(path).getValue(String.class);
+                        String prevLog = Encryption.decode(dataSnapshot.child("logging")
+                                .child(path).getValue(String.class));
                         // appends latest logs to earlier logs
                         prevLog += Model.getInstance().getLogs();
 //                        myRef.child("logging").child(path).setValue(prevLog);
