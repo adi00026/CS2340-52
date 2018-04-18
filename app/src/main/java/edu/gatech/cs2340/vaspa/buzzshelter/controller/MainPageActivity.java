@@ -3,6 +3,7 @@ package edu.gatech.cs2340.vaspa.buzzshelter.controller;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,7 +22,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
 import edu.gatech.cs2340.vaspa.buzzshelter.model.AccountHolder;
@@ -127,6 +133,13 @@ public class MainPageActivity extends AppCompatActivity {
                     } else if (dataSnapshot.child("account_holders").child("users").child(UID).exists()) {
                         currentlyLoggedIn = dataSnapshot.child("account_holders").child("users")
                                 .child(UID).getValue(User.class);
+                        DataSnapshot ds = dataSnapshot.child("account_holders").child("users")
+                                .child(UID).child("dateOfBirth");
+                        //List<Integer> dob = new ArrayList<>();
+                        //dob.add(ds.child("0").getValue(Integer.class));
+                        //dob.add(ds.child("1").getValue(Integer.class));
+                        //dob.add(ds.child("2").getValue(Integer.class));
+                        //((User) currentlyLoggedIn).setDateOfBirth(dob);
                         if (!currentlyLoggedIn.getPassword().equals(password)) {
                             myRef.child("account_holders").child("users").child(UID)
                                     .child("password").setValue(password);
@@ -278,6 +291,20 @@ public class MainPageActivity extends AppCompatActivity {
         } else {
             // clears logs if guest user
             Model.getInstance().clearLog();
+            mAuth.getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(MainPageActivity.this,
+                                "Consider making an account with us!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d("MainPageActivity###", "Failed delete guest");
+                }
+            });
         }
         // clears logs on logging out to prevent mixing of user data
         mAuth.signOut();

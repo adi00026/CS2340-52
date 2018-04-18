@@ -3,6 +3,7 @@ package edu.gatech.cs2340.vaspa.buzzshelter.controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -120,6 +121,7 @@ public class UserSettingsActivity extends AppCompatActivity {
     private void updatePressed() {
         //noinspection LawOfDemeter
         User user = (User) Model.getInstance().getCurrentUser();
+        Log.d("UserSettingsActivity", "Before: " + user.toString());
         String name = nameEditText.getText().toString().trim();
         String contactInfo = contactEditText.getText().toString().trim();
         String gender = genderSpinner.getSelectedItem().toString().trim();
@@ -132,6 +134,7 @@ public class UserSettingsActivity extends AppCompatActivity {
             user.setVeteran(isVeteran);
             Model.getInstance().setCurrentUser(user);
             String UID = mAuth.getCurrentUser().getUid();
+            Log.d("UserSettingsActivity", "After: " + user.toString());
             myRef.child("account_holders").child("users").child(UID).setValue(user);
             final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
               format(Calendar.getInstance().getTime()); // Current date and time

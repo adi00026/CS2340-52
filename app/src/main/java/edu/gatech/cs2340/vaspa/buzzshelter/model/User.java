@@ -2,6 +2,8 @@ package edu.gatech.cs2340.vaspa.buzzshelter.model;
 
 import android.support.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -13,6 +15,7 @@ import java.util.List;
 public class User extends AccountHolder {
     private String gender;
     private List<Integer> dateOfBirth;
+    private String fireDOB;
     private boolean isVeteran;
     @Nullable
     private String shelterID;
@@ -36,6 +39,10 @@ public class User extends AccountHolder {
         super(name, userID, password, lockedOut, contactInfo);
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
+        if (dateOfBirth != null) {
+            this.fireDOB = "" + dateOfBirth.get(0) + "," + dateOfBirth.get(1) + ","
+                    + dateOfBirth.get(2);
+        }
         this.isVeteran = isVeteran;
         this.shelterID = null;
         this.numCheckedIn = 0;
@@ -58,6 +65,7 @@ public class User extends AccountHolder {
      * No args constructor for User. This is in place for Firebase purposes.
      */
     public User() {
+        this.fireDOB = "1,11,1999";
         // No args constructor.
     }
 
@@ -96,6 +104,13 @@ public class User extends AccountHolder {
     @SuppressWarnings("unused")
     public void setDateOfBirth(List<Integer> dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+        if (dateOfBirth == null) {
+            fireDOB = "1,11,1999";
+        } else {
+            this.fireDOB = "" + dateOfBirth.get(0) + "," + dateOfBirth.get(1) + ","
+                    + dateOfBirth.get(2);
+        }
+        //this.dateOfBirth = new ArrayList<>(dateOfBirth);
     }
 
     /**
@@ -163,8 +178,20 @@ public class User extends AccountHolder {
                 "Contact Info: " + getContactInfo() + "\n" +
                 "Gender: " + getGender() + "\n" +
                 "Shelter ID: " + getShelterID() + "\n" +
-                "DOB: " + getDateOfBirth().get(0) + "/" + getDateOfBirth().get(1) + "/"
-                + getDateOfBirth().get(2) + "\n" +
+                "DOB: " + fireDOB + "\n" +
                 "Veteran: " + isVeteran();
+    }
+
+    public String getFireDOB() {
+        return fireDOB;
+    }
+
+    public void setFireDOB(String fireDOB) {
+        this.fireDOB = fireDOB;
+        String[] temp = fireDOB.split(",");
+        this.dateOfBirth = new ArrayList<>();
+        this.dateOfBirth.add(Integer.parseInt(temp[0]));
+        this.dateOfBirth.add(Integer.parseInt(temp[1]));
+        this.dateOfBirth.add(Integer.parseInt(temp[2]));
     }
 }
