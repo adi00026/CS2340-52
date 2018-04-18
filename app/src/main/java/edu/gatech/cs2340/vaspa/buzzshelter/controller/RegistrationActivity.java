@@ -138,7 +138,7 @@ public class RegistrationActivity extends AppCompatActivity {
         }
 
         nextIntent.putExtra("name", name);
-        nextIntent.putExtra("username", username);
+        nextIntent.putExtra("username", username.toLowerCase().trim());
         nextIntent.putExtra("password", password);
         nextIntent.putExtra("contactInfo", contactInfo);
 

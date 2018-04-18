@@ -118,6 +118,7 @@ public class MainPageActivity extends AppCompatActivity {
                         if (!currentlyLoggedIn.getPassword().equals(password)) {
                             myRef.child("account_holders").child("admins").child(UID)
                                     .child("password").setValue(password);
+                            currentlyLoggedIn.setPassword(password);
                         }
                     } else if (dataSnapshot.child("account_holders").child("shelter_employees")
                             .child(UID).exists()) {
@@ -127,6 +128,7 @@ public class MainPageActivity extends AppCompatActivity {
                         if (!currentlyLoggedIn.getPassword().equals(password)) {
                             myRef.child("account_holders").child("shelter_employees").child(UID)
                                     .child("password").setValue(password);
+                            currentlyLoggedIn.setPassword(password);
                         }
                     } else if (dataSnapshot.child("account_holders").child("users").child(UID).exists()) {
                         currentlyLoggedIn = dataSnapshot.child("account_holders").child("users")
@@ -141,6 +143,7 @@ public class MainPageActivity extends AppCompatActivity {
                         if (!currentlyLoggedIn.getPassword().equals(password)) {
                             myRef.child("account_holders").child("users").child(UID)
                                     .child("password").setValue(password);
+                            currentlyLoggedIn.setPassword(password);
                         }
                     } else {
                         currentlyLoggedIn = new Guest();

@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import edu.gatech.cs2340.vaspa.buzzshelter.R;
+import edu.gatech.cs2340.vaspa.buzzshelter.util.Encryption;
 
 /**
  * Class to handle the forgot password activity. Everyone can access this page
@@ -66,7 +67,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
      * Sends email from firebase for password recovery
      */
     private void sendClicked() {
-        final String recovery_email = recovery_emailText.getText().toString().trim();
+        final String recovery_email = recovery_emailText.getText().toString().trim().toLowerCase();
         if (recovery_email.isEmpty()) {
             Toast.makeText(ForgotPasswordActivity.this,
               "Please fill in recovery email", Toast.LENGTH_SHORT).show();
@@ -96,7 +97,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                     + ", sent password recovery email\n";
                             // appends new log to original log and places into database
                             myRef.child("logging").child(recovery_email
-                              .replace('.', ',')).setValue(prevLog + log);
+                              .replace('.', ',')).setValue(prevLog + Encryption
+                                    .encode(log));
                             myRef.removeEventListener(this);
                         }
 

@@ -136,7 +136,7 @@ public class WelcomePageActivity extends AppCompatActivity {
             return;
         }
 
-        final String uid = email;  // Done because inner classes need final variables
+        final String uid = email.toLowerCase();  // Done because inner classes need final variables
 
         final int loginAttempts = model.incrementLoginAttempts(uid);
         if (loginAttempts == 4) {
@@ -149,7 +149,7 @@ public class WelcomePageActivity extends AppCompatActivity {
                       .getChildren()) {
                         String key = ds.getKey();
                         User user = ds.getValue(User.class);
-                        if (user.getUserId().equals(uid)) {
+                        if (user.getUserId().equalsIgnoreCase(uid)) {
                             done = true;
                             user.setLockedOut(true);
                             // sets locked out to true
@@ -167,7 +167,7 @@ public class WelcomePageActivity extends AppCompatActivity {
 //                            myRef.child("logging").child(uid.replace('.', ','))
 //                              .setValue(prevLog + log);
                             myRef.child("logging").child(uid.replace('.', ','))
-                              .setValue(Encryption.encode(prevLog + log));
+                              .setValue(prevLog + Encryption.encode(log));
 
                             Toast.makeText(WelcomePageActivity.this,
                                     "Locked out. Too many attempts", Toast.LENGTH_SHORT).show();
@@ -179,7 +179,7 @@ public class WelcomePageActivity extends AppCompatActivity {
                           .getChildren()) {
                             String key = ds.getKey();
                             ShelterEmployee user = ds.getValue(ShelterEmployee.class);
-                            if (user.getUserId().equals(uid)) {
+                            if (user.getUserId().equalsIgnoreCase(uid)) {
                                 user.setLockedOut(true);
                                 // sets locked out to true
                                 // adds user to database with locked out value to true
@@ -197,7 +197,7 @@ public class WelcomePageActivity extends AppCompatActivity {
 //                                myRef.child("logging").child(uid.replace('.', ','))
 //                                  .setValue(prevLog + log);
                                 myRef.child("logging").child(uid.replace('.', ','))
-                                  .setValue(Encryption.encode(prevLog + log));
+                                  .setValue(prevLog + Encryption.encode(log));
 
                                 Toast.makeText(WelcomePageActivity.this,
                                         "Locked out. Too many attempts", Toast.LENGTH_SHORT)

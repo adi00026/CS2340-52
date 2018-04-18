@@ -130,7 +130,7 @@ public class ManageUsersActivity extends AppCompatActivity {
                     String key = ds.getKey();
                     toManage = ds.getValue(User.class);
                     if ((toManage != null) && toManage.getUserId().equals(userIDText
-                            .getText().toString().trim())) {
+                            .getText().toString().trim().toLowerCase())) {
                         toManage.setLockedOut(!status);
                         myRef.child("account_holders").child("users").child(key)
                                 .setValue(toManage);
@@ -153,7 +153,7 @@ public class ManageUsersActivity extends AppCompatActivity {
                     String key = ds.getKey();
                     toManage = ds.getValue(ShelterEmployee.class);
                     if ((toManage != null) && toManage.getUserId().equals(userIDText
-                            .getText().toString())) {
+                            .getText().toString().toLowerCase().trim())) {
                         toManage.setLockedOut(!status);
                         myRef.child("account_holders").child("shelter_employees").child(key)
                                 .setValue(toManage);
@@ -172,7 +172,7 @@ public class ManageUsersActivity extends AppCompatActivity {
                     }
                 }
                 Toast.makeText(ManageUsersActivity.this, "\"" + userIDText.getText()
-                                .toString() + "\" does not exist",
+                                .toString().toLowerCase().trim() + "\" does not exist",
                         Toast.LENGTH_SHORT).show();
                 myRef.removeEventListener(this);
             }
@@ -202,7 +202,7 @@ public class ManageUsersActivity extends AppCompatActivity {
                     String key = ds.getKey();
                     toManage = ds.getValue(User.class);
                     if ((toManage != null) && toManage.getUserId().equals(userIDText
-                            .getText().toString())) {
+                            .getText().toString().toLowerCase().trim())) {
                         toManage.setDeleted(true);
                         myRef.child("account_holders").child("users").child(key)
                                 .setValue(toManage);
@@ -225,7 +225,7 @@ public class ManageUsersActivity extends AppCompatActivity {
                     String key = ds.getKey();
                     toManage = ds.getValue(ShelterEmployee.class);
                     if ((toManage != null) && toManage.getUserId().equals(userIDText
-                            .getText().toString())) {
+                            .getText().toString().toLowerCase().trim())) {
                         toManage.setDeleted(true);
                         myRef.child("account_holders").child("shelter_employees").child(key)
                                 .setValue(toManage);
@@ -244,7 +244,7 @@ public class ManageUsersActivity extends AppCompatActivity {
                     }
                 }
                 Toast.makeText(ManageUsersActivity.this, "\"" + userIDText.getText()
-                                .toString() + "\" does not exist",
+                                .toString().toLowerCase().trim() + "\" does not exist",
                         Toast.LENGTH_SHORT).show();
                 myRef.removeEventListener(this);
             }
