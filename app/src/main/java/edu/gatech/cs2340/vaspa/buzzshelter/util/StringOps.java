@@ -71,7 +71,7 @@ public class StringOps {
      * @return the size of the largest common subsequence of text
      *   and pattern.
      */
-    private static int lcs(String text, String pattern) {
+    static int lcs(String text, String pattern) {
         int[][] matrix = new int[text.length() + 1][pattern.length() + 1];
         for (int i = 1; i <= text.length(); i++) {
             for (int j = 1; j <= pattern.length(); j++) {
