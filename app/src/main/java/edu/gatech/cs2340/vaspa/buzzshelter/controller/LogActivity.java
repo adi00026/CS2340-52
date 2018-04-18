@@ -57,8 +57,8 @@ public class LogActivity extends AppCompatActivity {
      * Has validation checking to.
      */
     private void onSendPressed() {
-        final String userIdText = user_id.getText().toString().trim();
-        final String emailText = dest_email.getText().toString().trim();
+        final String userIdText = user_id.getText().toString().trim().toLowerCase();
+        final String emailText = dest_email.getText().toString().trim().toLowerCase();
 
         if (userIdText.length() == 0 || emailText.length() == 0) {
             Toast.makeText(LogActivity.this, "Please fill in all fields",
@@ -76,6 +76,8 @@ public class LogActivity extends AppCompatActivity {
               Toast.LENGTH_SHORT).show();
             return;
         }
+
+
 
         final DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
 
