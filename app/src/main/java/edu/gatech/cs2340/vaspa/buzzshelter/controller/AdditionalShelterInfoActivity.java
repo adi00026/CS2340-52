@@ -117,8 +117,8 @@ public class AdditionalShelterInfoActivity extends AppCompatActivity {
                     capacity);
         } else {
             Log.d("ADDITIONAL_SHELTER_INFO", "latlng was null. Default values placed");
-            newShelter = new Shelter(id, name, "" + capacity, restrictions.toString(), 69.0,
-              69.0, address, specialNotes, contact_info, capacity);
+            newShelter = new Shelter(id, name, "" + capacity, restrictions.toString(), -84.3890,
+              33.7490, address, specialNotes, contact_info, capacity);
         }
 
         final DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
