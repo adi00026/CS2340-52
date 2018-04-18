@@ -230,7 +230,7 @@ public class WelcomePageActivity extends AppCompatActivity {
               public void onComplete(@NonNull Task<AuthResult> task) {
                   if (task.isSuccessful()) {
 
-                      String log = date + ", " + uid + ", " + "Logged In"; // LOG message
+                      String log = date + ", " + uid.toLowerCase() + ", " + "Logged In"; // LOG message
 
                       // Sign in success, update UI with the signed-in user's information
                       Toast.makeText(WelcomePageActivity.this, "Login succeeded.",
